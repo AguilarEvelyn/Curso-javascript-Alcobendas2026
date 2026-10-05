@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #resultado{
+            text-align: center;
+            background: orange;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Ejemplo Operadores</h1>
+    <h1 id="resultado">Resultado de la suma</h1>
+    <script>
+
+        //    Operadores aritméticos,
+        //      operadores de comparación,
+        //      operadores lógicos,
+        //      operadores de asignación,
+        //      preincremento y postincremento,
+        //      conversión de tipos 
+
+
+        //Operadores aritméticos.
+
+        let num1 = 30
+        let num2 = 10
+
+        console.log(num1 + num2) //Suma. 40
+        console.log(num1 - num2) // Resta. 20
+        console.log(num1 * num2) // Multiplicación. 300
+        console.log(num1 / num2) // División. 3
+        console.log(10 ** 3) // Potencia. 10 ^3 = 1000
+        console.log(num1 % num2) // Módulo o resto de una división. 0
+
+        console.log((15 + 2) * 3) // Primero se evaluan los paréntesis, multiplicaciones y divisiones, sumas y restas, comparaciones
+
+        // Operadores de comparación
+
+        let igualdad = (4 == 5) // Operador de igualdad ==
+        igualdad = ("4" == 4) // True
+        console.log('"4" == 4 ', igualdad)
+
+        //Operador de igualdad estricta (===) Tiene que ser igual y el tipo
+        console.log("4" === 4) //false
+
+        //Operador de desigualdad ( != )
+        console.log(15 != 25) //true
+        console.log("15" != 5 * 3) //false
+
+        //Operador de desigualdad estricta (!==)
+        console.log("15" !== 5 * 3, "Desigualdad estricta") //true
+
+        //Operadores de comparación
+        let comparacion = 10 > 5 //true
+        console.log('Comparacion 10 > 5', comparacion)
+        console.log('Comparacion 4 >= 5', 4 >= 5) //Mayor o igual. False
+        console.log('Comparacion 4 < 5', 4 < 5) //Menor que. true
+        console.log('Comparacion 4 <= 5', 4 <= 5) //Menor o igual que. true
+
+        //Operadores lógicos. AND (&&), OR (||), NOT (!)
+
+        let logica = (4 > 3) && (5 != 4) //true
+        logica = !logica //false Invirtiendo en valor de lógica
+        logica = logica || (5 == '5') // true
+        console.log("AND &&", logica)
+
+        //Otros operadores de asignacion
+
+        let numero = 5
+
+        // numero = numero + 10 //Sumar 10 al valor anterior.  15
+        // Es equivalente a poner
+        numero += 10 // 25
+        numero -= 1 // 24
+        numero *= 2 // 48
+        //Más /= %=
+
+        //Preincrimento y postincremento  ++
+
+        //numero++ es igual numero+=1
+
+        let numero1 = 15
+        let numero2 = numero1++ //Postincremento
+        //Equivante a dos instrucciones
+        // numero2 = numero1
+        // numero1+=1
+
+        let numero3 = 27
+        let numero4 = ++numero3 //Preincremento
+        //Equivalente a dos instrucciones
+        // numero3 += 1
+        // numero4 = numero3
+
+        numero4++ //Incrementar 1 al valor de numero 4, y es equivalente a ++numero4
+
+        console.log("numero1:", numero1, " numero2: ", numero2)
+        console.log("numero3:", numero3, " numero4: ", numero4)
+
+        //Postdecremento y Predecremento
+        numero3 = --numero4
+        numero2 = numero1--
+
+        //Conversión de tipos
+
+        let texto = "42"
+        let dato = texto
+        dato = dato + 35
+        console.log(typeof dato, dato)
+        console.log("12" + (10 + 8) + "Manolo") //1218Manolo
+        console.log(10 + 8 + "Manolo") //18Manolo
+        console.log("3" + 10 + 8 + "Manolo") //3108Manolo
+
+        let dato2 = Number(texto) + 35;  //Convirtiendo texto a un número
+        console.log(dato2)
+
+        //Convertir un Number a String.
+        dato2 = String(85) //Guardar "85"
+        console.log(typeof(dato2), "valor:", dato2)
+
+        //Convertir un Boolean a Number
+        dato2 = Number(true) // dato2 vale 1
+
+        //Convertir un Boolean a String
+        dato2 = String(true) // "true"
+
+        //Convertir a entero parseInt
+
+        dato2 = parseInt("4524B111111");   //4524
+        dato2 = parseInt("385.134afasfddsf"); //385
+        console.log(dato2)
+
+        //Convertir a decimal parseFloat
+        dato2 = parseFloat("385.134afasfddsf"); //385.134
+        console.log(dato2, typeof dato2)
+
+        //Por último, prompt.
+
+        let nombre = "Julián"
+      //  alert("Buenas tardes" + nombre)
+
+       //let nombre2 =  prompt("Inserte su nombre");
+       //console.log(nombre2, typeof nombre2)
+
+      let n1 = parseFloat(prompt("Inserte un número:")) //Devuelve un string
+       let n2 = parseFloat(prompt("Inserte el segundo número")) //Devuelve un string
+      //document.querySelector("h1").textContent = parseFloat(n1 ) + parseFloat(n2)
+      document.querySelector("#resultado").innerText = n1 + n2
+    </script>
+</body>
+
+</html>

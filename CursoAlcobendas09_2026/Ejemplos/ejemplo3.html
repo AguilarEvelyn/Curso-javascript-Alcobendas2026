@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo 3</title>
+</head>
+<body>
+   <h1></h1>
+
+    <script>
+        //Variables
+
+        let caja1 = "Hola desde JS"
+        console.info(caja1)
+        caja1 = "Adios desde JS"
+        document.querySelector("h1").innerHTML = caja1
+
+        //JavaScript es débilmente tipado.
+
+        console.log(typeof(caja1))
+        caja1 = 45;
+        caja1 = 35.23;
+        console.log("Tipo de dato:", typeof(caja1), "Dato:", caja1)
+
+        //Tipo de datos booleanos.  true / false
+
+        let esMayorEdad = true;
+        console.log(typeof(esMayorEdad))
+        esMayorEdad = false;
+        esmayorEdad = 17 > 18
+
+        caja1 = "   ";
+        caja1 = null //Deliverademente nulo. Me devuelvo object
+
+        console.log(typeof(caja1))
+
+        //String
+
+        let texto = "Buenos días"
+        texto = 'Buenas noches'
+        //String literales.
+        texto = `Buenos dias.    
+
+                hoy es martes.
+
+                Adios`
+        
+        console.log(texto)
+
+        let nombre = "Julián"
+        let apellido = "González"
+
+        document.querySelector("h1").innerHTML= nombre + " " + apellido
+         
+        let nombreCompleto = `Buenos días, mi nombre es ${nombre} ${apellido}`
+        //camelCase.   recomendable
+        // nombre_completo
+        //Interpolación de variables
+
+         document.querySelector("h1").innerHTML= nombreCompleto
+
+        const PI = 3.14159;
+       // PI = 3.14
+        console.log("Pi es igual a ", PI)
+
+
+        // Tipo de datos. Arrays, listas.
+
+        let listaColores = ["Azul", "Rojo", "Verde"];
+        let listaNumeros = [4, 7, 12, 15, 13.3];
+        let listaMixta = [1, "texto", true, [34, 23]];
+
+        console.log(listaMixta)
+
+        listaMixta[0]=3;  //Cambiar el valor al primer item de la lista (índice 0)
+        listaMixta[3][0] = "Manolo"
+         console.log(listaMixta)
+
+        console.log(`Los elementos que tiene listaColores son ${listaColores.length}`)
+
+    //Objetos. Formados por claves y valores
+
+        let persona = {
+            nombre: "Juan",  //Propiedades del objeto
+            edad: 25,
+            ciudad : "Madrid",
+            activo : true,
+            telefonos: [913241234, 1341243324, 1342143241],
+            direcciones: {
+                direccion1 : "C/ Toledo, 1  Getafe",
+                direccion2: "C/ Getafe, 3 Parla"
+            }
+        }
+
+        document.querySelector("h1").innerText= `Buenos días, ${persona.nombre},
+        que vive en ${persona.direcciones.direccion1} `
+    </script>
+</body>
+</html>
