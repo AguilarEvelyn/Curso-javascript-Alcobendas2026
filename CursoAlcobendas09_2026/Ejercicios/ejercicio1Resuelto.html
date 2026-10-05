@@ -1,0 +1,51 @@
+<!-- Crea un archivo html con el contenido
+    de <body>
+        <h1 id='id1'></h1>
+        <p id=='id2'></p>
+        <script> </script>
+
+    Crea las instrucciones dentro de script para que muestre
+    en el h1 el día de hoy: "Lunes, 28 de septiembre de 2026"
+    y pinte en la 'p' tu nombre.
+
+    Nivel avanzado = Que diga la hora cada segundo.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #id1 {
+            color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="id1"></h1>
+    <p id="id2"></p>
+
+    <script>
+        document.getElementById("id1").innerText = "Martes, 29 de septiembre de 2026"
+        document.querySelector("#id2").innerHTML = "Julián"
+
+        function pintar() {
+            let ahora = new Date();
+            console.log(ahora)
+            document.getElementById("id1").innerText = "Martes, 29 de septiembre de 2026.  "
+            document.getElementById("id1").innerText += " " + ahora.getHours().toString().padStart(2,0)
+            document.getElementById("id1").innerText += ":" + ahora.getMinutes().toString().padStart(2,0)
+            document.getElementById("id1").innerText += ":" + ahora.getSeconds().toString().padStart(2,0)
+        }
+        
+        setInterval(pintar, 1000)
+    </script>
+
+
+</body>
+
+</html>

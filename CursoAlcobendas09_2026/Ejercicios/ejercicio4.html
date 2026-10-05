@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Año bisiesto</h1>
+    <div>
+        <p>
+            <input type="text" placeholder="Inserte el año a comprobar">
+            <button onclick="comprobar()">Comprobar</button>
+        </p>
+    </div>
+    <section></section>
+
+    <script>
+        //Objetivo: Solicitar al usuario un año y que nos pinte en "section"
+        // si es bisiesto o no.
+        function comprobar() {
+            let anio = parseInt(document.querySelector('input').value)
+            let mensaje = `El año ${anio} NO es bisiesto`
+            // if(anio %4 == 0 && anio %100 != 0 || anio %400 == 0 ){
+            if (!(anio % 4) && (anio % 100) || !(anio % 400)) {
+                mensaje = `El año ${anio} SI es bisiesto`
+            }
+            document.querySelector("section").innerText = mensaje
+        }
+
+        //Escribe un script que solicite dos números al
+        //usuario y mostrar por pantalla cuál es el mayor.
+        let num1 = parseInt(prompt("Inserte numero 1"))
+        let num2 = parseInt(prompt("Inserte numero 2"))
+        document.querySelector("section").innerText =
+            Math.max(num1, num2)
+
+        //Escribe un script que solicite tres números al
+        //usuario y mostrar por pantalla cuál es el mayor.
+
+        let n1 = parseInt(prompt("Inserte numero 1"))
+        let n2 = parseInt(prompt("Inserte numero 2"))
+        let n3 = parseInt(prompt("Inserte numero 2"))
+        document.querySelector("section").innerText =
+            Math.max(n1, n2, n3)
+
+
+
+
+
+        /* let anio = parseInt(prompt("Inserte el año a comprobar:"))
+               let mensaje = `${anio} no es bisiesto`
+               if (new Date(`${anio}-03-00`).getDate() == 29) {
+                   mensaje = `${anio} es bisiesto`
+               }
+               document.querySelector("section").innerHTML += "<br>"+mensaje  */
+    </script>
+</body>
+
+</html>

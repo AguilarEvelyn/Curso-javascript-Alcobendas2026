@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+  
+</head>
+<body>
+    <h1>Ejercicio 3</h1>
+    <section></section>
+
+    <script>
+
+        //Hojas de estilo con JS
+        document.querySelector("h1").style.textAlign = "center"
+        let seccion = document.querySelector("section")
+        seccion.style.textAlign = "center"
+        seccion.style.background = "orange"
+        seccion.style.color = "blue"
+        seccion.style.width = "50%"
+        seccion.style.margin = "10px auto"
+        seccion.style.padding = "20px"
+        seccion.style.border = "1px solid black"
+
+        let n1 = prompt("Inserte el primer número:")
+        n1 = parseFloat(n1) //Parseamos el string en number.
+        let n2 = parseFloat( prompt("Inserte el segundo número:") )
+        let texto = `<p>Las operaciones aritméticas entre ${n1} y ${n2} son:</p>`
+        texto = texto + `La suma entre ${n1} y ${n2} es ${n1 + n2}`
+        texto +=  `<br>La resta entre ${n1} y ${n2} es ${n1 - n2}`
+        texto +=  `<br>La multiplicación entre ${n1} y ${n2} es ${n1 * n2}`
+        texto +=  `<br>La división entre ${n1} y ${n2} es ${n1 / n2}`
+        texto +=  `<br>El módulo entre ${n1} y ${n2} es ${n1 % n2}`
+        texto +=  `<br>${n1} elevado a ${n2} es ${n1 ** n2}`
+        document.querySelector("section").innerHTML = texto
+
+
+    </script>
+</body>
+</html>
