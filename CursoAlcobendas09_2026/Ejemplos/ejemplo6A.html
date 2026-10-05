@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bucles Parte 2</h1>
+
+    <div class="miDiv"></div>
+
+    <script>
+
+        //Pintar un cuadrado de orden n
+
+        let orden = parseInt(prompt("Inserte el orden n:"))
+        let resultado = document.getElementsByClassName("miDiv")[0]
+        
+        //Pinta todas las filas
+        for (let y = 0; y < orden; y++) {
+            //Pintar una fila
+            for (let x = 0; x < orden; x++) {
+                resultado.innerHTML += "* "
+            }
+            resultado.innerHTML += "<br>"
+        }
+
+        // for in,  Recorre un string, una array o un objeto y nos devuelve el índice
+        // for of, Recorre un string, una array o un objeto y nos devuelve el valor
+
+        let frase = "El lunes que viene no hay clase"
+
+        //Recorrer el string
+
+        for( let x = 0; x < frase.length; x++){
+            console.log(frase[x])
+        }
+
+        for (let indice in frase){//Devuelve el índice del string
+            console.info(frase[indice])
+        }
+
+        for(const valor of frase){ //Devuelve el valor del string
+            console.warn(valor)
+        }
+
+        //Recursividad. Es una función que se invoca a si misma. Tambien se pueden hacer bucles.
+        
+
+    </script>
+
+</body>
+
+</html>
