@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 5 Funciones</title>
+</head>
+
+<body>
+    <h1>Ejemplo de Funciones en JavaScript</h1>
+    <div></div>
+
+    <script>
+        function saludar() {
+            document.querySelector("div").innerHTML = "¡Hola, Evelyn!";
+            return "Hola, Evelyn!";
+        }
+
+        function despedirse() {
+            document.querySelector("div").innerHTML = "¡Adiós, Evelyn!";
+        }
+
+        function dameFecha() {
+            const ahora = new Date();
+            return "Fecha actual: " + ahora;
+        }
+
+        let now = dameFecha();
+        document.querySelector("div").innerHTML = now;
+
+        function sumar(n1, n2) {
+            console.log("Suma de " + n1 + " y " + n2 + " es: " + (n1 + n2));
+        }
+
+        sumar(5, 10);
+
+        // Parametros por defecto
+        function sumarDefecto(n1, n2, n3 = 0, n4 = 0) {
+            console.log(n1 + n2 + n3 + n4);
+        }
+
+        sumarDefecto(1, 2, 3, 4);
+        // lo anterior se conoce como funcion declarada
+
+        function calcularIva(bruto) {
+            return bruto * 0.21;
+        }
+        console.log(calcularIva(1000));
+
+        //Expresiones 
+
+        const calcularIva2 = function (bruto) {
+            return bruto * 0.21;
+        }
+        console.log(calcularIva2(1000));
+
+        //Funcione flecha o arrow function
+        //si tenemos una sola linea de codigo podemos omitir las llaves y el return
+
+        const cuadrado = (num) => {
+            return num * num
+        }
+        console.log(cuadrado(3));
+
+        //forma abreviada, solo espera  una intruduccion y devuelve el resultado de la operacion
+        const cuadrado2 = num => num * num;
+        const suma2 = (n1, n2) => n1 + n2;// no es necesario el retunr 
+
+        console.log(cuadrado2(5));
+
+        //Llamar una función antes de declararla es posible
+
+        hazAlgo(5) //No funciona con expresiones ni funciones flecha
+
+        function hazAlgo() { //Carga el memoria antes. Se elevan.
+
+            alert("Haciendo, ...")
+        }
+
+
+/*
+### 1. Función Saludar
+Escribe una función que no tenga parámetros y devuelva el string "Hola JavaScript".
+
+**Requisitos:**
+- Usar function
+- No tener parámetros
+- Usar return*/
+
+function saludarJS() {
+    return "Hola JavaScript";
+}
+console.log(saludarJS());
+
+
+/*### 2. Función con Parámetros
+Crea una función que reciba dos números y devuelva su suma.
+
+**Requisitos:**
+- Dos parámetros
+- Devolver la suma
+- Llamarla con al menos dos ejemplos*/
+
+function sumarNumeros(num1, num2) {
+    return num1 + num2;
+}
+console.log(sumarNumeros(3, 5))
+
+/*### 3. Función Cuadrado
+Escribe una función que devuelva el cuadrado de un número.
+
+**Requisitos:**
+- Recibir un número como parámetro
+- Demostrar con números: 3, 5, 10*/
+function cuadradoNumero(num) {
+    return num * num;
+}
+console.log(cuadradoNumero(3));
+
+
+/*### 4. Función Descuento
+Crea una función que calcule el precio con descuento del 10%.
+
+**Requisitos:**
+- Recibir precio original
+- Calcular con descuento
+- Devolver precio final*/
+function calcularDescuento(precioOriginal) {
+    const descuento = precioOriginal * 0.10;
+    const precioFinal = precioOriginal - descuento;
+    return precioFinal;
+}
+console.log(calcularDescuento(100)); // Devuelve 90
+
+
+/*### 5. Función Edad
+Escribe una función que determine si una persona es adulto (18+).
+
+**Requisitos:**
+- Recibir edad
+- Devolver true o false
+- Demostrar con varias edades*/
+
+function esAdulto(edad) {
+    return edad >= 18;
+}
+
+
+    </script>
+
+
+
+</body>
+
+</html>
