@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
 
         let orden = parseInt(prompt("Inserte el orden n:"))
         let resultado = document.getElementsByClassName("miDiv")[0]
-        
+
         //Pinta todas las filas
         for (let y = 0; y < orden; y++) {
             //Pintar una fila
@@ -40,23 +40,149 @@
 
         //Recorrer el string
 
-        for( let x = 0; x < frase.length; x++){
+        for (let x = 0; x < frase.length; x++) {
             console.log(frase[x])
         }
 
-        for (let indice in frase){//Devuelve el índice del string
+        for (let indice in frase) {//Devuelve el índice del string
             console.info(frase[indice])
         }
 
-        for(const valor of frase){ //Devuelve el valor del string
+        for (const valor of frase) { //Devuelve el valor del string
             console.warn(valor)
         }
 
         //Recursividad. Es una función que se invoca a si misma. Tambien se pueden hacer bucles.
+
+
+        // Break, continue (se puede utilizar en for, while y do while, switch, o cualquier iteración)
+
+        // break sale del bucle, continue sale de la iteración.
+
+        let contador = 0
+
+        while (true) { //Pares del 1 al 100 (incluido)
+            contador++
+            if (contador % 2 != 0) continue
+            console.log(contador)
+            if (contador >= 100) break
+        }
+
+        for (let x = 1; x > 0; x++) {
+            console.log(x)
+            if (x == 10) break
+        }
+
+        /*
+         ### 4B.1: Contar del 1 al 10
+        Usa un bucle for para imprimir los números del 1 al 10.
         
+                ```
+        Salida:
+        1
+        2
+        3
+        ...
+        10
+        ```*/
+
+
+
+        /*
+        ### 4B.2: Contar hacia atrás
+        Usa un bucle for para contar de 10 hacia 1.
+        
+        ```
+        Salida:
+        10
+        9
+        8
+        ...
+        1
+        ```
+        */
+
+
+        for (let i = 10; i >= 0; i--) {
+            console.log(i)
+        }
+
+        /*
+        ### 4B.3: Números pares
+        Usa un bucle for para imprimir solo números pares del 1 al 20.
+        
+        ```
+        Salida: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20*/
+
+        for (let i = 1; i <= 20; i++) {
+            if (i % 2 == 0) {
+                console.log(i);
+            }
+        }
+
+        /*### 4B.4: Tabla de multiplicar del 5
+        Imprime la tabla de multiplicar del 5 (5x1 hasta 5x10).
+        
+        ```
+        Salida:
+        5 x 1 = 5
+        5 x 2 = 10
+        ...
+        5 x 10 = 50
+        ```*/
+
+        for (let i = 1; i <= 10; i++) {
+            console.log(`5 x ${i} = ${5 * i}`)
+        }
+
+        /*### 4B.5: Sumar números del 1 al 100
+        Usa un bucle para sumar todos los números del 1 al 100 y muestra el resultado.
+        
+        ```
+        Salida: "Suma: 5050"*/
+
+        let suma = 0
+        for (let i = 1; i <= 100; i++) {
+            suma += i
+        }
+        console.log(`Suma: ${suma}`)
+
+
+        /*## Nivel Intermedio
+        
+        ### 4I.1: Tabla de multiplicar personalizada
+        Crea una función que reciba un número y muestre su tabla de multiplicar.
+        
+        ```
+        Entrada: numero = 7
+        Salida:
+        7 x 1 = 7
+        7 x 2 = 14
+        ...
+        7 x 10 = 70
+        ```*/
+
+        function tablaMultiplicar(numero) {
+            for (let x = 1; x <= 10; x++) {
+                console.log(`${numero} x ${x} = ${numero * x}`)
+            }
+        }
+        tablaMultiplicar(7)
+        tablaMultiplicar(5)
+
+
+        /*### 4I.2: Serie de Fibonacci
+        Imprime los primeros 10 números de la serie de Fibonacci (1, 1, 2, 3, 5, 8, 13...).
+        
+        ```
+        Salida: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55*/
+
+
 
     </script>
 
 </body>
+
+</html>
 
 </html>
