@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios tema 7</title>
+</head>
+<body>
+
+    <h1>😊 Ejercicios tema 7 😊</h1>
+
+    <script>
+/*## Ejercicio 1: Crear Objetos Literales
+
+Crea un objeto `coche` con las siguientes propiedades:
+- `marca`: "Toyota"
+- `modelo`: "Corolla"
+- `año`: 2022
+- `color`: "azul"
+- `velocidad`: 0
+
+Luego:
+1. Accede e imprime cada propiedad
+2. Cambia el color a "rojo"
+3. Aumenta la velocidad a 100
+4. Imprime el objeto completo*/
+
+const Coche = {
+    marca: "Toyota",
+    modelo: "Corolla",
+    año :2022,
+    color: "Azul",
+    velocidad:0
+
+}
+// 1. Accede e imprime cada propiedad
+console.log("La marca del coche es: " + Coche.marca + " de modelo, " + Coche.modelo +
+    " del año, " + Coche.año + " de color, " + Coche.color + " y su velocidad es, "+ Coche.velocidad);
+
+    //2. Cambia el color a "rojo"
+    Coche.color =" Rojo";
+
+    //3. Aumenta la velocidad a 100
+      Coche.velocidad= 100;
+
+   //4. Imprime el objeto completo
+      console.log(Coche);
+
+      /*Ejercicio 2: Métodos en Objetos
+
+Crea un objeto `persona` con:
+- `nombre`: "Evelyn"
+- `edad`: 28
+- `email`: "evelyn@example.com"
+- Método `presentarse()`: que devuelva "Hola, soy Evelyn y tengo 28 años"
+- Método `cumplirAños()`: que aumente la edad en 1
+
+Llamar ambos métodos y mostrar los resultados.*/
+
+const persona = {
+    nombre: "Evelyn",
+    edad: 28,
+    email: "evelyn@example.com",   // cambiado para no publicar tu correo real
+    
+
+    presentarse: function() {
+        return "Hola, soy " + this.nombre + " y tengo " + this.edad + " años";
+       
+    },
+
+    cumplirAños: function() {
+        this.edad = this.edad + 1;
+       
+    }
+};
+
+// Llamar a los a cada metodo y objeto completo.
+console.log(persona.presentarse());   // 27 años
+persona.cumplirAños();                 // sube a 28
+console.log(persona.presentarse());   // 28 años
+console.log(persona);                 // objeto completo
+
+
+/*## Ejercicio 3: La palabra `this`
+
+Crea un objeto `cuenta` con:
+- `titular`: "María"
+- `saldo`: 1000
+- Método `consultarSaldo()`: devuelva "La cuenta de [titular] tiene €[saldo]"
+- Método `depositar(cantidad)`: aumente el saldo
+- Método `retirar(cantidad)`: disminuya el saldo (validar que no sea negativo)
+
+Realiza operaciones: depositar 500, retirar 200, consultar saldo.*/
+
+
+
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>
