@@ -1,0 +1,260 @@
+ejemploTema6.html
+100 %
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 6 Array</title>
+</head>
+<body>
+    <p id="demo"></p>
+
+    <h1>☺️ Tema 6 Array☺️</h1>
+
+
+<p id="demo"></p>
+
+<script>
+const cars = ["Saab", "Volvo", "BMW"];
+
+let text = JSON.stringify(cars);
+
+document.getElementById("demo").innerHTML = 
+"cars es " + typeof(cars) + " y text es " + typeof(text);
+
+console.log(cars.length) // 3
+cars.sort();  // ['BMW', 'Saab', 'Volvo'] //Ordenar de forma alfabética
+console.log(cars)
+
+
+const numeros = [1, 31, 100, 28, 15, 13, 2]
+numeros.sort((a,b) => a - b ) //Ordenar números ascendente
+numeros.sort((a,b) => b - a )
+console.log(numeros)
+
+console.log(numeros[0]) //Acceder al primer elemento
+console.log(numeros[numeros.length -1]) //Accedería al último elemento.
+console.log(numeros[-1])
+
+//Iterar sobre una array
+
+const compra = new Array("Pan", "Leche", "Fresas", "Uvas");
+console.log(compra)
+
+//for clásico
+
+for( let x = 0; x < compra.length; x++){
+    console.log(compra[x]);
+}
+
+//while
+
+let x = 0;
+while (x < compra.length){
+    console.info(compra[x]);
+    ++x
+}
+
+//for in
+
+for(indice in compra){
+    console.warn(compra[indice])
+}
+
+//for of
+
+for(item of compra){
+    console.error(item);
+    
+}
+
+//forEach
+
+compra.forEach(item => console.log(item))
+
+//Añadir un elemento al final de un array (push) 
+compra.push("Agua");
+console.log(compra)
+
+// Tener cuidado al añadir elemento por índice. Añade slots vacios
+
+//compra[12] = "Cerveza"; //
+console.log(compra)
+
+// Convierte a String con un separador que nosotros elijamos
+let compraTexto = compra.join(" - ")
+console.log(compraTexto)
+
+compra.pop(); //Elimina el último elemento de un array
+console.log(compra)
+
+compra.shift() //Elimina el primer elemento de un array
+console.log(compra)
+
+compra.unshift("Miel") //Añade un elemento al inicio del array
+console.log(compra)
+
+console.log(Array.isArray(compra)) //Devuelve true si es un array
+console.log(Array.isArray(compraTexto))
+
+//Concatenar arrays
+
+const myGirls = ["Cecilie", "Lone"];
+const myBoys = ["Emil", "Tobias", "Linus"];
+
+const myChildren = myGirls.concat(myBoys);
+console.log(myChildren)
+
+// método map(). Transformar arrays
+
+const preciosNetos = [35, 46, 23.85, 100, 8];
+const preciosIva = preciosNetos.map( precio => parseFloat((precio * 1.21).toFixed(2)))
+
+console.log(preciosNetos)
+console.log(preciosIva)
+
+// método filter. Filtrar elementos
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9,10, 11, 12, 13, 14, 15];
+const multiplos3 = numbers.filter( n => n % 3 === 0)
+console.log(multiplos3)
+
+//método reduce. Hacer operaciones con los items de un array
+
+let suma = 0;
+numbers.forEach(item => suma += item)
+console.log("La suma de todos los elementos son " + suma)
+
+console.log( numbers.reduce( (acum, item) => acum + item, 0));
+
+//Encontrar elementos específicos
+
+//includes()
+
+const frutas = ["manzana", "uva", "platano", "melon", "uva"];
+
+if(frutas.includes("uva")) console.log("Existe este elemento")
+console.log("No existe este elemento")
+
+if(frutas.indexOf("uva")!= -1)console.log("Existe este elemento")
+console.log("No existe este elemento")
+
+//Índice. indexOf(). Si encuentra el primer elemento nos devuelve el índice
+// Si no lo encuentra nos devuelve -1
+
+const posicion = frutas.indexOf("uva");
+console.log("Posición de uva", posicion)
+frutas[frutas.indexOf("melon")] = "melón"
+console.log(frutas)
+
+//Encontrar el primer elemento que cumple una condición. find()
+
+const estudiantes = [
+    {nombre: "Juan", edad: 24},
+    {nombre: "María", edad: 22},
+    {nombre: "Pedro", edad: 19},
+    {nombre: "Antonio", edad: 18},
+    {nombre: "Pedro", edad: 36},
+]
+
+const esPedro = estudiantes.find(
+    estudiante => estudiante.nombre === "Pedro"
+)
+console.log(esPedro)
+//findIndex() devuelve es el índice del primero elemento encontrado
+
+const indiceJuan = estudiantes.findIndex(
+    e => e.nombre === "Juan"
+)
+console.log("Indice de Juan", indiceJuan)
+
+//¿Alguno cumple una condición?. some()
+
+const hayMayor30 = estudiantes.some( e => e.edad > 30);
+console.log("Mayores de 30", hayMayor30)
+
+// ¿Todos cumplen alguna condición?  every()
+const todosMayoresEdad = estudiantes.every( e => e.edad >= 18)
+console.log("¿Todos mayores de edad?", todosMayoresEdad)
+
+//Métodos de los arrays
+// slice()
+
+const codigos = [1, 2, 3, 4, 5, 6]
+const parte = codigos.slice(2, 4) //Desde el índice 2 al 4 (no incluido). Último no incluido.
+console.log(parte)
+
+// join () Convertir a un string
+const codigosString = codigos.join("-")
+console.log(codigosString)
+
+// sort() Para ordenar arrays ascendente. Modifica el original.
+
+const frutas2 = ["manzana", "uva", "platano", "melon", "uva"];
+console.log(frutas2)
+frutas2.sort()
+console.log(frutas2)
+
+//reverse() Para ordenar arrays descendente. Modifica el original.
+
+frutas2.reverse()
+console.log(frutas2)
+
+// spread operador ...
+
+const l1 = [1, 2, 3]
+const l2 = [2, 3, 4]
+const l3 = [7,9,10]
+const l4 = [12, 43, 24]
+const todos = l1.concat(l2).concat(l3).concat(l4)
+console.log(todos)
+const todos2 = [...l1, ...l2, ...l3, ...l4]
+console.log(todos2)
+
+// -------
+
+const original = [1, 2, 3];
+const invertido = [...original].reverse()
+//invertido.reverse()
+console.log("Original", original)
+console.log("Invertido", invertido)
+
+const extra = [0, ...original, 4, 5]
+console.log(extra)
+
+// Destructuring
+
+const colores2 = ["rojo", "verde", "azul", "blanco"]
+let primerColor = colores2[0]
+let segundoColor = colores2[1]
+
+//Extraer elementos de forma elegante
+let [primerC, segundoC] = colores2
+console.log(primerColor, primerC)
+console.log(segundoColor, segundoC)
+
+let [primerCo,,tercerCo] = colores2
+console.log(primerCo, tercerCo)
+
+//Valores por defecto
+
+const [r = "rosa", g="gris", a= "amarillo", b] = ["rojo"]
+console.log(r, g , a, b)
+
+//Funciones
+
+function procesarPuntos([x, y]){
+    console.log(`Punto: (${x}, ${y})`)
+}
+
+procesarPuntos([4, 5])
+
+// 
+const matrix = [[1, 2], [3, 4]];
+const extra2 = [ 0, ...matrix[0], ...matrix[1],  5]
+console.log(extra2)
+
+</script>
+</body>
+</html>

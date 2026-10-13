@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucles o iteraciones</title>
+</head>
+<body>
+    <h1>😉 Bucles o iteraciones 😉</h1>
+    <p id="miP"></p>
+    <section></section>
+    <script>
+        //for / while / do while / recursividad / foreach / for in / for on
+
+        let parrafo  = document.getElementById("miP")
+        for(let x = 1; x <= 20; x++){ //valor inicial de la variable; condición para que esté dentro del for; salto de cada una de iteraciones
+            console.log(x)
+            parrafo.innerHTML = parrafo.innerHTML + x + "<br>"
+        }
+
+
+        let frase = "Hoy es un buen lunes"
+        console.log( frase.length)
+        console.log(frase[0])
+
+        parrafo.innerHTML += "<br>"
+        for(let indice = 0 ; indice < frase.length; indice += 1){
+            parrafo.innerHTML+= frase[indice].toUpperCase() + "<br>"
+        }
+
+        //Pintar los múltiplos de 7 del 1 a 1000 (incluido)
+
+        for (let x = 1; x <= 1000; ++x){
+            if(x % 7 === 0) console.log(x)
+        }
+
+        for(let x = 7; x <= 1000; x= x + 7){
+            console.log("Otra forma", x)
+        }
+
+        // Pintar del 100 al 0
+
+        for (let x = 100; x >= 0; x--){
+            console.log(x)
+        }
+
+        // While mientras(la condicion se cumple). Puede que no se ejecuta nunca
+
+        //Pintar al 1 al 10
+
+        let numero = 1
+
+        while(numero <= 10){
+            console.log(numero)
+            numero++
+        }
+        
+        //Do while. Para que el bloque de instrucciones se ejecute al menos una vez.
+
+        let menu = ""
+        let texto = "=== Menú === <br>" +
+            "1. Jugar <br>" +
+            "2. Opciones <br>" +
+            "3. Salir <br>"
+        do {
+            console.log("=== Menú ===")
+            console.log("1. Jugar")
+            console.log("2. Opciones")
+            console.log("3. Salir")
+            document.querySelector("section").innerHTML = texto
+            menu = prompt("Elige opción (1, 2 ó 3)")
+            if(menu == "1") alert("Jugando ...")
+            else if ( menu == "2") alert("Opciones")
+
+        } while (menu != "3")
+        console.log("Adios")
+
+        // Bucles anidados, seguimos en ejemplo6A
+
+        
+        
+
+</script>
+
+</body>
+</html>
