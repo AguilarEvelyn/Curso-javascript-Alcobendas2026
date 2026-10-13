@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio tabla</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        table{
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+        td{
+            border: 1px solid blue;
+            width: 33px;
+        }
+        tr:nth-child(odd){
+            background-color: bisque;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Ejercicio tabla</h1>
+    <p>
+        <input type="number" placeholder="Inserte número de filas" id="filas" min="1">
+        <input type="number" placeholder="Inserte número de columnas" id="columnas" min="1">
+        <button onclick="pintar()">Pintar tabla</button>
+    </p>
+    <section> </section>
+
+    <script>
+        const pintar = function(){
+            let filas = document.getElementById("filas").value;
+            let columnas = document.getElementById("columnas").value;
+            let contenido = filas * columnas;
+            let texto= "<table>";
+                for(let x = 0; x < filas; x++){
+                    texto += "<tr>";
+                    for(let y = 0; y < columnas; y++){
+                        texto += "<td>";
+                        texto += contenido;
+                        texto += "</td>";
+                        contenido--;
+                    }
+                    texto += "</tr>";
+                }
+
+            texto += "</table>";
+            document.querySelector("section").innerHTML = texto;
+
+            document.getElementById("filas").value="";
+            document.getElementById("columnas").value="";
+        }
+
+    </script>
+
+
+</body>
+</html>

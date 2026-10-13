@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Tema 6</title>
+</head>
+
+<body>
+    <h1>☺️ Ejercicios Tema 6 ☺️</h1>
+    <script>
+
+        /*
+        ### 1. find() - Buscar Usuario
+        Dado un array de usuarios, usa find() para buscar por ID.
+        
+        ```javascript
+        const usuarios = [
+            { id: 1, nombre: 'Ana' },
+            { id: 2, nombre: 'Luis' },
+            { id: 3, nombre: 'Carlos' }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Buscar usuario con id: 2
+        - Buscar usuario con id: 5
+        
+        */
+        let usuarios = [
+            { id: 1, nombre: 'Ana' },
+            { id: 2, nombre: 'Luis' },
+            { id: 3, nombre: 'Carlos' }
+        ];
+        let usuario = usuarios.find(item => item.id == 2)
+        console.log("Usuarios con id 2:", usuario)
+        usuario = usuarios.find(item => item.id == 5)
+        console.log("Usuario con id 5:", usuario)
+        /*
+        
+        ### 2. includes() - Verificar Fruta
+        Verifica si existen frutas en el array.
+        
+        ```javascript
+        const frutas = ['manzana', 'plátano', 'naranja'];
+        ```
+        
+        **Requisitos:**
+        - ¿Existe 'manzana'?
+        - ¿Existe 'sandia'?
+        
+        */
+        let frutas = ['manzana', 'plátano', 'naranja'];
+        console.log("¿Existe manzana? ", frutas.includes("manzana"));
+        console.log("¿Existe sandia? ", frutas.includes("sandia"));
+        /*
+        
+        ### 3. indexOf() - Posición
+        Encuentra la posición de elementos en el array.
+        
+        ```javascript
+        const colores = ['rojo', 'azul', 'verde', 'amarillo'];
+        ```
+        
+        **Requisitos:**
+        - Posición de 'azul'
+        - Posición de 'rosa' (que no existe)
+        
+        */
+        let colores = ['rojo', 'azul', 'verde', 'amarillo'];
+        console.log("Posición de 'azul':", colores.indexOf("azul"))
+        console.log("Posición de 'rosa':", colores.indexOf("rosa"))
+
+        /*
+        
+        ### 4. map() - Doblar Números
+        Transforma cada número multiplicándolo por 2.
+        
+        ```javascript
+        const numeros = [1, 2, 3, 4, 5];
+        ```
+        
+        **Requisitos:**
+        - Crear array con números doblados
+        - Mostrar original y resultado
+        
+        */
+        let numeros = [1, 2, 3, 4, 5];
+        console.log(numeros.map(e => e * 2))
+        /*
+        
+        ### 5. filter() - Números Pares
+        Obtén solo los números pares del array.
+        
+        ```javascript
+        const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        ```
+        
+        **Requisitos:**
+        - Filtrar solo pares
+        - Contar cuántos pares hay
+        
+        */
+        numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const pares = numeros.filter(e => e % 2 == 0)
+        console.log(pares, "Cantidad: ", pares.length)
+
+        /*
+        
+        ## Nivel Intermedio (7 ejercicios)
+        
+        ### 6. sort() - Ordenar Números
+        Ordena números de forma ascendente y descendente.
+        
+        ```javascript
+        const numeros = [3, 1, 4, 1, 5, 9, 2, 6];
+        ```
+        
+        **Requisitos:**
+        - Ordenar de menor a mayor
+        - Ordenar de mayor a menor
+        - Mostrar ambos resultados
+        
+        */
+        numeros = [3, 1, 4, 1, 5, 9, 2, 6];
+        console.log("Ascendente: ", numeros.sort((a, b) => a - b))
+        console.log("Descendente: ", numeros.sort((a, b) => b - a))
+        /*
+        
+        ### 7. some() - ¿Alguno Mayor?
+        Verifica si hay al menos un número mayor a 50.
+        
+        ```javascript
+        const numeros = [10, 20, 30, 40, 60];
+        ```
+        
+        **Requisitos:**
+        - ¿Hay alguno mayor a 50?
+        - ¿Hay alguno mayor a 100?
+        
+        */
+        numeros = [10, 20, 30, 40, 60];
+        console.log(
+            numeros,
+            "¿Alguno mayor a 50? ",
+            numeros.some(e => e > 50)
+        )
+
+        /*
+        
+        ### 8. every() - ¿Todos Menores?
+        Verifica si todos los números son menores a 100.
+        
+        ```javascript
+        const numeros = [10, 20, 30, 40, 50];
+        ```
+        
+        **Requisitos:**
+        - ¿Todos menores a 100?
+        - ¿Todos menores a 50?
+        
+        */
+        numeros = [10, 20, 30, 40, 50];
+        console.log(
+            numeros,
+            "¿Todos menores a 100?",
+            numeros.every(e => e < 100)
+        )
+        console.log(
+            numeros,
+            "¿Todos menores a 50?",
+            numeros.every(e => e < 50)
+        )
+
+        /*
+        
+        ### 9. reduce() - Sumar Precios
+        Usa reduce para sumar todos los precios.
+        
+        ```javascript
+        const carrito = [
+            { producto: 'Laptop', precio: 1000 },
+            { producto: 'Mouse', precio: 25 },
+            { producto: 'Teclado', precio: 75 }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Total del carrito
+        - Precio promedio (total / cantidad)
+        
+        */
+
+        let carrito = [
+            { producto: 'Laptop', precio: 1000 },
+            { producto: 'Mouse', precio: 25 },
+            { producto: 'Teclado', precio: 75 }
+        ];
+        const total = carrito.reduce((acum, p) => acum + p.precio, 0)
+        console.log(
+            "Total del carrito: ",
+            total
+        )
+        console.log(
+            "Precio promedio:", (total / carrito.length).toFixed(2)
+        )
+        /*
+        
+        ### 10. map y filter combinados
+        Obtén nombres de usuarios mayores de 18 años.
+        
+        ```javascript
+        const usuarios = [
+            { nombre: 'Ana', edad: 25 },
+            { nombre: 'Luis', edad: 16 },
+            { nombre: 'Carlos', edad: 30 }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Filtrar mayores de 18
+        - Extraer solo los nombres
+        
+        */
+
+        usuarios = [
+            { nombre: 'Ana', edad: 25 },
+            { nombre: 'Luis', edad: 16 },
+            { nombre: 'Carlos', edad: 30 }
+        ];
+        const nombres = usuarios.filter(e => e.edad >= 18).map(e => e.nombre)
+        console.log(nombres)
+        /*
+        
+        ### 11. forEach() - Mostrar con Índice
+        Itera sobre un array mostrando cada elemento con su índice.
+        
+        ```javascript
+        const frutas = ['manzana', 'plátano', 'naranja'];
+        ```
+        
+        **Requisitos:**
+        - Mostrar: "0: manzana, 1: plátano, 2: naranja"
+        - Usar forEach
+        
+        */
+        frutas = ['manzana', 'plátano', 'naranja'];
+
+        const salida = {}
+        frutas.forEach((v, i) => salida[i] = v)
+        console.log(salida)
+        /*
+        
+        ### 12. findIndex() - Posición Personalizada
+        Usa findIndex para encontrar la posición donde se cumple una condición.
+        
+        ```javascript
+        const numeros = [1, 2, 3, 4, 5, 6];
+        ```
+        
+        **Requisitos:**
+        - Posición del primer número mayor a 3
+        - Posición del primer número par
+        
+        */
+        numeros = [1, 2, 3, 4, 5, 6];
+        console.log(
+            "Posición del primer número mayor a 3: ",
+            numeros.findIndex(e => e > 3)
+        )
+        console.log(
+            "Posición del primer número par: ",
+            numeros.findIndex(e => e % 2 == 0)
+        )
+
+        /*
+        
+        ## Nivel Avanzado (8 ejercicios)
+        
+        ### 13. Clasificar Calificaciones
+        Usa map y filter para clasificar estudiantes por calificación.
+        
+        ```javascript
+        const estudiantes = [
+            { nombre: 'Ana', nota: 85 },
+            { nombre: 'Luis', nota: 72 },
+            { nombre: 'Carlos', nota: 91 },
+            { nombre: 'María', nota: 68 }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Creadores de lista con clasificación (A, B, C, F)
+        - Mostrar aprobados (mayor a 70)
+        - Mostrar promedio de calificaciones
+        
+        */
+
+        estudiantes = [
+            { nombre: 'Ana', nota: 85 },
+            { nombre: 'Luis', nota: 72 },
+            { nombre: 'Carlos', nota: 91 },
+            { nombre: 'María', nota: 68 }
+        ];
+
+        function clasificar(nota) {
+            if (nota >= 90) return "A";
+            if (nota >= 80) return "B";
+            if (nota >= 70) return "C";
+            return "F";
+        }
+
+        const clasificados = estudiantes.map(e => ({
+            nombre: e.nombre,
+            nota: e.nota,
+            calificacion: clasificar(e.nota)
+        }))
+
+        console.log(clasificados)
+
+        const aprobados = estudiantes.filter(e => e >= 70)
+        console.log("Aprobados: ", aprobados)
+
+        const promedio = estudiantes.reduce((acc, e) => acc + e.nota, 0) / estudiantes.length
+        console.log("Promedio: ", promedio.toFixed(2))
+        /*
+        
+        ### 14. Transformar Datos de API
+        Simula una respuesta de API y transforma los datos.
+        
+        ```javascript
+        const respuesta = [
+            { id: 1, nombre: 'usuario1', email: 'user1@mail.com' },
+            { id: 2, nombre: 'usuario2', email: 'user2@mail.com' }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Extraer solo emails usando map
+        - Extraer solo nombres
+        - Crear un nuevo objeto con id y nombre
+        
+        */
+
+        const respuesta = [
+            { id: 1, nombre: 'usuario1', email: 'user1@mail.com' },
+            { id: 2, nombre: 'usuario2', email: 'user2@mail.com' }
+        ];
+
+        const emails = respuesta.map(e => e.email)
+        const nombres2 = respuesta.map(e => e.nombre)
+        const idNombre = respuesta.map(e => ({ id: e.id, nombre: e.nombre }))
+        console.log(emails)
+        console.log(nombres2)
+        console.log(idNombre)
+
+        /*
+        
+        ### 15. Validar Datos
+        Valida que todos los campos tengan datos válidos.
+        
+        ```javascript
+        const usuarios = [
+            { nombre: 'Ana', email: 'ana@mail.com', edad: 25 },
+            { nombre: '', email: 'luis@mail.com', edad: 30 }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Verificar que nombre no esté vacío (every)
+        - Verificar que email sea válido (some)
+        - Filtrar usuarios válidos
+        
+        */
+
+        usuarios = [
+            { nombre: 'Ana', email: 'ana@mail.com', edad: 25 },
+            { nombre: '', email: 'luis@mail.com', edad: 30 }
+        ];
+
+        const todosConNombre = usuarios.every(u => u.nombre.trim() != "")
+        console.log("¿Todos tienen nombre? ", todosConNombre)
+        const tieneEmailValido = usuarios.some(u => u.email.includes("@"))
+        console.log('¿Alguno tiene email válido: ', tieneEmailValido)
+        const usuariosValidos = usuarios.filter(u =>
+            u.nombre.trim() != '' && u.email.includes("@")
+        )
+        console.log("Usuarios válidos:", usuariosValidos)
+
+        /*
+        
+        ### 16. Contar Ocurrencias
+        Usa reduce para contar cuántas veces aparece cada elemento.
+        
+        ```javascript
+        const letras = ['a', 'b', 'a', 'c', 'b', 'a'];
+        ```
+        
+        **Requisitos:**
+        - Contar repeticiones de cada letra
+        - Devolver objeto como: {a: 3, b: 2, c: 1}
+        
+        */
+
+        const letras = ['a', 'b', 'a', 'c', 'b', 'a'];
+        const contador = letras.reduce((acc, letra) => {
+            acc[letra] = (acc[letra]) ? acc[letra] + 1 : 1;
+            return acc
+        }, {});
+        console.log(letras, contador)
+
+        /*
+        
+        ### 17. Agrupar por Categoría
+        Agrupa elementos por una propiedad.
+        
+        ```javascript
+        const productos = [
+            { nombre: 'Laptop', categoría: 'Electrónica' },
+            { nombre: 'Silla', categoría: 'Muebles' },
+            { nombre: 'Mouse', categoría: 'Electrónica' },
+            { nombre: 'Mesa', categoría: 'Muebles' }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Agrupar por categoría usando reduce
+        - Devolver dos arrays: uno de Electrónica otro de Muebles
+        
+        */
+
+        const productos = [
+            { nombre: 'Laptop', categoria: 'Electrónica' },
+            { nombre: 'Silla', categoria: 'Muebles' },
+            { nombre: 'Mouse', categoria: 'Electrónica' },
+            { nombre: 'Mesa', categoria: 'Muebles' }
+        ];
+
+        const agrupados = productos.reduce((acc, p) => {
+            if (!acc[p.categoria]) {
+                acc[p.categoria] = []
+            }
+            acc[p.categoria].push(p.nombre)
+            return acc
+        }, {})
+        console.log(agrupados)
+        /*
+        
+        ### 18. Pipeline de Datos
+        Crea una cadena compleja de transformaciones.
+        
+        ```javascript
+        const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        ```
+        
+        **Requisitos:**
+        - Multiplicar por 2
+        - Filtrar mayores a 10
+        - Sumar todos
+        - Mostrar cada paso
+        
+        */
+
+        numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const paso1 = numeros.map(n => n * 2)
+        console.table( paso1)
+        const paso2 = paso1.filter(n => n> 10)
+        console.log("Pipeline de datos", paso2)
+        const paso3 = paso2.reduce((acc, i) => acc+i, 0)
+        console.log("Pipeline de datos", paso3)
+
+        //Version 2
+        const suma2 = numeros.map(n => n * 2).filter(n => n > 10).reduce((acc, i) => acc + i, 0)
+        console.log("Versión 2", suma2)
+        /*
+        
+        ### 19. Buscar y Validar
+        Busca si existen elementos que cumplan múltiples condiciones.
+        
+        ```javascript
+        const usuarios = [
+            { nombre: 'Ana', activo: true, edad: 25 },
+            { nombre: 'Luis', activo: false, edad: 30 },
+            { nombre: 'Carlos', activo: true, edad: 20 }
+        ];
+        ```
+        
+        **Requisitos:**
+        - Buscar activos 
+        - Buscar mayores de edad activos 
+        - Filtrar no activos y eliminar
+        
+        */
+
+
+        /*
+        
+        ### 20. Transformar a Objetos
+        Convierte arrays en estructuras de datos complejas.
+        
+        ```javascript
+        const titulos = ['JavaScript', 'Python', 'Java'];
+        const precios = [29.99, 39.99, 34.99];
+        ```
+        
+        **Requisitos:**
+        - Crear array de objetos: {titulo, precio}
+        - Calcular precio promedio
+        - Filtrar mayores a $30
+        
+        */
+
+
+        /*
+        
+        ## 🎯 Bonus: Proyecto Integrador
+        
+        ### 21. Sistema de Gestión de Productos
+        Crea un sistema completo con filtración, búsqueda y agregación. Pintalo bonito en una web.
+        
+        **Requisitos:**
+        - Array de productos con {id, nombre, precio, stock, categoría}
+        - Buscar por nombre (find)
+        - Filtrar por categoría (filter)
+        - Calcular stock total (reduce)
+        - Listar productos con bajo stock (<10)
+        - Obtener precio total del inventario
+        - Ordenar por precio (sort)
+        
+        
+        
+        */
+    </script>
+</body>
+
+</html>
