@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución Ejercicios Tema 7: Objetos y Herencia</title>
+</head>
+
+<body>
+    <h1>💻 Ejercicios - Objetos y Herencia 💻</h1>
+
+    <script>
+
+        //## Ejercicio 1: Herencia Básica
+        // 1. Clase Padre (Superclase)1. Una clase `Animal` con propiedades: `nombre`, `tipo`
+        class Animal {
+            constructor(nombre, tipo) {
+                this.nombre = nombre;
+                this.tipo = tipo;
+            }
+
+            // 2. Métodos en `Animal`: `describirse()`, `hacerSonido()`
+            describirse() {
+                console.log(`Soy un ${this.tipo} y me llamo ${this.nombre}`);
+            }
+
+            hacerSonido() {
+                console.log("Hago un sonido de animal generico");
+            }
+        }
+
+        // 3. Una clase `Perro` que herede de `Animal` 
+        class Perro extends Animal {
+            constructor(nombre, raza) {
+                // super() llama al constructor de la clase padre (Animal)
+                super(nombre, "Perro"); 
+                this.raza = raza;
+            }
+
+            // 4. El método `hacerSonido()` devuelva "¡Guau!" en Perro (sobrescribir)
+            hacerSonido() {
+                console.log("¡Guau!");
+            }
+
+            // 5. Agrega método `traerPelota()` solo en Perro
+            traerPelota() {
+                console.log(`${this.nombre} esta trayendo la pelota`);
+            }
+        }
+
+        /*- Crea 2 instancias (Perro y otra clase que herede)
+        - Usa `super()` en el constructor de Perro
+       - Prueba herencia con `instanceof`*/
+        class Gato extends Animal {
+            constructor(nombre) {
+                super(nombre, "Gato");
+            }
+
+            hacerSonido() {
+                console.log("¡Miau!");
+            }
+        }
+
+        //  Instancias
+        const miPerro = new Perro("Rocco", "Boxer");
+        const miGato = new Gato("Michi");
+
+        miPerro.describirse();  // Heredado del padre
+        miPerro.hacerSonido();  // Sobreescrito: ¡Guau!
+        miPerro.traerPelota();  // Exclusivo de Perro
+
+        miGato.describirse();   // Heredado del padre
+        miGato.hacerSonido();   // Sobreescrito: ¡Miau!
+
+        // Comprobacion de herencia con instanceof
+        console.log("¿miPerro es instancia de Perro?:", miPerro instanceof Perro);   // true
+        console.log("¿miPerro es instancia de Animal?:", miPerro instanceof Animal); // true
+ /*## Ejercicio 2: Getters y Setters
+
+Crea una clase `Persona` con:
+- Propiedad privada `_edad`
+- Getter `edad`: devuelva la edad
+- Setter `edad`: valide que edad > 0 y < 120
+- Si es inválida, mostrar error y no actualizar
+- Método para mostrar "Soy [nombre] y tengo [edad] años"
+
+**Requisitos:**
+- Crear instancia
+- Intentar asignar edad negativa (debe fallar)
+- Intentar asignar edad > 150 (debe fallar)
+- Asignar edad válida
+- Verificar getter*/
+        class Persona {
+            constructor(nombre, edad) {
+                this.nombre = nombre;
+                this.edad = edad; 
+            }
+
+            // Getter: Permite leer la propiedad _edad
+            get edad() {
+                return this._edad;
+            }
+
+            // Setter: Valida el valor antes de modificar _edad
+            set edad(nuevaEdad) {
+                if (nuevaEdad <= 0 || nuevaEdad >= 120) {
+                    console.log(`Error: La edad ${nuevaEdad} no es válida. Debe ser > 0 y < 120.`);
+                    return; // Cancela la actualización
+                }
+                this._edad = nuevaEdad;
+            }
+
+            mostrarInfo() {
+                console.log(`Soy ${this.nombre} y tengo ${this.edad} años.`);
+            }
+        }
+
+        const persona1 = new Persona("Laura", 25);
+        persona1.mostrarInfo();
+
+        // Pruebas de fallos en el setter
+        persona1.edad = -5;   // Muestra error y no asigna
+        persona1.edad = 150;  // Muestra error y no asigna
+
+        // Asignar edad valida
+        persona1.edad = 30;
+        console.log("Edad actualizada con getter:", persona1.edad); // 30
+
+/*
+## Ejercicio 3: Métodos Estáticos
+
+Crea una clase `Matemática` con:
+- Método estático `sumar(a, b)`: devuelva suma
+- Método estático `multiplica(a, b)`: devuelva producto
+- Método estático `esPar(numero)`: true/false
+- Método estático `factorial(n)`: calcula factorial
+
+**Requisitos:**
+- Llamar los métodos sin instanciar la clase
+- Usar `Matemática.sumar()`, no `new Matemática().sumar()`*/
+
+        class Matematica {
+            static sumar(a, b) {
+                return a + b;
+            }
+
+            static multiplica(a, b) {
+                return a * b;
+            }
+
+            static esPar(numero) {
+                return numero % 2 === 0;
+            }
+
+            static factorial(n) {
+                if (n < 0) return undefined;
+                let resultado = 1;
+                for (let i = 1; i <= n; i++) {
+                    resultado *= i;
+                }
+                return resultado;
+            }
+        }
+
+        // Llamadas directas sin instanciar con "new"
+        console.log("Suma (5 + 3):", Matematica.sumar(5, 3));
+        console.log("Multiplicación (4 * 3):", Matematica.multiplica(4, 3));
+        console.log("¿Es par el 10?:", Matematica.esPar(10));
+        console.log("Factorial de 5:", Matematica.factorial(5));
+
+
+/*## Ejercicio 4: Propiedades Privadas (#)
+
+Crea una clase `CuentaBancaria` con:
+- Constructor: `titular`, `saldo` (privada con #)
+- Getter `saldo`: devuelva saldo formateado a 2 decimales
+- Método `depositar(cantidad)`: aumente saldo privado
+- Método `retirar(cantidad)`: disminuya saldo (validar)
+- Método privado `#registrarMovimiento(tipo, cantidad)`
+
+**Requisitos:**
+- Intenta acceder a `cuenta.#saldo` (debe fallar)
+- Usa getter y métodos para acceder
+- Valida que retiros no dejen saldo negativo*/
+
+        class CuentaBancaria {
+            #saldo;
+           constructor(titular, saldoInicial) {
+                this.titular = titular;
+                this.#saldo = saldoInicial;
+            }
+
+            // Getter para leer el saldo formateado
+            get saldo() {
+                return `€${this.#saldo.toFixed(2)}`;
+            }
+
+            // Metodo publico para depositar
+            depositar(cantidad) {
+                if (cantidad > 0) {
+                    this.#saldo += cantidad;
+                    this.#registrarMovimiento("DEPOSITO", cantidad);
+                }
+            }
+
+            // Método publico para retirar con validacion
+            retirar(cantidad) {
+                if (cantidad > this.#saldo) {
+                    console.log(`FONDOS INSUFICIENTES: Intento retirar €${cantidad}, saldo disponible: ${this.saldo}`);
+                } else if (cantidad > 0) {
+                    this.#saldo -= cantidad;
+                    this.#registrarMovimiento("RETIRO", cantidad);
+                }
+            }
+
+            // Metodo privado: Solo accesible dentro de esta clase
+            #registrarMovimiento(tipo, cantidad) {
+                console.log(`[LOG PRIVADO]: ${tipo} de €${cantidad}. Nuevo saldo: ${this.saldo}`);
+            }
+        }
+
+        const miCuenta = new CuentaBancaria("Carlos", 100);
+        console.log("Titular:", miCuenta.titular);
+        console.log("Saldo actual:", miCuenta.saldo);
+
+        miCuenta.depositar(50);
+        miCuenta.retirar(30);
+        miCuenta.retirar(200); // Falla por saldo insuficiente
+
+        
+
+    </script>
+</body>
+
+</html>
