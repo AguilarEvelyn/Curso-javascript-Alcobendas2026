@@ -9,8 +9,9 @@
 
     <h1>😊 Ejercicios tema 7 😊</h1>
 
-    <script>
-/*## Ejercicio 1: Crear Objetos Literales
+    < <script>
+        /*
+        ## Ejercicio 1: Crear Objetos Literales
 
 Crea un objeto `coche` con las siguientes propiedades:
 - `marca`: "Toyota"
@@ -23,65 +24,59 @@ Luego:
 1. Accede e imprime cada propiedad
 2. Cambia el color a "rojo"
 3. Aumenta la velocidad a 100
-4. Imprime el objeto completo*/
+4. Imprime el objeto completo
 
-const Coche = {
+*/
+
+const coche = {
     marca: "Toyota",
     modelo: "Corolla",
-    año :2022,
-    color: "Azul",
-    velocidad:0
-
+    anio: 2022,
+    color: "azul",
+    velocidad: 0
 }
-// 1. Accede e imprime cada propiedad
-console.log("La marca del coche es: " + Coche.marca + " de modelo, " + Coche.modelo +
-    " del año, " + Coche.año + " de color, " + Coche.color + " y su velocidad es, "+ Coche.velocidad);
+console.log("Marca:", coche.marca)
+console.log("Modelo:", coche.modelo)
+console.log("Año:", coche.anio)
+console.log("Color:", coche.color)
+console.log("Velocidad:", coche.velocidad)
+coche.color = "rojo"
+console.log("Color:", coche.color)
+coche.velocidad += 100
+console.log("Velocidad:", coche.velocidad)
 
-    //2. Cambia el color a "rojo"
-    Coche.color =" Rojo";
+/*
 
-    //3. Aumenta la velocidad a 100
-      Coche.velocidad= 100;
-
-   //4. Imprime el objeto completo
-      console.log(Coche);
-
-      /*Ejercicio 2: Métodos en Objetos
+## Ejercicio 2: Métodos en Objetos
 
 Crea un objeto `persona` con:
-- `nombre`: "Evelyn"
+- `nombre`: "Juan"
 - `edad`: 28
-- `email`: "evelyn@example.com"
-- Método `presentarse()`: que devuelva "Hola, soy Evelyn y tengo 28 años"
+- `email`: "juan@example.com"
+- Método `presentarse()`: que devuelva "Hola, soy Juan y tengo 28 años"
 - Método `cumplirAños()`: que aumente la edad en 1
 
-Llamar ambos métodos y mostrar los resultados.*/
+Llamar ambos métodos y mostrar los resultados.
+
+*/
 
 const persona = {
     nombre: "Evelyn",
     edad: 28,
-    email: "evelyn@example.com",   // cambiado para no publicar tu correo real
-    
-
-    presentarse: function() {
-        return "Hola, soy " + this.nombre + " y tengo " + this.edad + " años";
-       
+    email: "evelyn@example.com",
+    presentarse: function(){
+        console.log(`Hola, soy ${this.nombre} y tengo ${this.edad} años`)
     },
-
-    cumplirAños: function() {
-        this.edad = this.edad + 1;
-       
+    cumplirAnios: function(){
+        this.edad++
     }
-};
+}
+persona.presentarse()
+persona.cumplirAnios()
+persona.presentarse()
+/*
 
-// Llamar a los a cada metodo y objeto completo.
-console.log(persona.presentarse());   // 27 años
-persona.cumplirAños();                 // sube a 28
-console.log(persona.presentarse());   // 28 años
-console.log(persona);                 // objeto completo
-
-
-/*## Ejercicio 3: La palabra `this`
+## Ejercicio 3: La palabra `this`
 
 Crea un objeto `cuenta` con:
 - `titular`: "María"
@@ -90,17 +85,250 @@ Crea un objeto `cuenta` con:
 - Método `depositar(cantidad)`: aumente el saldo
 - Método `retirar(cantidad)`: disminuya el saldo (validar que no sea negativo)
 
-Realiza operaciones: depositar 500, retirar 200, consultar saldo.*/
+Realiza operaciones: depositar 500, retirar 200, consultar saldo.
+
+*/
+
+const cuenta = {
+    titular: "Roldan",
+    saldo: 1000,
+    consultarSaldo : function(){
+        return `La cuenta de ${this.titular} tiene €${this.saldo}`
+    },
+    depositar: function(cantidad){
+        this.saldo += cantidad
+    },
+    retirar: function(cantidad){
+        this.saldo -= cantidad
+    }
+}
+
+console.log(cuenta.consultarSaldo())
+cuenta.depositar(500)
+console.log(cuenta.consultarSaldo())
+cuenta.retirar(200)
+console.log(cuenta.consultarSaldo())
+
+/*
+
+## Ejercicio 4: Constructores con `function`
+
+Crea un constructor `Libro(titulo, autor, páginas)`.
+
+Agrega métodos:
+- `información()`: devuelva "Titulo: [titulo], Autor: [autor], Páginas: [páginas]"
+- `esGrande()`: true si páginas > 300
+
+Crea 2 instancias diferentes y prueba ambos métodos.
+
+*/
+
+const Libro = function(titulo, autor, paginas){
+    this.titulo = titulo;
+    this.autor = autor;
+    this.paginas = paginas;
+
+    this.informacion = function(){
+        return `Título: ${this.titulo}, autor: ${this.autor}, páginas: ${this.paginas}`
+    }
+    this.esGrande = function(){
+        return this.paginas > 300
+    }
+}
+
+const libro1 = new Libro("El Quijote", "Cervantes", 750);
+const libro2 = new Libro("1984", "George Owell", 250);
+console.log(libro1.informacion())
+console.log(libro2.informacion())
+console.log(libro1.esGrande())
+console.log(libro2.esGrande())
+
+/*
+
+## Ejercicio 5: Clases ES6 (Constructor y Métodos)
+
+Crea una clase `Estudiante` con:
+- Constructor que acepte: `nombre`, `edad`, `nota`
+- Método `presentacion()`: "Soy [nombre], tengo [edad] años y mi nota es [nota]"
+- Método `estaAprobado()`: true si nota >= 5
+
+Crea 3 instancias con diferentes notas (alguno aprobado, otro no) y prueba.
+
+*/
+class Estudiante {
+    constructor(nombre, edad, nota){
+        this.nombre = nombre;
+        this.edad = edad;
+        this.nota = nota;
+    }
+    presentarse(){
+        console.log(`Soy ${this.nombre}, tengo ${this.edad} años y mi nota es ${this.nota}`)
+    }
+    estaAprobado(){
+        return this.nota >= 5
+    }
+}
+const estudiante1 = new Estudiante("Pepe", 22, 9)
+estudiante1.presentarse()
+console.log("Aprobado:", estudiante1.estaAprobado())
+
+const estudiante2 = new Estudiante("Ana", 25, 4.5)
+estudiante2.presentarse()
+console.log("Aprobado:", estudiante2.estaAprobado())
+
+const estudiante3 = new Estudiante("Luisa", 23, 8.7)
+estudiante3.presentarse()
+console.log("Aprobado:", estudiante3.estaAprobado())
 
 
 
+/*
 
+## Ejercicio 6: Propiedades y Métodos con `this`
 
+Crea una clase `Producto` con:
+- Constructor: `nombre`, `precio`, `stock`
+- Método `vender(cantidad)`: disminuya stock, valide que haya stock disponible
+- Método `reabastecer(cantidad)`: aumente stock
+- Método `estado()`: devuelva "Productos: [nombre], Stock: [stock], Precio: €[precio]"
 
+Realiza operaciones: vender 3, reabastecer 10, consultar estado.
 
+*/
 
+class Producto {
+    constructor(nombre, precio, stock){
+        this.nombre = nombre
+        this.precio = precio
+        this.stock = stock
+    }
+    vender(cantidad){
+        if (cantidad >= this.stock) this.stock= 0
+        else this.stock -= cantidad
+    }
+    reabastecer(cantidad){
+        this.stock += cantidad
+    }
+    estado(){
+        return "Productos: " + this.nombre + ", StocK: " + this.stock + " Precio: " + this.precio
+    }
+}
 
-</script>
+const producto1 = new Producto("Teclado", 22, 10)
+const producto2 = new Producto("Mac Air", 1200, 5)
+const producto3 = new Producto("Pantalla 22'", 120, 7)
+
+producto1.vender(3)
+producto1.reabastecer(10)
+console.log(producto1.estado())
+
+producto2.vender(3)
+producto2.reabastecer(10)
+console.log(producto2.estado())
+
+producto3.vender(3)
+producto3.reabastecer(10)
+console.log(producto3.estado())
+
+/*
+
+## Ejercicio 7: Deletear Propiedades
+
+Crea un objeto `app` con propiedades: `nombre`, `versión`, `activo`.
+
+Luego:
+1. Imprime todas las propiedades
+2. Usa `delete` para eliminar `versión`
+3. Vuelve a imprimir el objeto (no debe tener `versión`)
+4. Intenta acceder a `app.versión` (debe ser `undefined`)
+
+*/
+
+const app = {
+    nombre: "Firefox",
+    version: "140.3",
+    activo: true
+}
+
+console.log(app)
+delete app.version
+console.log(app)
+console.log(app.version)
+
+/*
+
+## Ejercicio 8: typeof y instanceof
+
+Crea:
+1. Una variable `numero = 42`
+2. Una variable `texto = "hola"`
+3. Una clase `Usuario` y una instancia
+
+Comprueba con:
+- `typeof numero`, `typeof texto`, `typeof new Usuario()`
+- `instanceof Usuario` para la instancia
+*/
+
+let numero = 42
+let texto = "hola"
+class Usuario {
+    constructor(nombre){
+        this.nombre = nombre
+    }
+}
+let user1 = new Usuario("Antonio")
+console.log(typeof numero)
+console.log(typeof texto)
+console.log(typeof user1)
+console.log(user1 instanceof Usuario) 
+
+/*
+## Ejercicio Bonus: Carrito de Compras
+
+Crea una clase `Carrito` con:
+- Array vacío `items` en constructor
+- Método `agregarProducto(nombre, precio, cantidad)`: agrega objeto a items
+- Método `total()`: suma todos los precios × cantidades
+- Método `listar()`: imprime cada item del carrito
+- Método `vaciar()`: elimina todos los items
+
+Realiza:
+1. Agregar 3 productos diferentes
+2. Listar el carrito
+3. Mostrar total
+4. Vaciar y verificar
+*/
+
+class Carrito {
+    constructor(){
+        this.items = []
+    }
+    agregarProducto(nombre, precio, cantidad){
+        this.items.push({
+            nombre: nombre,
+            precio: precio,
+            cantidad: cantidad,
+        })
+    }
+    total(){
+        let total = this.items.reduce( (acum, item) => acum + (item.precio * item.cantidad), 0)
+        console.log("El precio total es " + total + "€")
+    }
+    vaciar(){
+        this.items = []
+    }
+
+}
+    const carrito1 = new Carrito
+    carrito1.agregarProducto("Teclado", 22, 2)
+    carrito1.agregarProducto("Pantalla", 120, 5)
+    carrito1.agregarProducto("Ratón", 6, 20)
+    console.log(carrito1)
+    carrito1.total()
+    carrito1.vaciar()
+    console.log(carrito1)
+
+    </script>
     
 </body>
 </html>
