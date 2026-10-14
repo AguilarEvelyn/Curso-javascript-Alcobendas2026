@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 7B Herencia</title>
+</head>
+<body>
+    <h1>😉 Tema 7B Herencia 😉 </h1>
+
+    <script>
+
+        //Herencia, permite que una clase herede propiedades y métodos de otra clase.
+
+        //Clase padre (superclase)
+        //Clase hija (subclase)
+
+        class Vehiculo {
+            constructor(marca, modelo) {
+                this.marca = marca;
+                this.modelo = modelo;
+            }
+            encender() {
+                console.log(this.marca + " está encendido")
+            }
+        }
+
+        class Coche extends Vehiculo {
+            constructor(marca, modelo, puertas) {
+                super(marca, modelo) //Llamar al constructor padres
+                this.puertas = puertas
+            }
+        }
+
+        const miCoche = new Coche("Ford", "Fiesta", 4)
+        console.log(miCoche.marca)
+        miCoche.encender() //método heredado
+
+        console.log(Object.keys(miCoche)) //[marca, modelo, puertas]
+        console.log(Object.values(miCoche)) //["Ford", "Fiesta", 4]
+
+
+        //Verificar herencia con intanceof
+
+        class Animal { }
+        class Gato extends Animal { }
+
+        const gato = new Gato()
+        console.log(gato instanceof Gato) //true
+        console.log(gato instanceof Animal) //true
+        console.log(gato instanceof Object) //true
+
+        //Puede haber múltiplos niveles de herencia
+
+        class Ser { }
+        class Animal1 extends Ser { }
+        class Mamifero extends Animal1 { }
+        class Perro extends Mamifero { }
+        const perro = new Perro()
+        console.log(perro instanceof Ser)
+
+        // super. Permite acceder a métodos y propiedades del constructor padre
+
+        class Persona {
+            constructor(nombre, edad) {
+                this.nombre = nombre
+                this.edad = edad
+                this.nota = "Soy una propiedad oculta"
+            }
+            darNotaOculta() {
+                return this.nota
+            }
+        }
+
+        class Empleado extends Persona {
+            constructor(nombre, edad, departamento) {
+                super(nombre, edad) // Obligatorio si usamos el constructor en el hijo
+                this.departamento = departamento
+            }
+            presentarse() {
+                console.log(this.nombre)
+                console.log(super.darNotaOculta()) //Podemos acceder a los métodos del padre
+            }
+        }
+
+        const empleado1 = new Empleado("José", 33, "TIC")
+        empleado1.presentarse()
+
+        // Sobreescritura de métodos (overwrite) del padre con su propia implementación
+
+        class Animal3 {
+            hacerSonido() {
+                console.log("Sonido genérico")
+            }
+        }
+        class Gato1 extends Animal3 {
+            hacerSonido() { //Sobreescribir el método
+                console.log("Miauu")
+            }
+        }
+        class Can extends Animal3 {
+
+        }
+
+        const gato3 = new Gato1()
+        gato3.hacerSonido();
+        const can1 = new Can()
+        can1.hacerSonido()
+        console.log("------------------------")
+        const animales = [
+            new Animal3(),
+            new Gato1(),
+            new Can()
+        ]
+
+        animales.forEach(a => a.hacerSonido())
+
+        //Combinar "super" con sobreescritura
+
+        class Vehiculo1 {
+            encender() {
+                console.log("Motor encendido")
+            }
+        }
+        class Auto extends Vehiculo1 {
+            encender() {
+                super.encender() //Invocar el método del padre
+                console.log("Luces encendidas")
+            }
+        }
+        const auto1 = new Auto()
+        auto1.encender()
+
+        // Getters y setters. Permiten controlar como se leen y escribeb las propiedades.
+
+        //Getters lectura de propiedades
+
+        class Persona1 {
+            constructor(nombre, fechaNacimiento) {
+                this.nombre = nombre
+                this.fechaNacimiento = fechaNacimiento
+            }
+            //Getter
+
+            get edad() {
+                const hoy = new Date()
+                const nacimiento = new Date(this.fechaNacimiento)
+                return hoy.getFullYear() - nacimiento.getFullYear()
+            }
+        }
+
+        const persona = new Persona1("Luis", "1995-05-15")
+        console.log(persona.edad) //Se ve como propiedad, no función
+
+        //Setter (escritura con validación)
+
+        class Producto2 {
+
+            constructor(nombre, precio) {
+                this.nombre = nombre
+                this.precio = precio //Usar _ por convención cuando son propiedades privadas
+            }
+
+            get precio() {
+                return this._precio
+            }
+
+            set precio(nuevoPrecio) {
+                if (nuevoPrecio <= 0) {
+                    console.log("Error, el precio no puede ser negativo")
+                    return
+                }
+                this._precio = nuevoPrecio
+                console.log("Precio actualizado a €" + nuevoPrecio)
+            }
+        }
+
+        const product = new Producto2("Laptop", 899)
+        console.log(product.precio)
+        product.precio = 799 //Los set se hacen como propiedad no como función
+        console.log(product.precio)
+        product.precio = -133
+        console.log(product.precio)
+        product._precio = -133
+        console.log(product._precio)
+
+        // Getters calculados
+
+        class Carrito {
+            constructor() {
+                this.items = []
+            }
+            agregarItem(precio) {
+                this.items.push(precio)
+            }
+
+            //Getter que calcula el total sobre la marcha
+
+            get total() {
+                return this.items.reduce((sum, precio) => sum + precio, 0)
+            }
+
+            get cantidadItems() {
+                return this.items.length
+            }
+        }
+
+        const carrito1 = new Carrito()
+        carrito1.agregarItem(25)
+        carrito1.agregarItem(50)
+        carrito1.agregarItem(100)
+        console.log(carrito1.total)
+        console.log(carrito1.cantidadItems)
+
+        // Métodos estáticos. Son los que pertenecen a la clase, no a las instancias. Se invoncan
+        // NombreClase.metodo()
+
+        class Matematicas {
+            static sumar(a,b){
+                return a + b
+            }
+            static restar = (a,b) => a-b
+
+            static esPar = function(numero) { return numero %2 == 0 }
+        }
+
+        console.log(Matematicas.sumar(10, 5))
+        console.log(Matematicas.restar(10, 5))
+        console.log(Matematicas.esPar(13))
+
+        //Propiedades estáticas
+
+        class Contador {
+            static count = 0
+            constructor(nombre){
+                this.nombre = nombre
+                Contador.count++
+            }
+            static obtenerTotal(){
+                return "Total de instancias: " + Contador.count
+            }
+        }
+
+        const c1 = new Contador("a")
+        console.log(Contador.obtenerTotal())
+        const c2 = new Contador("b")
+        const c3 = new Contador("c")
+        c1.count = 10 // No hace nada
+
+        console.log(Contador.obtenerTotal()) //Total de instancias: 3
+
+        console.log(Math.random())
+
+        //Propiedades privadas (#)
+
+        class CuentaBancaria {
+            #saldo //Propiedad privada
+
+            constructor(titular, saldoInicial){
+                this.titular = titular
+                this.#saldo = saldoInicial
+            }
+
+            //Método privado
+            #registrarMovimiento(tipo, cantidad){
+                console.log("[" + tipo +"] €" + cantidad)
+            }
+            //Método público que usa privado
+
+            depositar(cantidad, logueado){
+                if(!logueado) return
+                this.#saldo += cantidad
+                this.#registrarMovimiento("DEPÓSITO", cantidad)
+            }
+
+            get saldo(){
+                return this.#saldo
+            }
+        }
+
+        const cuenta = new CuentaBancaria("José", 10000)
+        console.log(cuenta.titular)
+        cuenta.saldo = 10000000000 //No da error, (firefox) pero no lo realiza
+        console.log(cuenta.saldo)
+        cuenta.depositar(2000, false)
+        console.log(cuenta.saldo)
+        //cuenta.#registrarMovimiento(20000000) //Error
+
+        //Una de las ventajas de las propiedades privadas es que no aparecen con Object.keys
+
+        class Person {
+            #password
+
+            constructor(nombre, pwd){
+                this.nombre = nombre
+                this.#password = pwd
+            }
+
+            validar(pwd){
+                return this.#password === pwd
+            }
+        }
+
+        const p = new Person("Antonio", "1234")
+        //console.log(p.#password) // Error
+        console.log(p.validar("1234")) // true
+
+        //Para saber las propiedades públicas de un objeto se utilizar Object.keys
+        console.log(Object.keys(p))
+
+        //Para los valores con Object.values()
+        console.log(Object.values(p))
+
+    </script>
+    
+</body>
+</html>

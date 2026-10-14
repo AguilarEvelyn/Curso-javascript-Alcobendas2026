@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 7A. Objetos</title>
+</head>
+
+<body>
+    <h1>😉 Tema 7A. Objetos 😉</h1>
+
+    <script>
+
+        //Objetos tienen propiedades y métodos.
+
+        const persona1 = {
+            nombre: "Juan",
+            edad: 25,
+            ciudad: "Madrid",
+            profesion: "Ingeniero"
+        }
+
+        console.log("Nombre:", persona1.nombre) //Juan
+        console.log("Ciudad:", persona1['ciudad']) //Madrid
+
+        //Cambiar el valor de una propiedad
+
+        persona1.edad = 26;
+        console.log("Edad:", persona1.edad)
+        persona1['ciudad'] = "Teruel"
+        console.log("Ciudad: ", persona1['ciudad'])
+
+        //Agregar una propiedad nueva
+
+        persona1.telefono = "611 30 20 01"
+        console.log(persona1)
+
+        //Eliminar propiedad de un objeto
+
+        delete persona1.telefono
+        console.log(persona1)
+
+        //Verificar si existe una propiedad
+        if (persona1.hasOwnProperty('edad')) console.log("Existe la propiedad 'edad'")
+        else console.log("No existe la propiedad")
+
+        persona1.piso = 0
+        //No válido
+        console.log((persona1.piso) ? "Existe la propiedad" : "No existe la propiedad")
+        console.log(persona1.puerta)
+
+        //Objetos anidados
+
+        const estudiante = {
+            nombre: "Carlos",
+            edad: 20,
+            direccion: {
+                calle: "Calle Getafe, 3",
+                ciudad: "Parla",
+                cp: "28131"
+            }
+        }
+
+        console.log("Calle", estudiante.direccion.calle)
+        console.log("Calle", estudiante['direccion'].calle)
+        console.log("Código postal:", estudiante['direccion']['cp'])
+
+        //Métodos. Funciones que tienen los objetos
+
+        const calculadora = {
+            nombre: "Mi calculadora",
+            //Nombre del método
+            sumar: function (a, b) { return a + b },
+            restar: function (a, b) { return a - b },
+            multiplicar: function (a, b) { return a * b },
+            dividir: function (a, b) { return a / b }
+        }
+
+        //Llamar a los métodos.
+
+        console.log(calculadora.sumar(5, 7))
+        console.log(calculadora.multiplicar(3, 7))
+        console.log(calculadora['restar'](3, 7))
+
+        //Métodos con arrow function
+
+        const coche = {
+            marca: "BMW",
+            velocidad: 0,
+            acelerar: () => console.log("Vrooooooooom"),
+            frenar: () => console.log("Screeeeecchh")
+        }
+
+        coche.acelerar()
+        coche.frenar()
+
+        //Más ejemplos de objetos
+
+        const usuario = {
+            nombre: "Ana",
+            email: "ana@example.es",
+            constrasena: "abc123",
+            mostrarInfo: function () {
+                console.log("Nombre: ", this.nombre)
+                console.log("Email: ", this.email)
+                console.log("Contraseña: ", this.constrasena)
+            },
+            cambiarPass: function (nueva) {
+                this.constrasena = nueva
+                console.log("Contraseña nueva: ", nueva)
+            }
+        }
+
+        usuario.mostrarInfo();
+        console.log("Contraseña antigua:", usuario.constrasena)
+        usuario.cambiarPass("1234")
+        usuario.mostrarInfo();
+
+        //this no funciona en funciona flecha
+
+        const prueba = {
+            nombre: "Test",
+            tradicional: function () {
+                console.log("Nombre: ", this.nombre)
+            },
+            flecha: () => { console.log("Nombre: ", this.nombre) } //No funciona this con función flecha
+        }
+
+        prueba.tradicional()
+        prueba.flecha()
+
+        //Constructores para objetvos. Crear objetos de forma dinámica. Antes de 2015
+
+        function Auto(marca, modelo, anio) {
+            this.marca = marca;
+            this.modelo = modelo;
+            this.anio = anio;
+            this.encendido = false;
+            //Métodos
+            this.encender = function () {
+                this.encendido = true
+                console.log(`${this.marca} ${this.modelo}: "Encendido: ${this.encendido}"`)
+            }
+            this.apagar = function () {
+                this.encendido = false
+                console.log(`${this.marca} ${this.modelo}: "Encendido: ${this.encendido}"`)
+            }
+
+        }
+        //Instanciar un objeto de la clase Auto.
+        const miAuto = new Auto("Toyota", "Corolla", 2022);
+        const miAuto2 = new Auto("Ford", "Fiesta", 2003);
+        miAuto.encender()
+        console.log(miAuto2.modelo)
+
+        //Clases (ES6)
+
+        class Persona {
+            constructor(nombre, edad) {
+                this.nombre = nombre,
+                this.edad = edad
+            }
+
+            saludar() {
+                console.log("Hola, soy " + this.nombre)
+            }
+            cumplirAnios(){
+                this.edad++
+            }
+        }
+
+        const juan = new Persona("Juan", 33)
+        juan.saludar();
+
+        const clase = [ new Persona("Pepe", 25), new Persona("Luis", 39), new Persona("Mari Carmen", 43)];
+        console.log(clase)
+        clase[0].nombre = "José"
+        console.log(clase)
+
+    </script>
+
+</body>
+
+</html>
