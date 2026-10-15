@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tema 7B Herencia</title>
 </head>
-<body>
-    <h1>😉 Tema 7B Herencia 😉 </h1>
+<h1>Programación orientada a objetos (POO). Tema 7B</h1>
 
     <script>
 
@@ -311,7 +310,196 @@
         //Para los valores con Object.values()
         console.log(Object.values(p))
 
-    </script>
+        //Composición (relación "tiene-un") vs Herencia (relación "es un")
+
+        //Herencia rígida
+
+        class Ave{
+            volar(){}
+        }
+
+        class Pinguino extends Ave {
+            volar(){
+                throw new Error ("Los pingüinos no pueden volar")
+            }
+        }
+        
+        const pinguino = new Pinguino()
+        //pinguino.volar()
+
+        //Solución con composición
+
+        //Capacidades como objetos
+
+        const capacidades = {
+            volar: () => console.log("Volando ..."),
+            nadar: () => console.log("Nadando ..."),
+            correr: () => console.log("Corriendo ...")
+        }
+
+        //Clase flexible
+
+        class Personaje {
+            constructor(nombre, capacidades){
+                this.nombre = nombre
+                this.capacidades = capacidades
+            }
+            hacer(accion){
+                if(this.capacidades[accion]){
+                    this.capacidades[accion]()
+                }
+            }
+        }
+        const aguila = new Personaje("Águila", {
+            volar: capacidades.volar,
+            correr: capacidades.correr
+        })
+
+        const pinguino1 = new Personaje("Pingüino", {
+            nadar: capacidades.nadar,
+            correr: capacidades.correr,
+        })
+
+        aguila.hacer("volar")
+        pinguino1.hacer("nadar")
+        pinguino1.hacer("correr")
+
+        //Composición con Object.assign()
+
+        const caminante = {
+            caminar: () => console.log("Caminando ..."),
+            trotar: () => console.log("Trotando ...")
+        }
+        const saltador = {
+            saltar: () => console.log("Saltando ...")
+        }
+
+        class Atleta {
+            constructor(nombre){
+                this.nombre
+                //Agregar capacidades
+                Object.assign(this, caminante, saltador)
+            }
+        }
+        const atleta = new Atleta("Felipe")
+        atleta.caminar() //Caminando ...
+        atleta.saltar() // Saltando ...
+        atleta.trotar() // Trotando
+
+        // Métodos útiles de Object
+
+        /*class Persona {
+            constructor(nombre, edad) {
+                this.nombre = nombre
+                this.edad = edad
+                this.nota = "Soy una propiedad oculta"
+            }
+            darNotaOculta() {
+                return this.nota
+            }
+        } */
+
+        //Object.keys
+
+        const persona4 = new Persona("Antonia", 44)
+
+        const claves = Object.keys(persona4) //["nombre", "edad", "nota"]
+        console.log(claves)
+
+        //Object.values
+
+        const valores = Object.values(persona4) //["Antonia", 44, "Soy una propiedad oculta"]
+        console.log(valores) 
+
+        //Object.entries() Pares de clave - valor
+
+        const entries = Object.entries(persona4)
+        console.log(entries)
+        entries.forEach( ([clave, valor]) => console.log(clave + " = " + valor))
+
+        // Copiar/fusionar.  Object.assign()
+
+        const original = {nombre : "Felipe", edad : 27}
+        const actualizacion = { edad : 28, ciudad : "Albacete"}
+        const actualizacion2 = { edad : 29, cp : "03021"}
+        const combinado = Object.assign({}, original, actualizacion, actualizacion2)
+        console.log(combinado) // {nombre : "Felipe", edad : 28, ciudad: "Albacete"}
     
+        const combinado2 = { calle: "Parla"}
+        Object.assign(combinado2, combinado)
+        console.log(combinado2)
+
+        //Objeto inmutable. Object.freeze()
+
+        const config = {
+            puerto: 3000,
+            host: "localhost"
+        }
+
+        Object.freeze(config)
+        config.puerto = 3030 //No lo cambia, pero no da ningún error
+        console.log(config)
+
+        // Object.hasOwn() - Verificar una propiedad
+
+        const obj = { nombre: "Juan Carlos"}
+        console.log(Object.hasOwn(obj, "nombre")) // true
+        console.log(Object.hasOwn(obj, "edad")) // false
+
+        // Destructuring de objetos. Extraer propiedades de forma elegante
+
+        const usuario = {
+            nombre : "Antonio Luis",
+            edad : 55,
+            email : "antonio@none.org"
+        }
+   
+         
+        // Sin destructuring
+
+        let nombre1 = usuario.nombre
+        let edad1= usuario.edad
+
+        console.log("Sin destructuring:", nombre1 , edad1)
+
+        // Con destructuring
+
+        let { nombre, edad } = usuario
+        console.log("Con destructuring:", nombre , edad)
+
+        // Renombrar variables
+
+        const {nombre : n, email : e} = usuario
+         console.log("Con destructuring:", n, e)
+
+         //Valores por defecto
+
+         const {nombre : n1, pais = "España"} = usuario
+         console.log( n1, pais)
+
+         // Rest operador ...
+
+         const {edad : n2, ...loquequeda} = usuario
+         // n2 = "Antonio Luis", resto {edad: 55, email: "antonio@none.org"}
+    
+        console.log(n2, loquequeda)
+
+        //Destructuring en parámetros de función
+
+        function mostrarProducto({ nombre, precio : p, stock = 0}){
+            console.log(`${nombre} : ${p}€ (Stock: ${stock})` )
+        }
+        
+        const producto10 = {
+            nombre: "Laptop",
+            precio: 1200,
+            stock: 5
+        }
+
+        mostrarProducto(producto10)
+        
+    
+    
+    </script>
 </body>
 </html>
