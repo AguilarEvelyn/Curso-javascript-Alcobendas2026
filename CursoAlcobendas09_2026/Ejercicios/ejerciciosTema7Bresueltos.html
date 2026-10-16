@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /*
+        ## Ejercicio 1: Herencia Básica
+
+Crea:
+1. Una clase `Animal` con propiedades: `nombre`, `tipo`
+2. Métodos en `Animal`: `describirse()`, `hacerSonido()`
+3. Una clase `Perro` que herede de `Animal`
+4. El método `hacerSonido()` devuelva "¡Guau!" en Perro (sobrescribir)
+5. Agrega método `traerPelota()` solo en Perro
+
+**Requisitos:**
+- Crea 2 instancias (Perro y otra clase que herede)
+- Usa `super()` en el constructor de Perro
+- Prueba herencia con `instanceof`
+
+*/
+
+        class Animal {
+            constructor(nombre, tipo) {
+                this.nombre = nombre
+                this.tipo = tipo
+            }
+            describirse() {
+                return `Soy un ${this.tipo} llamado ${this.nombre}`
+            }
+
+            hacerSonido() {
+                return "Hago un sonido genérico"
+            }
+        }
+
+        class Perro extends Animal {
+            constructor(nombre, raza) {
+                super(nombre, "Perro")
+                this.raza = raza;
+            }
+            hacerSonido() {
+                return "Guauuu"
+            }
+            traerPelota() {
+                return `${this.nombre} te trae la pelota`
+            }
+        }
+
+        class Gato extends Animal {
+            constructor(nombre, colorOjos) {
+                super(nombre, "Gato")
+                this.colorOjos = colorOjos;
+            }
+            hacerSonido() {
+                return "Miauuu"
+            }
+        }
+        //Pruebas
+
+        const miPerro = new Perro("Rex", "Labrador")
+        const miGato = new Gato("Mimi", "Verde")
+        console.log(miPerro.describirse())
+        console.log(miPerro.hacerSonido())
+        console.log(miPerro.traerPelota())
+
+        console.log(miGato.describirse())
+        console.log(miGato.hacerSonido())
+
+        console.log(miPerro instanceof Perro)
+        console.log(miPerro instanceof Animal)
+        console.log(miGato instanceof Perro)
+
+        /*
+        
+        ## Ejercicio 2: Getters y Setters
+        
+        Crea una clase `Persona` con:
+        - Propiedad privada `_edad`
+        - Getter `edad`: devuelva la edad
+        - Setter `edad`: valide que edad > 0 y < 120
+        - Si es inválida, mostrar error y no actualizar
+        - Método para mostrar "Soy [nombre] y tengo [edad] años"
+        
+        **Requisitos:**
+        - Crear instancia
+        - Intentar asignar edad negativa (debe fallar)
+        - Intentar asignar edad > 150 (debe fallar)
+        - Asignar edad válida
+        - Verificar getter
+        
+        */
+
+        class Persona {
+            constructor(nombre, edad) {
+                this.nombre = nombre;
+                this._edad = edad;
+            }
+
+            get edad() {
+                return this._edad;
+            }
+
+            set edad(numero) {
+                if (numero > 0 && numero < 120) {
+                    this._edad = numero;
+                }
+                else {
+                    console.log("el numero insertado no es valido")
+                }
+
+            }
+
+            mostrarInfo() {
+                console.log(`Soy ${this.nombre} y  tengo ${this.edad} años`)
+            }
+        }
+
+        const persona1 = new Persona("juan", 22)
+
+        console.log(persona1.edad)
+
+        persona1.edad = 44
+        console.log(persona1.edad)
+        persona1.mostrarInfo()
+
+        persona1.edad = -11;
+        persona1.mostrarInfo()
+
+
+        /*
+        
+        ## Ejercicio 3: Métodos Estáticos
+        
+        Crea una clase `Matemática` con:
+        - Método estático `sumar(a, b)`: devuelva suma
+        - Método estático `multiplica(a, b)`: devuelva producto
+        - Método estático `esPar(numero)`: true/false
+        - Método estático `factorial(n)`: calcula factorial
+        
+        **Requisitos:**
+        - Llamar los métodos sin instanciar la clase
+        - Usar `Matemática.sumar()`, no `new Matemática().sumar()`
+        
+        */
+
+        //Condición "No utilizar bucles para el factorial. Utilizar recursividad"
+
+        class Matematicas {
+            static suma(a, b) {
+                return a + b
+            }
+            static multiplicacion(a, b) {
+                return a * b
+            }
+            static esPar(b) {
+                return b % 2 == 0
+            }
+            static factorial(a) {
+                let fact = 1
+                for (let i = 1; i <= a; i++) {
+                    fact = fact * i
+                }
+                return fact
+            }
+            static factorial2(a) {
+                if (a < 0) {
+                    return "valor no válido"
+                }
+                if (a == 0 || a == 1) {
+                    return 1
+                }
+                return a * this.factorial2(a - 1)
+            }
+
+
+        }
+
+        console.log(Matematicas.suma(4, 6))
+        console.log(Matematicas.multiplicacion(82, 5))
+        console.log(Matematicas.esPar(3))
+        console.log(Matematicas.factorial(9))
+        console.log(Matematicas.factorial2(9))
+        console.log(Matematicas.factorial2(-1))
+        /*
+        
+        ## Ejercicio 4: Propiedades Privadas (#)
+        
+        Crea una clase `CuentaBancaria` con:
+        - Constructor: `titular`, `saldo` (privada con #)
+        - Getter `saldo`: devuelva saldo formateado a 2 decimales
+        - Método `depositar(cantidad)`: aumente saldo privado
+        - Método `retirar(cantidad)`: disminuya saldo (validar)
+        - Método privado `#registrarMovimiento(tipo, cantidad)`
+        
+        **Requisitos:**
+        - Intenta acceder a `cuenta.#saldo` (debe fallar)
+        - Usa getter y métodos para acceder
+        - Valida que retiros no dejen saldo negativo
+        
+        */
+
+        class CuentaBancaria {
+            #saldo
+            constructor(titular, saldoInicial) {
+                this.titular = titular
+                this.#saldo = saldoInicial
+            }
+
+            get saldo() {
+                return this.#saldo.toFixed(2)
+            }
+
+            #registrarMovimiento(tipo, cantidad) {
+                console.log(`[${tipo}]: ${cantidad}€ - Saldo: ${this.#saldo}€`)
+            }
+
+            depositar(cantidad) {
+                if (cantidad > 0) {
+                    this.#saldo += cantidad
+                    this.#registrarMovimiento("DEPÓSITO", cantidad)
+                }
+            }
+
+            retirar(cantidad) {
+                if (cantidad > this.#saldo) {
+                    console.log("Saldo insuficiente")
+                    return false
+                }
+                if (cantidad > 0) {
+                    this.#saldo -= cantidad
+                    this.#registrarMovimiento("RETIRO", cantidad)
+                    return true
+                }
+            }
+        }
+
+        const cuenta = new CuentaBancaria("José", 1000)
+        console.log("Saldo inicial", cuenta.saldo)
+        cuenta.depositar(1000)
+        cuenta.retirar(200)
+        cuenta.retirar(2000)
+        /*
+        
+        ## Ejercicio 5: Composición vs Herencia
+        
+        Crea un sistema de personajes de videojuego usando **composición**:
+        
+        ```javascript
+        const capacidades = {
+            volar: () => console.log("✈️ Volando..."),
+            nadar: () => console.log("🏊 Nadando..."),
+            correr: () => console.log("🏃 Corriendo...")
+        };
+        ```
+        
+        Crea clase `Personaje` que acepte un array de capacidades en el constructor.
+        
+        **Requisitos:**
+        - Personaje tenga método `hacer(accion)` que ejecute la capacidad
+        - Crea 3 personajes: uno que vuele, otro que nade, otro que haga todo
+        - Prueba cada uno
+        
+        */
+
+        const capacidades = {
+            volar: () => console.log("✈️ Volando..."),
+            nadar: () => console.log("🏊 Nadando..."),
+            correr: () => console.log("🏃 Corriendo...")
+        };
+
+        class Personaje {
+            constructor(nombre, capacidades) {
+                this.nombre = nombre
+                this.capacidades = capacidades
+            }
+
+            hacer(accion) {
+                if (this.capacidades[accion]) {
+                    console.log(this.nombre + ":")
+                    this.capacidades[accion]()
+                } else {
+                    console.log(this.nombre + " no puede " + accion)
+                }
+            }
+        }
+
+        const pajaro = new Personaje("Águila", {
+            volar: capacidades.volar,
+            correr: capacidades.correr
+        })
+
+        const pato = new Personaje("Pato", {
+            volar: capacidades.volar,
+            nadar: capacidades.nadar
+        })
+
+        const superheroe = new Personaje("Superman", {
+            volar: capacidades.volar,
+            nadar: capacidades.nadar,
+            correr: capacidades.correr
+
+        })
+
+        pajaro.hacer("volar")
+        pajaro.hacer("nadar")
+
+        pato.hacer("volar")
+        pato.hacer("nadar")
+
+        superheroe.hacer("volar")
+        superheroe.hacer("nadar")
+        superheroe.hacer("correr")
+        /*
+        
+        ## Ejercicio 6: Object.keys, values, entries
+        
+        Crea un objeto `config` con propiedades:
+        ```javascript
+        const config = {
+            puerto: 3000,
+            host: "localhost",
+            debug: true,
+            timeout: 30
+        };
+        ```
+        
+        Realiza:
+        1. Imprime las claves con `Object.keys()`
+        2. Imprime los valores con `Object.values()`
+        3. Itera con `Object.entries()` (imprime "clave = valor")
+        4. Usa `Object.assign()` para actualizar puerto a 5000
+        5. Usa `Object.freeze()` para hacer config inmutable
+        
+        */
+
+        const config = {
+            puerto: 3000,
+            host: "localhost",
+            debug: true,
+            timeout: 30
+        };
+
+        console.log(Object.keys(config))
+        console.log(Object.values(config))
+        Object.entries(config).forEach(([clave, valor]) => {
+            console.log(`${clave} = ${valor}`)
+        })
+
+        const nuevaConfig = Object.assign({}, config, { puerto: 5000 })
+        console.log(nuevaConfig)
+        //Cambiar original
+        Object.assign(config, { puerto: 5000 }) //Cambiar el config inicial.
+        console.log(config)
+        Object.freeze(config)
+
+        //Object.assign(config, {puerto: 8080})
+        console.log(config)
+        /*
+        
+        ## Ejercicio 7: Destructuring de Objetos
+        
+        Dado este objeto:
+        ```javascript
+        const usuario = {
+            nombre: "Juan",
+            email: "juan@example.com",
+            edad: 28,
+            ciudad: "Madrid"
+        };
+        ```
+        
+        1. Extrae `nombre` y `email` con destructuring
+        2. Extrae renombrando: `{ nombre as n, edad as a }`
+        3. Extrae con valores por defecto: `{ pais = "España" }`
+        4. Extrae el resto con rest operator: `{ nombre, ...resto }`
+        
+        */
+
+        const usuario = {
+            nombre: "Juan",
+            email: "juan@example.com",
+            edad: 28,
+            ciudad: "Madrid"
+        };
+        const { nombre, email } = usuario
+        console.log(nombre)
+        console.log(email)
+
+        const { nombre: n, edad: e } = usuario
+        console.log(n, e)
+
+        const { nombre: n1, pais = "España" } = usuario
+        console.log(n1, pais)
+
+        const { nombre: n2, ...resto } = usuario
+        console.log(n2, resto)
+
+
+        /*
+        
+        ## Ejercicio 8: Destructuring en Funciones
+        
+        Crea una función que reciba un objeto producto:
+        ```javascript
+        function mostrarProducto({ nombre, precio, stock = 0 }) {
+            // Usar destructuring en parámetro
+        }
+        ```
+        
+        **Requisitos:**
+        - La función debe mostrar: "Nombre: [nombre], Precio: €[precio], Stock: [stock]"
+        - `stock` tiene valor por defecto 0
+        - Llamar con diferentes objetos
+        
+        */
+        function mostrarProducto({ nombre, precio, stock = 0 }) {
+            console.log(`Nombre: ${nombre}, Precio: €${precio}, Stock: ${stock}`)
+        }
+
+        const producto1 = { nombre: "Laptop", precio: 999 }
+        const producto2 = { nombre: "Mouse", precio: 10, stock: 20 }
+        const producto3 = { nombre: "Teclado", precio: 30, stock: 21 }
+
+        mostrarProducto(producto1)
+        mostrarProducto(producto2)
+        mostrarProducto(producto3)
+
+        /*
+        
+        ## Ejercicio 9: Array de Objetos
+        
+        Crea un array de estudiantes:
+        ```javascript
+        const estudiantes = [
+            { nombre: "Juan", nota: 8.5 },
+            { nombre: "María", nota: 9.0 },
+            { nombre: "Pedro", nota: 6.5 }
+        ];
+        ```
+        
+        Realiza:
+        1. Filtra aprobados (nota >= 7)
+        2. Calcula promedio de notas con `reduce()`
+        3. Encuentra el estudiante con mayor nota
+        4. Ordena por nota descendente
+        5. Extrae solo nombres con `map()`
+        
+        */
+
+        const estudiantes = [
+            { nombre: "Juan", nota: 8.5 },
+            { nombre: "María", nota: 9.0 },
+            { nombre: "Pedro", nota: 6.5 }
+        ];
+
+        console.table(estudiantes.filter((estudiante) => estudiante.nota >= 7));
+
+        console.log(estudiantes.reduce((suma, estudiante) => suma + estudiante.nota, 0) / estudiantes.length);
+
+        let mejorEstudiante = estudiantes.reduce((max, estudiante) =>
+            estudiante.nota > max.nota ? estudiante : max);
+
+        console.table(mejorEstudiante);
+        let mejorEstudiante2 = [...estudiantes].sort((a, b) => b.nota - a.nota)[0]
+        console.table(mejorEstudiante2);
+
+        const ordenados = [...estudiantes].sort((a, b) => b.nota - a.nota)
+        console.table(ordenados)
+
+        const nombres = estudiantes.map(e => e.nombre)
+        console.log(nombres)
+
+        /*
+        
+        ## Ejercicio 10: Proyecto - Tienda Online
+        
+        Crea un sistema de tienda con:
+        
+        ```javascript
+        class Producto {
+            constructor(nombre, precio, stock) { }
+            // Métodos para vender, reabastecer
+        }
+        
+        class Tienda {
+            constructor(nombre) { }
+            // Métodos: agregarProducto, listarProductos, 
+            // comprar(nombreProducto, cantidad), 
+            // totalInventario()
+        }
+        ```
+        
+        **Requisitos:**
+        - Tienda tiene array de productos
+        - Método `agregarProducto(producto)`
+        - Método `comprar(nombre, cantidad)`: disminuye stock
+        - Método `totalInventario()`: calcula valor total en €
+        - Método `listar()`: imprime todos los productos
+        
+        **Pruebas:**
+        1. Crear tienda con 3 productos
+        2. Comprar algunos
+        3. Listar productos
+        4. Mostrar total de inventario
+        
+         */
+        class Producto {
+            constructor(nombre, precio, stock) {
+                this.nombre = nombre
+                this.precio = precio
+                this.stock = stock
+            }
+
+            // Métodos para vender, reabastecer
+
+            vender(cantidad) {
+                if (this.stock >= cantidad) {
+                    this.stock -= cantidad
+                    return true
+                }
+                return false
+            }
+
+            reabastecer(cantidad) {
+                this.stock += cantidad
+            }
+
+            obtenerInfo() {
+                return `${this.nombre}, ${this.precio}€. Stock: ${this.stock}`
+            }
+        }
+
+        class Tienda {
+            constructor(nombre) {
+                this.nombre = nombre
+                this.productos = []
+            }
+            // Métodos: agregarProducto, listarProductos, 
+
+            agregarProducto(producto) {
+                this.productos.push(producto)
+            }
+
+            listarProductos() {
+                console.log("TIENDA:" + this.nombre)
+                this.productos.forEach((p, i) => {
+                    console.log((i + 1) + ". " + p.obtenerInfo())
+                })
+            }
+            // comprar(nombreProducto, cantidad), 
+
+            comprar(nombreProducto, cantidad) {
+                const producto = this.productos.find(p => p.nombre == nombreProducto)
+                if (producto && producto.vender(cantidad)) {
+                    console.log("Comprado: " + cantidad + "x" + nombreProducto)
+                    return true
+                } else {
+                    console.log("No hay stock suficiente")
+                    return false
+                }
+            }
+
+            // totalInventario()
+
+            totalInventario() {
+                const total = this.productos.reduce( (sum, p) => sum + (p.precio * p.stock), 0)
+                return total.toFixed(2)
+            }
+
+        }
+
+        // Pruebas
+
+        const tienda = new Tienda("Tech Store")
+        tienda.agregarProducto( new Producto("Laptop", 899, 5))
+        tienda.agregarProducto( new Producto("Mouse", 8, 25))
+        tienda.agregarProducto( new Producto("Teclado", 25, 20))
+
+        tienda.listarProductos()
+
+        tienda.comprar("Laptop", 2)
+        tienda.comprar("Mouse", 10)
+        tienda.comprar("Laptop", 5)
+
+        tienda.listarProductos()
+
+        console.log("Total inventario: ", tienda.totalInventario())
+
+    </script>
+</body>
+
+</html>
