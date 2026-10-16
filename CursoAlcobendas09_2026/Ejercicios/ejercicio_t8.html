@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlillTrack</title>
+    <link rel="stylesheet" href="ejercicio8.css">
+    <script src="ejercicio8.js"></script>
+</head>
+<body>
+    <main class="layout">
+        <section class="panel">
+            <h1>SkillTrack</h1>
+            <p class="subtitle">Ejercicio 8. Set y Map</p>
+            <form id="form-curso" class="box">
+                <h2>Nuevo curso</h2>
+                <input id="curso-id" placeholder="ID (ej: JS-ADV)">
+                <input id="curso-nombre" placeholder="Nombre del curso">
+                <input id="curso-categoria" placeholder="Categoria">
+                <button type="submit">Crear curso</button>
+            </form>
+            <form id="form-alumno" class="box">
+                <h2>Nuevo alumno</h2>
+                <input id="alumno-nombre" placeholder="Nombre completo">
+                <input id="alumno-email" type="email" placeholder="email@dominio.com">
+                <button type="submit">Registrar alumno</button>
+            </form>
+            <form id="form-inscripcion" class="box">
+                <h2>Inscripcion</h2>
+                <input id="insc-email" placeholder="Email del alumno">
+                <input id="insc-curso-id" placeholder="ID del curso">
+                <button type="submit">Inscribir</button>
+            </form>
+            <p id="mensaje-estado" class="msg"></p>
+        </section>
+
+        <section class="panel wide">
+            <div id="stats" class="stats"></div>
+
+            <div class="box filters">
+                <select id="filtro-categoria">
+                    <option value="todas">Todas</option>
+                </select>
+                <input id="buscar-curso" placeholder="Buscr por nombre o ID">
+                <button id="btn-limpiar-filtros">Limpiar filtros</button>
+            </div>
+
+            <section id="cursos-container" class="cards"></section>
+            <section class="box">
+                <h2>Resumen de alumnos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>Email</th>
+                            <th>Cursos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alumnos-tabla-body"></tbody>
+                </table>
+            </section>
+
+        </section>
+
+
+
+
+
+    </main>
+</body>
+</html>
