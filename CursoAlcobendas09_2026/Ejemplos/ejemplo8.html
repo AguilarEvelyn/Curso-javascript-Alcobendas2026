@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set y Map</title>
+</head>
+<body>
+    <h1>😉 Set y Map 😉</h1>
+    <script>
+        // Set. Lista de elementos únicos.
+
+        const numeros = [1, 2, 2, 3, 3, 3, 4]
+
+        const sinDuplicadosTradicional = numeros.filter ((n, i, arr) => arr.indexOf(n) == i)
+
+        console.log(sinDuplicadosTradicional)
+
+        const sinDuplicados = [ ... new Set(numeros)]
+        console.log(sinDuplicados)
+
+        // Set básico
+
+        const alumnos = new Set()
+        alumnos.add("Ana")
+
+        console.log(alumnos)
+
+        alumnos.add("Pedro")
+        alumnos.add("Ana")
+        console.log(alumnos)
+
+        const numbers = new Set()
+        numbers.add(10)
+        numbers.add(115.0)
+        numbers.add(10.0)
+        numbers.add(45.0)
+
+        console.log(numbers)
+        console.log("El set de numbers tiene " + numbers.size +  " elementos")
+
+        // Verificar existencia has()
+        console.log(alumnos.has("Ana")) // true
+        console.log(alumnos.has("ana")) // false
+
+        //Eliminar un elemento. delete(). Return true o false
+
+        let b = alumnos.delete("Pedro")
+        console.log(alumnos, b)
+
+        console.log(alumnos[0]) //undefined
+
+        //Iterar en un set
+
+        for(const item of numbers){
+            console.log("Números", item)
+        }
+
+        numbers.forEach( item => console.log("forEach", item))
+        //Vaciar todo un set. clear()
+        numbers.clear()
+        console.log(numbers.size)
+
+        //Ejemplos prácticos 
+
+        //Eliminar elementos duplicados en un array
+
+        const tags = ["js", "dom", "js", "poo", "dom", "map"]
+        const tagsUnicos = [... new Set(tags)]
+        console.log(tagsUnicos)
+        const tagsUnicos2 = [new Set(tags)]
+        console.log(tagsUnicos2) //Un elemento que es un Set
+
+        //Operaciones de conjuntos
+
+        const grupoA = new Set(["Ana", "Luis", "Marta", "Jose"])
+        const grupoB = new Set(["Luis", "Jose", "Clara"])
+
+        //La unión de A y B
+        const union = new Set([... grupoA, ...grupoB])
+        console.log(union)
+
+        //Los que están en A y B
+        const interseccion = new Set([...grupoA].filter( x => grupoB.has(x)))
+        console.log(interseccion)
+
+        // Diferencia ( A - B). Los que están en A, pero no están en B
+
+         const diferencia= new Set([...grupoA].filter( x => !grupoB.has(x)))
+         console.log(diferencia) // Ana y Marta
+
+         //Set compara objetos por su referencia, no por el contenido
+
+         const s = new Set()
+         const obj1 = {id : 1}
+         const obj2 = {id : 1}
+         s.add(obj1)
+         s.add(obj2)
+         console.log(s.size) // 2
+
+         const obj3 = obj1
+         s.add(obj3) //No se añade
+        console.log(s.size) // 2
+
+        //Map()
+        //Almacenar clave y valor, pero las claves pueden ser cualquier tipo.
+
+        const alumnos2 = {
+            nombre : "Luis",
+            edad : 25
+        }
+
+        const inventario = new Map()
+
+        //Insertar pares set()
+        inventario.set("teclado", 10)
+        inventario.set("ratón", 25)
+        inventario.set("monitor", 7)
+
+        console.log(inventario, inventario.size)
+
+        //Conseguir el valor de algún par. get(key)
+        console.log(inventario.get("teclado")) // 10
+        console.log(inventario.get("laptop")) //undefined si no existe
+
+        console.log(inventario.has("teclado")) // true
+        console.log(inventario.has("laptop"))  // false
+
+        //Eliminar un par delete(key). Devuelve true si lo elimina o false si no lo elimina
+
+        console.log("Eliminando: ",inventario.delete("monitor"))
+        console.log(inventario)
+
+        //Iterar sobre un map. for of o foreach
+
+        for( [key, value] of inventario){
+            console.log( key + " = " + value)
+        } 
+
+        inventario.forEach( (value, key) => console.log(key + " = " + value))
+
+        //Conversiones útiles
+
+        //Array -> Set
+
+        const numeros1 = [1, 2, 2, 3]
+        const setNumeros = new Set(numeros1)
+        console.log(setNumeros)
+
+        //Set -> Array
+
+        const deNuevoArray = [...setNumeros]
+        console.log(deNuevoArray)
+
+        //Objeto -> Map
+
+        const configOb = {
+            idioma: "es",
+            tema: "claro",
+            notificaciones: true
+        }
+
+        const configMap = new Map(Object.entries(configOb))
+        console.log(configMap)
+
+        //Map -> Objeto
+
+        const deNuevoObj = Object.fromEntries(configMap)
+        console.log(deNuevoObj)
+
+        //Map -> Array de pares
+        const pares = [... configMap]
+        console.log(pares)
+
+</script>
+    
+</body>
+</html>
