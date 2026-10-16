@@ -1722,6 +1722,2602 @@ const matrix = [
 const position = findJavaScript(matrix)
 console.log(position) // -> [0, 2]
 
-# 15/10/26
-# Herencia- Programcion orientada a Objetos
+# Objetos
+Los objetos en JavaScript son una colección de propiedades y métodos que definen un elemento a través de una clave y un valor.
 
+Por ejemplo, si pensamos en una persona, podemos definir sus propiedades como su nombre, su edad, su altura, su peso, etc. Y sus métodos como caminar, correr, saltar, etc.
+
+Declaración y asignación de objetos
+Para declarar un objeto usamos las llaves {} y dentro las propiedades y métodos separados por comas ,. Cada propiedad o método se define con una clave y un valor separados por dos puntos :.
+
+# Por ejemplo, vamos a crear un objeto que represente a una persona:
+
+const persona = { 
+  name: 'Dani',
+  age: 30,
+  isWorking: true
+}
+# Las propiedades y métodos de un objeto pueden ser de cualquier tipo de JavaScript, incluso otros objetos o arrays.
+
+const persona = {
+  name: 'Dani',
+  age: 30,
+  isWorking: true,
+  family: ['Miguel', 'Maria'], // array
+  address: { // otro objeto
+    street: 'Calle de la piruleta',
+    number: 13,
+    city: 'Barcelona'
+  }
+}
+# Y, claro, como hemos comentado antes, también podemos tener funciones. Cuando una función es parte de un objeto se le llama método.
+
+const persona = {
+  name: 'Dani',
+  age: 30,
+  isWorking: true,
+  family: ['Miguel', 'Maria'],
+  address: {
+    street: 'Calle de la piruleta',
+    number: 13,
+    city: 'Barcelona'
+  },
+  walk: function () { // <- método
+    console.log('Estoy caminando')
+  }
+}
+
+# Para acceder a las propiedades y métodos de un objeto usamos el punto . y el nombre de la propiedad o método.
+
+const persona = { name: 'Dani' }
+console.log(persona.name) // Dani
+Si intentamos acceder a una propiedad o método que no existe, nos devolverá undefined.
+
+const persona = { name: 'Dani' }
+console.log(persona.fullName) // -> undefined
+
+# Puedes usar variables para acceder a las propiedades y métodos de un objeto. Para ello, tienes que usar la notificación por corchetes [].
+
+const persona = { name: 'Dani' }
+let property = 'name'
+
+console.log(persona[property]) // -> Dani
+# También necesitas usar los corchetes si la clave de la propiedad o método tiene espacios o caracteres especiales.
+
+const persona = { 'full name': 'Dani' }
+
+console.log(persona['full name']) // -> Dani
+
+// ❌ no puedes hacer esto
+// persona.full name
+
+# gual que podemos acceder a las propiedades de un objeto, podemos añadir nuevas propiedades o modificar las existentes.
+
+const persona = { name: 'Dani' }
+
+persona.age = 30
+
+console.log(persona) // -> { name: 'Dani', age: 30 }
+En el código estamos modificando el objeto persona añadiendo la propiedad age con el valor 30.
+
+# Eliminar propiedades de un objeto
+Para eliminar una propiedad de un objeto usamos la palabra reservada delete.
+
+const persona = { name: 'Dani', age: 18 }
+
+delete persona.age
+
+console.log(persona) // -> { name: 'Dani' }
+
+# Transformación a Array e iteración
+El manejo de objetos es uno de los pilares en JavaScript y es crucial conocer cómo podemos iterar o recorrer los mismos. Existen varias formas de hacerlo y en esta clase vamos a revisar algunas de las más comunes: el bucle for...in y los métodos Object.keys(), Object.values() y Object.entries().
+
+Iterando con for...in
+La estructura de control for...in nos permite crear un bucle que itera sobre todas las propiedades enumerables de un objeto, en un orden arbitrario.
+
+const spiderman = {
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense']
+}
+
+for (const property in spiderman) {
+  console.log(`${property}: ${spiderman[property]}`);
+}
+
+// -> name: Spidey
+// -> universe: 42
+// -> powers: web,invisibility,spider-sense
+
+# Transformar un objeto en un array
+A veces queremos transformar un objeto en un array para poder iterar sobre él. Para esto podemos utilizar el método Object.keys(), Object.values() o Object.entries().
+
+Cada uno de estos métodos retorna un array, pero cada uno de ellos contiene elementos diferentes. Vamos a verlos uno por uno.
+
+Iterar con Object.keys()
+El método Object.keys() retorna un array con las propiedades enumerables de un objeto.
+
+const spiderman = {
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense']
+}
+
+const properties = Object.keys(spiderman)
+
+console.log(properties.length) // 3
+
+properties.forEach(property => {
+  console.log(property)
+})
+
+// -> name
+// -> universe
+// -> powers
+Este código hace algo muy similar al anterior, pero utilizando Object.keys() para obtener las propiedades del objeto.
+
+ # terando con Object.values()
+El método Object.values() retorna un array con los valores correspondientes a las propiedades enumerables de un objeto.
+
+const values = Object.values(spiderman)
+
+values.forEach(value => {
+  console.log(value)
+})
+
+// -> Spidey
+// -> 42
+// -> [ 'web', 'invisibility', 'spider-sense' ]
+Como ves, la diferencia con Object.values() es que este método retorna los valores y Object.keys() retorna las propiedades.
+
+# Iterando con Object.entries()
+El método Object.entries() retorna un array de arrays, donde cada subarray es un par [propiedad, valor] correspondiente a las propiedades enumerables de un objeto.
+
+const entries = Object.entries(spiderman)
+
+entries.forEach(entry => {
+  console.log(entry)
+})
+
+// -> [ 'name', 'Spidey' ]
+// -> [ 'universe', 42 ]
+// -> [ 'powers', [ 'web', 'invisibility', 'spider-sense' ] ]
+Lo interesante es que este método nos da acceso tanto a las propiedades como a los valores. Lo puedes ver más claro en el siguiente ejemplo:
+
+const entries = Object.entries(spiderman)
+
+entries.forEach(entry => {
+  const property = entry[0]
+  const value = entry[1]
+
+  console.log(`${property}: ${value}`)
+})
+
+# Métodos en tipos primitivos
+Una de las características más interesantes de JavaScript es que nos permite trabajar con tipos de datos primitivos como si fueran objetos. Los primitivos también ofrecen métodos que podemos llamar. Los estudiaremos pronto, pero primero veamos cómo trabajan porque, por supuesto, los primitivos no son objetos.
+
+# ¿Qué son los tipos primitivos?
+En JavaScript, un primitive (valor primitivo, tipo de dato primitivo) son datos que no son un objeto y no tienen métodos. Hay 7 tipos de datos primitivos:
+
+string - cadenas de texto
+number - números
+bigint - números enteros grandes
+boolean - verdadero o falso
+undefined - valor indefinido
+symbol - símbolos como identificador único
+null - valor nulo
+Nota
+# null es un caso especial. Su typeof es object por un bug histórico. Además, es el valor del que deriva cualquier object.
+
+// Estos son todos tipos primitivos
+let texto = 'Hola mundo'
+let numero = 42
+let grande = 123n
+let verdadero = true
+let indefinido = undefined
+let simbolo = Symbol('id')
+let nulo = null
+
+# La paradoja: ¿Cómo pueden los primitivos tener métodos?
+Aquí viene lo interesante. Si los primitivos no son objetos y no tienen métodos, ¿cómo es posible que podamos hacer esto?
+
+let texto = 'JavaScript'
+console.log(texto.length) // 10
+console.log(texto.toUpperCase()) // "JAVASCRIPT"
+¡Estamos llamando propiedades y métodos en un tipo primitivo! ¿Cómo es esto posible?
+
+Object Wrappers: La magia detrás de escena
+La respuesta está en los Object Wrappers (objetos envolventes). Cuando intentas acceder a un método o propiedad de un primitivo, JavaScript automáticamente:
+
+# Crea temporalmente un objeto wrapper alrededor del valor primitivo
+Ejecuta el método en ese objeto
+Destruye el objeto wrapper inmediatamente después
+let texto = 'JavaScript'
+
+// Cuando escribes texto.toUpperCase(), JavaScript hace esto internamente:
+// 1. Crea: new String("JavaScript")
+// 2. Llama al método: new String("JavaScript").toUpperCase()
+// 3. Devuelve el resultado: "JAVASCRIPT"
+// 4. Destruye el objeto temporal
+
+# String
+El tipo string es uno de los tipos primitivos más utilizados en JavaScript. Representa una secuencia de caracteres y es fundamental para trabajar con texto en nuestras aplicaciones.
+
+# Creación de strings
+Hay varias formas de crear strings en JavaScript:
+
+# String literals (la forma más común)
+// Comillas simples
+let nombre = 'Miguel'
+
+// Comillas dobles
+let apellido = "Ángel"
+Nota
+# ¿Cuándo usar comillas simples y dobles? No hay una respuesta correcta. La elección depende más de estilo, consistencia y contexto. Eso sí, si vas a usar comillas simples dentro de la cadena, deberías usar comillas dobles para el string y viceversa; así evitarás conflictos.
+
+# Template literals - La forma moderna
+Hay otra forma moderna de crear cadenas de texto: los template literals. Son especialmente útiles para interpolar variables y strings multilínea.
+
+let nombre = 'Ana'
+let edad = 25
+
+// Interpolación de variables
+let presentacion = `Me llamo ${nombre} y tengo ${edad} años`
+
+// Strings multilínea
+let poema = `
+  Roses are red,
+  Violets are blue,
+  JavaScript is awesome,
+  And so are you!
+`
+
+// Expresiones dentro de template literals
+let calculo = `El resultado de 5 + 3 es: ${5 + 3}`
+
+# Las propiedades y métodos de los strings
+Como todos los tipos primitivos, los strings también tienen propiedades y métodos.
+
+La propiedad length
+Nos devuelve la longitud de la cadena de texto.
+
+let texto = 'JavaScript'
+console.log(texto.length) // 10
+
+let vacio = ''
+console.log(vacio.length) // 0
+
+let espacios = '   '
+console.log(espacios.length) // 3
+Métodos de búsqueda
+# Una de las cosas más importantes que haremos con nuestras cadenas de texto es buscar dentro de ellas. Para ello, tenemos varios métodos que nos permiten hacerlo.
+
+const frase = 'JavaScript es genial y JavaScript es potente'
+
+// indexOf - encuentra la primera ocurrencia
+console.log(frase.indexOf('JavaScript')) // 0
+// -> significa que encontró la primera ocurrencia de 'JavaScript'
+//    en la posición 0
+
+console.log(frase.indexOf('a')) // 1
+// -> significa que encontró la primera ocurrencia de 'a'
+//    en la posición 1
+
+console.log(frase.indexOf('Python')) // -1 (no encontrado)
+// -> cuando no encuentra la cadena de texto, devuelve -1
+
+// lastIndexOf - encuentra la última ocurrencia
+console.log(frase.lastIndexOf('JavaScript')) // 23
+// -> significa que encontró la última ocurrencia de 'JavaScript'
+//    en la posición 23 de la cadena
+
+// includes - verifica si contiene un substring
+console.log(frase.includes('genial')) // true
+console.log(frase.includes('Python')) // false
+
+// startsWith y endsWith
+console.log(frase.startsWith('JavaScript')) // true
+console.log(frase.endsWith('potente')) // true
+
+console.log(frase.startsWith('Python')) // false
+// -> significa que la cadena de texto NO comienza con 'Python'
+
+# Métodos de extracción
+Otra operación muy común es extraer una parte de la cadena de texto. Para ello, tenemos varios métodos que nos permiten hacerlo. Ten en cuenta que estos métodos no modifican el string original, sino que devuelven siempre un nuevo string.
+
+const texto = 'JavaScript Programming'
+
+// slice - extrae una porción
+console.log(texto.slice(0, 10)) // "JavaScript"
+console.log(texto.slice(11)) // "Programming"
+console.log(texto.slice(-11)) // "Programming" (desde el final)
+
+// substring - similar a slice pero no acepta índices negativos
+console.log(texto.substring(0, 10)) // "JavaScript"
+
+// substr - extrae desde un índice con una longitud específica
+console.log(texto.substr(11, 7)) // "Program"
+
+# Métodos de transformación
+let texto = '  JavaScript Programming  '
+
+// Cambio de caso
+console.log(texto.toLowerCase()) // "  javascript programming  "
+console.log(texto.toUpperCase()) // "  JAVASCRIPT PROGRAMMING  "
+
+// Eliminación de espacios
+console.log(texto.trim()) // "JavaScript Programming"
+console.log(texto.trimStart()) // "JavaScript Programming  "
+console.log(texto.trimEnd()) // "  JavaScript Programming"
+
+// Reemplazo
+let frase = 'Me gusta Python y Python es genial'
+console.log(frase.replace('Python', 'JavaScript'))
+// "Me gusta JavaScript y Python es genial"
+
+// replaceAll - reemplaza todas las ocurrencias
+console.log(frase.replaceAll('Python', 'JavaScript'))
+// "Me gusta JavaScript y JavaScript es genial"
+
+# Métodos de verificación
+let codigo = 'ABC123'
+
+// charAt - obtiene el carácter en una posición
+console.log(codigo.charAt(0)) // "A"
+console.log(codigo.charAt(3)) // "1"
+
+// charCodeAt - obtiene el código Unicode
+console.log(codigo.charCodeAt(0)) // 65 (código de 'A')
+
+// match - busca coincidencias con expresiones regulares
+let email = 'usuario@example.com'
+let resultado = email.match(/@(.+)\./)
+console.log(resultado[1]) // "example"
+
+# Comparación de strings
+Como todos los tipos primitivos, los strings se pueden comparar usando los operadores de comparación.
+
+// Comparación exacta
+console.log('JavaScript' === 'JavaScript') // true (iguales)
+console.log('JavaScript' === 'javascript') // false (diferencias entre mayúsculas y minúsculas)
+
+// Comparación sin distinguir mayúsculas/minúsculas
+let a = 'JavaScript'
+let b = 'javascript'
+console.log(a.toLowerCase() === b.toLowerCase()) // true
+
+// Mirar si dos cadenas de texto son diferentes
+console.log('JavaScript' !== 'Python') // true
+console.log('JavaScript' !== 'javascript') // true (diferencias entre mayúsculas y minúsculas)
+console.log('JavaScript' !== 'JavaScript') // false (iguales)
+
+// Orden lexicográfico
+console.log('apple' < 'banana') // true
+console.log('Apple' < 'apple') // true (mayúsculas van antes)
+
+# Caracteres especiales en cadenas de texto
+Dentro de las cadenas de texto hay algunos caracteres especiales que pueden cambiar el comportamiento de la cadena de texto y algunos no son visibles en el resultado final pero son igual de importantes. Además, hay otros, que por su naturaleza pueden causar errores de sintaxis si no se usan correctamente.
+
+# Cómo usar comillas dentro de cadenas de texto
+Como hemos explicado antes, al crear una cadena de texto, podemos usar comillas simples o dobles. Pero, ¿qué pasa si queremos usar comillas dentro de la cadena de texto? Una cosa que podemos hacer es usar comillas simples dentro de una cadena de texto que use comillas dobles y viceversa.
+
+// Comillas dentro de strings
+let comillas = 'Él dijo: "Hola mundo"'
+let comillasSimplesEnDobles = "It's a beautiful day"
+let comillasDobles = 'Él dijo: "Hola mundo"'
+Además, si usamos template literals, podemos usar comillas simples o dobles dentro de la cadena de texto sin ningún problema.
+
+# Template literals
+let comillas = `Él dijo: "Hola mundo"`
+let comillasSimplesEnDobles = `It's a beautiful day`
+let comillasDobles = `Él dijo: "Hola mundo"`
+Caracteres de escape
+Pero qué pasa si no queremos usar template literals y tenemos tanto comillas simples como dobles en una misma cadena de texto. Pero existe otra forma de usar comillas dentro de cadenas de texto y es usando el carácter de escape \:
+
+# Caracteres de escape
+let comillas = "Él dijo: \"Hola mundo\""
+let comillasSimples = 'It\'s a beautiful day'
+
+console.log(comillas) // "Él dijo: "Hola mundo""
+console.log(comillasSimples) // "It's a beautiful day"
+Lo que hace el carácter de escape es que el carácter que sigue a él se interpreta como un carácter normal y no como cierre de la cadena de texto. Ahora, ¿qué pasa si en realidad queremos usar una barra invertida en una cadena de texto? Entonces, podemos usar dos barras invertidas.
+
+# Caracteres especiales
+let barra = 'C:\\Users\\Documents'
+console.log(barra) // "C:\Users\Documents"
+Tabuladores y nuevas líneas
+Los tabuladores y las nuevas líneas se pueden representar con el carácter de escape \t y \n respectivamente.
+
+// Tabuladores y nuevas líneas
+const tabulador = "Hola\t\tMundo"
+const nuevaLinea = 'Hola\nMundo'
+
+console.log(tabulador)
+// 'Hola		Mundo'
+
+console.log(nuevaLinea)
+// 'Hola
+// Mundo'
+
+# Otra forma de representar esto es usando template literals. También ahí puedes usar \t y \n para representar tabuladores y nuevas líneas, pero no es necesario ya que puedes crear cadenas de texto multilínea de forma más sencilla.
+
+const mensaje = `Hola
+Mundo`
+
+console.log(mensaje)
+// 'Hola
+// Mundo'
+
+# Conversión a string
+Muchas veces vas a tener que convertir un tipo de dato a string. Por ejemplo, cuando quieres mostrar un número en un elemento HTML. Para ello, podemos usar el constructor String() o el método toString() de la propia cadena de texto.
+
+# Conversión explícita
+let numero = 42
+let numeroTexto = String(numero) // "42"
+let numeroTexto2 = numero.toString() // "42"
+También al hacer algunas operaciones con strings, JavaScript intentará convertir el resultado a string, haciendo una conversión implícita para ser capaz de hacer la operación. Por ejemplo al usar el operador + para concatenar strings o al evaluar una plantilla de cadena de texto.
+
+# Conversión implícita
+let resultado = 'El número es: ' + 42 // "El número es: 42"
+let template = `El número es: ${42}` // "El número es: 42"
+
+# Formateo de texto
+function formatearNombre(nombre) {
+  return nombre
+    .trim()
+    .toLowerCase()
+    .split(' ')
+    .map((palabra) => palabra.charAt(0).toUpperCase() + palabra.slice(1))
+    .join(' ')
+}
+
+console.log(formatearNombre('  MIGUEL ANGEL  ')) // "Miguel Angel"
+Procesamiento de datos
+# Limpiar y procesar datos CSV
+let csvData = 'nombre,edad,ciudad\nJuan,25,Madrid\nAna,30,Barcelona'
+let lineas = csvData.split('\n')
+let headers = lineas[0].split(',')
+let datos = lineas.slice(1).map((linea) => linea.split(','))
+
+console.log(headers) // ["nombre", "edad", "ciudad"]
+console.log(datos) // [["Juan", "25", "Madrid"], ["Ana", "30", "Barcelona"]]
+
+# Para terminar con los strings...
+Los strings en JavaScript son un tipo de dato que representa una secuencia de caracteres. Son muy útiles para representar texto y son muy fáciles de manipular. Algunas de sus características son:
+
+Inmutables: Una vez creados, no se pueden modificar, sólo crear nuevos
+Versátiles: Múltiples formas de crearlos y manipularlos
+Ricos en métodos: Gran cantidad de métodos útiles para búsqueda, transformación y manipulación
+Unicode: Soporte completo para caracteres especiales y emojis
+Dominar el trabajo con strings es fundamental para cualquier desarrollador JavaScript, ya que la manipulación de texto es una tarea muy común en el desarrollo web.
+
+# Number
+El tipo number en JavaScript representa tanto números enteros como decimales. A diferencia de otros lenguajes que tienen tipos separados para enteros y flotantes, JavaScript unifica todo en un solo tipo number.
+
+Características del tipo Number
+JavaScript usa el estándar IEEE 754 para representar números, lo que significa:
+
+64 bits de precisión (double precision)
+Rango aproximado: ±1.7976931348623157 × 10^308
+15-17 dígitos de precisión decimal
+Incluye valores especiales: Infinity, -Infinity y NaN
+
+# Todos estos son tipo 'number'
+let entero = 42
+let decimal = 3.14159
+let negativo = -17
+let exponencial = 1.5e10 // 15000000000
+let hexadecimal = 0xff // 255
+let binario = 0b1010 // 10
+let octal = 0o777 // 511
+
+console.log(typeof entero) // "number"
+console.log(typeof decimal) // "number"
+Creación de números
+
+# Para crear un número en JavaScript... sólo tienes que escribirlo. Lo interesante es que además podemos directamente usar diferentes notaciones, como hemos visto antes, para crear números binarios, hexadecimales, octales y demás.
+
+# Literals numéricos (la forma más común)
+// Enteros
+let edad = 25
+let temperatura = -5
+
+// Decimales
+let precio = 19.99
+let pi = 3.14159
+
+// Notación científica
+let distancia = 1.5e8 // 150,000,000
+let pequeño = 2.5e-4 // 0.00025
+
+// Diferentes bases
+let hexColor = 0xff0000 // 16777216 (rojo en hex)
+let binario = 0b11111111 // 255
+let octal = 0o377 // 255 (base 8)
+
+# Constructor Number()
+Si necesitas crear un número a partir de otro tipo de dato, como string, o desde una variable, puedes usar el constructor Number(). ¡Fíjate que no usamos new al llamarlo! Esto es un detalle importante.
+
+// Crear primitivo
+let numero = Number('42') // 42
+let decimal = Number('3.14') // 3.14
+
+let string = '42'
+let desdeString = Number(string) // 42
+console.log(typeof desdeString) // "number"
+
+# NO hagas esto, ya que con new creas un objeto
+let numeroObjeto = new Number(42)
+console.log(typeof numeroObjeto) // "object"
+
+# Conversión desde otros tipos
+Por la naturaleza de JavaScript, vas a poder pasarle casi cualquier cosa a Number() e intentará hacer su mejor esfuerzo para convertirlo a número. Ten en cuenta que en algunos casos, el resultado te puede sorprender:
+
+// Desde booleanos
+let desde_true = Number(true) // 1
+let desde_false = Number(false) // 0
+
+# Casos especiales
+let desde_null = Number(null) // 0
+let desde_undefined = Number(undefined) // NaN
+let desde_string_vacia = Number('') // 0
+let desde_string_invalida = Number('abc') // NaN
+Valores especiales
+Hay unas constantes en el objeto Number que representan valores especiales. Además, también hay algunos valores que no se pueden representar con números, como el infinito, el negativo infinito y el NaN.
+
+# Además, Number tiene algunos métodos que te ayudarán a verificarlos.
+
+Infinity y -Infinity
+// Infinity
+console.log(1 / 0) // Infinity
+console.log(Number.POSITIVE_INFINITY) // Infinity
+console.log(Math.pow(10, 1000)) // Infinity
+
+// -Infinity
+console.log(-1 / 0) // -Infinity
+console.log(Number.NEGATIVE_INFINITY) // -Infinity
+
+// Verificar si es infinito
+console.log(Number.isFinite(42)) // true
+console.log(Number.isFinite(Infinity)) // false
+console.log(isFinite(42)) // true (función global)
+NaN (Not a Number)
+NaN es un valor especial que representa un resultado de una operación matemática que no es un número, de ahí su nombre: Not A Number (no es un número).
+
+# Ten en cuenta que NaN es un valor de tipo number. Sí, sé que suena contradictorio. Pero no es un problema de JavaScript, como mucha gente piensa. En realidad es parte de la especificación del estándar IEEE 754 que así lo determina.
+
+// Operaciones que resultan en NaN
+console.log(0 / 0) // NaN
+console.log(Math.sqrt(-1)) // NaN
+console.log(Number('texto')) // NaN
+console.log(undefined + 1) // NaN
+Además, NaN es el único valor en JavaScript que no es igual a sí mismo. Esto tampoco es un error del lenguaje, también es parte de la especificación del estándar IEEE 754.
+
+// NaN es especial: no es igual a sí mismo
+console.log(NaN === NaN) // false
+console.log(NaN == NaN) // false
+# Además, Number tiene algunos métodos que te ayudarán a verificarlos. Existen dos métodos para hacerlo isNaN() y Number.isNaN(). ¿Cuál es la diferencia entre ambos y por qué hay dos?
+
+isNaN(): Convierte el valor a número primero y luego verifica si es NaN.
+Number.isNaN(): No convierte el valor a número, solo verifica si ya es NaN.
+console.log(isNaN('texto')) // true (convierte a número primero)
+console.log(Number.isNaN('texto')) // false
+
+# Propiedades estáticas importantes
+Como hemos dicho, Number tiene algunas propiedades estáticas que te pueden ser útiles para tener acceso a algunos valores especiales:
+
+# Valores límite
+console.log(Number.MAX_VALUE) // 1.7976931348623157e+308
+console.log(Number.MIN_VALUE) // 5e-324 (más pequeño positivo)
+console.log(Number.MAX_SAFE_INTEGER) // 9007199254740991
+console.log(Number.MIN_SAFE_INTEGER) // -9007199254740991
+
+# Constantes especiales
+console.log(Number.POSITIVE_INFINITY) // Infinity
+console.log(Number.NEGATIVE_INFINITY) // -Infinity
+console.log(Number.NaN) // NaN
+
+# Epsilon (diferencia mínima entre números)
+console.log(Number.EPSILON) // 2.220446049250313e-16
+Métodos de Number
+Una vez tenemos un número
+
+Métodos de conversión
+let numero = 123.456789
+
+# toString - convierte a string
+console.log(numero.toString()) // "123.456789"
+console.log(numero.toString(2)) // "1111011.0111010..." (binario)
+console.log(numero.toString(16)) // "7b.74bc6a7ef9db2" (hexadecimal)
+
+# toFixed - fija decimales
+console.log(numero.toFixed(2)) // "123.46"
+console.log(numero.toFixed(0)) // "123"
+
+# toPrecision - fija dígitos significativos
+console.log(numero.toPrecision(4)) // "123.5"
+console.log(numero.toPrecision(2)) // "1.2e+2"
+
+# toExponential - notación científica
+console.log(numero.toExponential()) // "1.23456789e+2"
+console.log(numero.toExponential(2)) // "1.23e+2"
+Métodos estáticos de verificación
+
+# isInteger - verifica si es entero
+console.log(Number.isInteger(42)) // true
+console.log(Number.isInteger(42.0)) // true
+console.log(Number.isInteger(42.1)) // false
+
+# isSafeInteger - verifica si está en rango seguro
+console.log(Number.isSafeInteger(123)) // true
+console.log(Number.isSafeInteger(Math.pow(2, 53))) // false
+
+# isFinite - verifica si es finito
+console.log(Number.isFinite(42)) // true
+console.log(Number.isFinite(Infinity)) // false
+
+# isNaN - verifica si es NaN
+console.log(Number.isNaN(NaN)) // true
+console.log(Number.isNaN('texto')) // false
+Métodos de parsing
+
+# parseInt - convierte a entero
+console.log(Number.parseInt('42')) // 42
+console.log(Number.parseInt('42.7')) // 42
+console.log(Number.parseInt('42px')) // 42
+console.log(Number.parseInt('px42')) // NaN
+
+# Con base específica
+console.log(Number.parseInt('FF', 16)) // 255
+console.log(Number.parseInt('1010', 2)) // 10
+
+# parseFloat - convierte a decimal
+console.log(Number.parseFloat('42.7')) // 42.7
+console.log(Number.parseFloat('42.7px')) // 42.7
+console.log(Number.parseFloat('px42.7')) // NaN
+Operaciones matemáticas básicas
+let a = 10
+let b = 3
+
+# Operadores básicos
+console.log(a + b) // 13 (suma)
+console.log(a - b) // 7 (resta)
+console.log(a * b) // 30 (multiplicación)
+console.log(a / b) // 3.3333333333333335 (división)
+console.log(a % b) // 1 (módulo/resto)
+console.log(a ** b) // 1000 (exponenciación)
+
+# Operadores de incremento/decremento
+let contador = 5
+console.log(++contador) // 6 (pre-incremento)
+console.log(contador++) // 6 (post-incremento, luego contador = 7)
+console.log(--contador) // 6 (pre-decremento)
+console.log(contador--) // 6 (post-decremento, luego contador = 5)
+Precisión y problemas comunes
+Sobre los problemas de precisión decimal
+Como hemos visto, los números en JavaScript no son perfectos. Hay algunos problemas de precisión que debemos tener en cuenta.
+
+Problema clásico de punto flotante
+Este problema es muy conocido. Mucha gente, de forma erronea, cree que es algo específico de JavaScript. En realidad es algo que afecta a muchos lenguajes de programación.
+
+// Problema clásico de punto flotante
+console.log(0.1 + 0.2) // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3) // false
+Esto ocurre porque los números en JavaScript se representan en formato binario de punto flotante, lo que puede causar errores de precisión a la hora de hacer operaciones.
+
+# Límites de enteros seguros
+En JavaScript hay un límite de enteros seguros. Este límite es el número 2^53 - 1.
+ Si intentas hacer operaciones con números más grandes que este límite, podrías perder precisión. 
+ Para saber cuál es el número más grande que se puede representar con precisión, puedes usar la propiedad Number.MAX_SAFE_INTEGER.
+
+// Enteros seguros
+console.log(Number.MAX_SAFE_INTEGER) // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER + 1) // 9007199254740992
+console.log(Number.MAX_SAFE_INTEGER + 2) // 9007199254740992 (¡es igual!)
+Como ves en el código anterior, una vez que llegamos al límite de enteros seguros, cualquier operación que hagamos 
+con ellos nos dará resultados inesperados así que ten cuidado.
+
+# Funciones constructoras e instancias
+
+# Qué son las funciones constructoras?
+Las funciones constructoras son funciones especiales que se usan para crear múltiples objetos con la misma estructura. Se llaman con la palabra clave new y crean instancias (copias) del objeto.
+
+Nota
+Analogía: Una función constructora es como un molde para hacer galletas. El molde define la forma, y cada galleta que haces es una instancia única pero con la misma estructura.
+
+# Función constructora (se escribe con mayúscula por convención)
+function Persona(nombre, edad) {
+  this.nombre = nombre
+  this.edad = edad
+}
+
+#  Creamos instancias
+const ana = new Persona('Ana', 25)
+const carlos = new Persona('Carlos', 30)
+
+console.log(ana.nombre) // "Ana"
+console.log(carlos.nombre) // "Carlos"
+console.log(ana.edad) // 25
+console.log(carlos.edad) // 30
+
+# ¿Qué hace la palabra new?
+Cuando usas new con una función constructora, JavaScript hace 4 cosas automáticamente:
+
+function Persona(nombre) {
+  // 1. Crea un objeto vacío: this = {}
+  // 2. Establece el prototipo: this.__proto__ = Persona.prototype
+  this.nombre = nombre
+  // 3. Ejecuta el código de la función
+  // 4. Retorna this automáticamente
+}
+
+const ana = new Persona('Ana')
+
+# La propiedad prototype
+Todas las funciones constructoras tienen una propiedad especial llamada prototype. 
+Aquí es donde ponemos los métodos que queremos que compartan todas las instancias.
+
+function Coche(marca, modelo) {
+  this.marca = marca
+  this.modelo = modelo
+}
+
+# Añadimos métodos al prototype
+Coche.prototype.acelerar = function () {
+  console.log(`${this.marca} ${this.modelo} está acelerando`)
+}
+
+Coche.prototype.frenar = function () {
+  console.log(`${this.marca} ${this.modelo} está frenando`)
+}
+
+# Creamos instancias
+const coche1 = new Coche('Toyota', 'Corolla')
+const coche2 = new Coche('Honda', 'Civic')
+
+# Ambos pueden usar los métodos del prototype
+coche1.acelerar() // "Toyota Corolla está acelerando"
+coche2.frenar() // "Honda Civic está frenando"
+prototype vs __proto__
+¿Qué diferencia hay entre prototype y __proto__? ¡Es muy importante y uno de los errores más comunes en JavaScript!
+
+prototype (solo en funciones constructoras)
+Es una propiedad de las funciones constructoras
+Nos ayuda a definir qué métodos tendrán las instancias
+__proto__ (en todos los objetos)
+Es una propiedad de las instancias
+Apunta al prototype de la función constructora
+function Animal(nombre) {
+  this.nombre = nombre
+}
+
+Animal.prototype.dormir = function () {
+  console.log(`${this.nombre} está durmiendo`)
+}
+
+const perro = new Animal('Rex')
+
+// prototype vs __proto__
+console.log(Animal.prototype) // "object"
+console.log(perro.__proto__) // "object"
+
+# Ambos apuntan al mismo prototipo
+console.log(Animal.prototype === perro.__proto__) // true
+
+# Propiedades vs Métodos
+Buena práctica: Las propiedades específicas van en la función constructora, los métodos compartidos van en el prototype.
+
+function Persona(nombre, edad) {
+  // Propiedades específicas de cada instancia
+  this.nombre = nombre
+  this.edad = edad
+}
+
+# Métodos compartidos en el prototype
+Persona.prototype.saludar = function () {
+  console.log(`Hola, soy ${this.nombre}`)
+}
+
+Persona.prototype.cumplirAnios = function () {
+  this.edad++
+  console.log(`¡Feliz cumpleaños! Ahora tengo ${this.edad} años`)
+}
+
+const ana = new Persona('Ana', 25)
+const carlos = new Persona('Carlos', 30)
+
+ana.saludar() // "Hola, soy Ana"
+carlos.saludar() // "Hola, soy Carlos"
+ana.cumplirAnios() // "¡Feliz cumpleaños! Ahora tengo 26 años"
+¿Por qué usar prototype?
+Eficiencia de memoria
+Sin prototype, cada instancia tendría su propia copia del método:
+
+# Ineficiente - cada instancia tiene su propia función
+function PersonaMala(nombre) {
+  this.nombre = nombre
+  this.saludar = function () {
+    console.log(`Hola, soy ${this.nombre}`)
+  }
+}
+
+# Eficiente - todas las instancias comparten la misma función
+function PersonaBuena(nombre) {
+  this.nombre = nombre
+}
+
+PersonaBuena.prototype.saludar = function () {
+  console.log(`Hola, soy ${this.nombre}`)
+}
+
+# Verificar instancias
+JavaScript nos da herramientas para verificar si un objeto es instancia de una constructor function:
+
+function Vehiculo(tipo) {
+  this.tipo = tipo
+}
+
+const coche = new Vehiculo('automóvil')
+const moto = new Vehiculo('motocicleta')
+
+# instanceof - verifica si un objeto es instancia de una función
+console.log(coche instanceof Vehiculo) // true
+console.log(moto instanceof Vehiculo) // true
+console.log(coche instanceof Array) // false
+
+# constructor - referencia a la función que creó el objeto
+console.log(coche.constructor === Vehiculo) // true
+console.log(moto.constructor === Vehiculo) // true
+Herencia con Constructor Functions
+Puedes crear jerarquías de herencia combinando constructor functions:
+
+# Constructor padre
+function Animal(nombre) {
+  this.nombre = nombre
+}
+
+Animal.prototype.respirar = function () {
+  console.log(`${this.nombre} está respirando`)
+}
+
+# Constructor hijo
+function Perro(nombre, raza) {
+  Animal.call(this, nombre) // Llama al constructor padre
+  this.raza = raza
+}
+
+# Establecemos la herencia
+Perro.prototype = Object.create(Animal.prototype)
+Perro.prototype.constructor = Perro
+
+# Añadimos métodos específicos
+Perro.prototype.ladrar = function () {
+  console.log(`${this.nombre} está ladrando: ¡Guau!`)
+}
+
+const rex = new Perro('Rex', 'Labrador')
+rex.respirar() // "Rex está respirando" (heredado)
+rex.ladrar() // "Rex está ladrando: ¡Guau!" (propio)
+Cadena de prototipos resultante:
+
+rex → Perro.prototype → Animal.prototype → Object.prototype → null
+
+# Clases
+# ¿Qué son las clases?
+Las clases en JavaScript son azúcar sintáctico (syntactic sugar) sobre las funciones constructoras que hemos visto en la clase anterior. No añaden nueva funcionalidad, solo hacen que el código sea más limpio y fácil de leer.
+
+Nota
+# ¿Qué significa azúcar sintáctico? Es una forma más dulce y fácil de escribir algo que ya existía.
+
+Sintaxis de clases vs funciones constructoras
+Funciones constructoras (visto en la clase anterior):
+function Persona(nombre, edad) {
+  this.nombre = nombre
+  this.edad = edad
+}
+
+Persona.prototype.saludar = function () {
+  console.log(`Hola, soy ${this.nombre}`)
+}
+Clases (nueva sintaxis):
+class Persona {
+  constructor(nombre, edad) {
+    this.nombre = nombre
+    this.edad = edad
+  }
+
+  saludar() {
+    console.log(`Hola, soy ${this.nombre}`)
+  }
+}
+# Ambos ejemplos hacen exactamente lo mismo. El resultado es idéntico, pero la sintaxis de las clases es más clara y fácil de leer.
+
+El constructor
+El constructor es un método especial que se ejecuta automáticamente cada vez que se crea una nueva instancia de la clase. Recibe los parámetros que se pasan al crear la instancia y se encarga de inicializar el objeto.
+
+class Persona {
+  constructor(nombre, edad) {
+    this.nombre = nombre
+    this.edad = edad
+    console.log(`-> Nueva persona: ${nombre} de ${edad} años`)
+  }
+}
+
+const ana = new Persona('Ana', 25)
+// -> Nueva persona: Ana de 25 años
+
+const carlos = new Persona('Carlos', 30)
+// -> Nueva persona: Carlos de 30 años
+
+# Propiedades y métodos estáticos
+A veces, queremos que cierta información o métodos, puedan ser accesibles sin necesidad de crear una instancia de la clase. 
+Para ello, usamos la palabra clave static. Al hacer esto, la propiedad o método estático se asocia a la clase, no a las instancias. Y no necesitamos crear una instancia de la clase para acceder a ellos.
+
+class Matematicas {
+  static PI = 3.14159
+
+  static sumar(a, b) {
+    return a + b
+  }
+
+  static calcularArea(radio) {
+    return this.PI * radio * radio
+  }
+
+  static esPar(numero) {
+    return numero % 2 === 0
+  }
+}
+
+# Se llaman en la clase, no en instancias
+console.log(Matematicas.sumar(5, 3)) // 8
+console.log(Matematicas.calcularArea(10)) // 314.159
+console.log(Matematicas.esPar(4)) // true
+
+#  No funcionan en instancias
+const mat = new Matematicas()
+// mat.sumar(1, 2)  // Error: mat.sumar is not a function
+Getters y Setters
+Los getters y setters son métodos especiales que se usan para obtener y establecer el valor de una propiedad. Son muy útiles para controlar el acceso a las propiedades y para añadir lógica a la hora de obtener o establecer un valor, sin necesidad de crear un método para ello.
+
+class Temperatura {
+  constructor(celsius = 0) {
+    this._celsius = celsius // Convención: _ para propiedades "privadas"
+  }
+
+  # Getter - se usa como propiedad
+  get fahrenheit() {
+    return (this._celsius * 9) / 5 + 32
+  }
+
+  # Setter - se usa como asignación
+  set fahrenheit(valor) {
+    this._celsius = ((valor - 32) * 5) / 9
+  }
+
+  get celsius() {
+    return this._celsius
+  }
+
+  set celsius(valor) {
+    if (valor < -273.15) {
+      throw new Error('Temperatura no puede ser menor a -273.15°C')
+    }
+    this._celsius = valor
+  }
+}
+
+const temp = new Temperatura(25)
+
+# usando los getters, fíjate que no usamos paréntesis
+console.log(temp.celsius) // 25
+console.log(temp.fahrenheit) // 77
+
+# usando los setters, como si fuera una asignación
+temp.fahrenheit = 100 // Usando el setter
+console.log(temp.celsius) // 37.777...
+
+# los setters ejecutan la lógica que hay dentro de ellos
+temp.celsius = -300 // Error: Temperatura no puede ser menor a -273.15°C
+
+# Propiedades y métodos privados
+Podemos tener propiedades y métodos privados en las clases. Esto significa que no se pueden acceder ni modificar desde fuera de la clase. Para crearlos, usamos el símbolo # delante del nombre de la propiedad o método.
+
+class CuentaBancaria {
+  #saldo = 0 // Propiedad privada
+  #numeroCuenta // Propiedad privada
+
+  constructor(numeroCuenta, saldoInicial = 0) {
+    this.#numeroCuenta = numeroCuenta
+    this.#saldo = saldoInicial
+  }
+
+  # Método privado
+  #validarOperacion(cantidad) {
+    return cantidad > 0 && cantidad <= this.#saldo
+  }
+
+  depositar(cantidad) {
+    if (cantidad > 0) {
+      this.#saldo += cantidad
+      console.log(`Depositado: $${cantidad}`)
+    }
+  }
+
+  retirar(cantidad) {
+
+  # aquí sí podemos acceder a los métodos y propiedades privados
+    if (this.#validarOperacion(cantidad)) {
+      this.#saldo -= cantidad
+      console.log(`Retirado: $${cantidad}`)
+    } else {
+      console.log('Operación no válida')
+    }
+  }
+
+  get saldo() {
+    return this.#saldo
+  }
+}
+
+const cuenta = new CuentaBancaria('123456', 1000)
+cuenta.depositar(500)
+console.log(cuenta.saldo) // 1500
+
+// No podemos acceder directamente a propiedades privadas
+// console.log(cuenta.#saldo)     // SyntaxError
+// cuenta.#validarOperacion(100)  // SyntaxError
+¿Cuándo usar clases?
+Usa clases cuando:
+
+# Necesites herencia (mucho más simple)
+# Vengas de otros lenguajes orientados a objetos
+# Quieras sintaxis moderna y limpia
+Las funciones constructoras siguen siendo válidas aunque menos recomnedadas:
+
+# Si necesitas compatibilidad con código antiguo
+# Casos muy específicos donde necesites control total
+
+# Para que quede claro...
+Las clases ES6 son azúcar sintáctico que hace más fácil trabajar con:
+
+# Métodos estáticos con static
+# Propiedades privadas con #
+# Getters y setters más claros
+# Herencia (que veremos en la siguiente clase)
+Lo importante: Por debajo siguen siendo constructor functions y prototipos. 
+JavaScript no cambió, solo la forma de escribirlo.
+
+¿Usar clases o constructor functions? Las clases son generalmente preferibles por su sintaxis más clara. 
+Las constructor functions siguen siendo válidas para compatibilidad o casos específicos.
+
+Las clases hacen que JavaScript sea más familiar para desarrolladores de otros lenguajes, 
+sin perder la flexibilidad de los prototipos. 🎉
+
+# Herencia en Clases
+Las clases en JavaScript permiten heredar propiedades y métodos de una clase padre. A este proceso se le llama herencia. Es posible que todo esto te suene familiar, porque ya lo has visto en la clase anterior cómo conseguirlo con los prototipos, pero ahora veremos cómo lograrlo con clases.
+
+extends
+La principal ventaja de las clases es que simplifican enormemente la herencia de objetos gracias a la palabra clave extends. Vamos a crear una clase Animal, que será la clase padre, y una clase Perro, que será la clase que herede de Animal.
+
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre
+  }
+
+  dormir() {
+    console.log(`${this.nombre} está durmiendo`)
+  }
+}
+
+class Perro extends Animal {
+  constructor(nombre, raza) {
+    super(nombre) // Llama al constructor del padre
+    this.raza = raza
+  }
+
+  ladrar() {
+    console.log(`${this.nombre} dice: ¡Guau!`)
+  }
+}
+
+const rex = new Perro('Rex', 'Labrador')
+rex.dormir() // "Rex está durmiendo" (heredado)
+rex.ladrar() // "Rex dice: ¡Guau!" (propio)
+
+# De esta forma, la clase Perro hereda el método dormir de la clase Animal y añade el método ladrar.
+
+#  Herencia con extends y super
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre
+  }
+  dormir() { … }
+}
+class Perro extends Animal {
+  constructor(nombre, raza) {
+    super(nombre)
+    this.raza = raza
+  }
+  ladrar() { … }
+}
+const rex = new Perro('Rex', 'Labrador')
+
+# La palabra clave super
+Como hemos visto en el ejemplo anterior, hay una palabra super en el método constructor de la clase Perro. 
+Esta función se usa para llamar al constructor de la clase padre y también nos permite acceder a los métodos y propiedades de la clase padre.
+
+class Vehiculo {
+  acelerar() {
+    console.log('Acelerando...')
+  }
+}
+
+class Moto extends Vehiculo {
+  acelerar() {
+    super.acelerar() // Llama al método del padre
+    console.log('¡Haciendo caballito!') // Añade funcionalidad
+  }
+}
+
+const moto = new Moto()
+moto.acelerar()
+// "Acelerando..."
+// "¡Haciendo caballito!"
+
+
+# Veamos un ejemplo más completo de herecia que muestra cómo funciona la herencia en la práctica.
+# Tenemos una clase Empleado, que será la clase padre, y las clases Programador y Manager, que serán las clases que hereden de Empleado. Normalmente las clases hijas suelen tener métodos y propiedades propias y más específicos.
+
+class Empleado {
+  constructor(nombre, salario) {
+    this.nombre = nombre
+    this.salario = salario
+  }
+
+  trabajar() {
+    console.log(`${this.nombre} está trabajando`)
+  }
+
+  cobrar() {
+    console.log(`${this.nombre} cobra ${this.salario}€`)
+  }
+}
+
+class Programador extends Empleado {
+  constructor(nombre, salario, lenguaje) {
+    super(nombre, salario) // Llama al constructor padre
+    this.lenguaje = lenguaje
+  }
+
+  // Sobrescribe el método del padre
+  trabajar() {
+    super.trabajar() // Llama al método padre
+    console.log(`Programando en ${this.lenguaje}`)
+  }
+
+  // Método propio
+  programar() {
+    console.log(`${this.nombre} está programando en ${this.lenguaje}`)
+  }
+}
+
+class Manager extends Empleado {
+  constructor(nombre, salario, equipo) {
+    super(nombre, salario)
+    this.equipo = equipo
+  }
+
+  trabajar() {
+    super.trabajar()
+    console.log(`Gestionando un equipo de ${this.equipo.length} personas`)
+  }
+
+  dirigir() {
+    console.log(`${this.nombre} está dirigiendo el equipo`)
+  }
+}
+
+const dev = new Programador('Ana', 45000, 'JavaScript')
+const jefe = new Manager('Carlos', 60000, ['Ana', 'Luis', 'María'])
+
+dev.trabajar()
+// "Ana está trabajando"
+// "Programando en JavaScript"
+
+jefe.trabajar()
+// "Carlos está trabajando"
+// "Gestionando un equipo de 3 personas"
+
+dev.cobrar() // "Ana cobra 45000€" (heredado)
+jefe.dirigir() // "Carlos está dirigiendo el equipo" (propio)
+
+# Podemos crear cadenas de herencia más complejas donde una clase herede de otra que ya hereda de una tercera:
+
+class SerVivo {
+  constructor(nombre) {
+    this.nombre = nombre
+    this.vivo = true
+  }
+
+  respirar() {
+    console.log(`${this.nombre} está respirando`)
+  }
+}
+
+class Animal extends SerVivo {
+  constructor(nombre, especie) {
+    super(nombre)
+    this.especie = especie
+  }
+
+  moverse() {
+    console.log(`${this.nombre} se está moviendo`)
+  }
+}
+
+class Mamifero extends Animal {
+  constructor(nombre, especie, pelaje) {
+    super(nombre, especie)
+    this.pelaje = pelaje
+  }
+
+  amamantar() {
+    console.log(`${this.nombre} está amamantando`)
+  }
+}
+
+class Gato extends Mamifero {
+  constructor(nombre, raza) {
+    super(nombre, 'Felino', true)
+    this.raza = raza
+  }
+
+  maullar() {
+    console.log(`${this.nombre} dice: ¡Miau!`)
+  }
+}
+
+const michi = new Gato('Michi', 'Persa')
+# Puede usar métodos de todas las clases padre
+michi.respirar()    // De SerVivo
+michi.moverse()     // De Animal
+michi.amamantar()   // De Mamifero
+michi.maullar()     // Propio de Gato
+Ventajas de la herencia con clases
+Comparado con funciones constructoras:
+
+# Sintaxis más clara: extends vs configuración manual de prototipos
+# Super simplificado: super() vs Parent.call(this)
+# Menos propenso a errores: JavaScript maneja la cadena de prototipos automáticamente
+# Más legible: El código expresa claramente las relaciones de herencia
+Lo importante recordar:
+
+# Las clases son azúcar sintáctico sobre prototipos
+La herencia sigue funcionando igual por debajo
+super() debe llamarse antes de usar this en el constructor hijo
+Los métodos se heredan automáticamente a través de la cadena de prototipos
+La herencia con clases hace que JavaScript sea más accesible para desarrolladores de otros lenguajes, manteniendo toda la potencia de los prototipos. 
+
+# Try/Catch
+Los errores son inevitables en la programación. Cuando ocurre un error en JavaScript y no lo controlas, 
+el programa se detiene por completo. A este tipo de error se le llama excepción. Por suerte, JavaScript nos ofrece una forma elegante de manejar estos errores para que nuestras aplicaciones sean más robustas: try/catch.
+
+# ¿Qué son los errores en JavaScript?
+Un error en JavaScript es una situación excepcional que ocurre durante la ejecución del código y que impide que el programa continúe ejecutándose normalmente y se detiene.
+
+console.log("Antes del error")
+console.log(variableQueNoExiste) // ReferenceError: variableQueNoExiste is not defined
+console.log("Después del error") // Esta línea nunca se ejecuta
+# Como puedes ver, cuando ocurre un error, todo el código que viene después se detiene. Esto puede ser problemático en aplicaciones reales.
+
+Nota
+# Existen diferentes tipos de errores en JavaScript, como ReferenceError, TypeError, SyntaxError... Más adelante veremos algunos de ellos al detalle y cómo puedes crear incluso tus propios errores.
+
+# La sintaxis try/catch
+La estructura try/catch nos permite "intentar" ejecutar código que podría fallar y "capturar" cualquier error que ocurra:
+
+try {
+  // Código que podría generar un error
+  console.log("Intentando ejecutar código...")
+  console.log(variableQueNoExiste) // ReferenceError: variableQueNoExiste is not defined
+} catch (error) {
+  // Código que se ejecuta si hay un error
+  console.log("¡Ocurrió un error!", error.message)
+}
+
+console.log("El programa continúa ejecutándose") //  Esta línea sí se ejecuta
+¿Cómo funciona?
+try: JavaScript intenta ejecutar el código dentro del bloque try
+Si no hay errores, el bloque catch se omite
+Si hay un error, JavaScript inmediatamente salta al bloque catch
+El programa continúa después del bloque catch.
+
+# catch sin parámetro
+Desde las últimas versiones de JavaScript, puedes omitir el parámetro error en el bloque catch:
+
+try {
+  console.log(variableQueNoExiste) // ❌ ReferenceError: variableQueNoExiste is not defined
+} catch {
+  console.log("¡Ocurrió un error!")
+}
+
+# ¿Cuándo usar try/catch?
+Usa try/catch cuando:
+
+Trabajas con APIs externas
+Parseas JSON
+Accedes a propiedades que podrían no existir
+Realizas operaciones que pueden fallar por factores externos
+No uses try/catch para:
+
+Controlar el flujo normal de tu programa
+Validaciones simples que puedes hacer con if/else
+Errores que puedes prevenir fácilmente.
+
+# Fetch API
+¡Ha llegado el momento de conectar tu JavaScript con el mundo exterior! 
+La Fetch API es la forma moderna y elegante de hacer peticiones HTTP para comunicarse con servidores, APIs y servicios web.
+
+Fetch es perfecto para este punto del curso porque devuelve Promises, así que podrás aplicar todo lo que acabas de aprender sobre programación asíncrona.
+
+¿Qué es la Fetch API?
+Fetch es una API moderna del navegador que permite hacer peticiones HTTP de forma sencilla y está basado completamente en Promises.
+
+# ¿Para qué sirve Fetch?
+🌐 Comunicarse con APIs REST
+📊 Obtener datos de servidores
+📤 Enviar información al servidor
+📁 Descargar archivos
+🔄 Actualizar contenido dinámicamente
+
+# Sintaxis básica
+Imagínate que fetch es como un mensajero súper eficiente 📬. Le das una dirección (URL) y te trae de vuelta lo que encuentre allí. 
+La magia está en que este mensajero trabaja de forma asíncrona: no te hace esperar parado, sino que te avisa cuando tiene la respuesta lista.
+
+fetch(url, opciones)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error))
+¿Qué está pasando en esta sintaxis?
+
+# fetch(url) - Le decimos al mensajero: "Ve a esta dirección"
+.then(response =>...) - "Cuando vuelvas, dame lo que encontraste"
+.json() - "Y por favor, tradúcelo a un formato que pueda entender"
+.then(data =>...) - "Cuando esté traducido, úsalo"
+.catch(error =>...) - "Si algo sale mal, avísame"
+Es como enviar a alguien a comprar pizza 🍕: le das la dirección de la pizzería, esperas que vuelva con la pizza, 
+y si la pizzería está cerrada o se perdió en el camino, te avisa del problema.
+
+# Tu primera petición con fetch
+¡Momento de la verdad! Vamos a hacer tu primera petición HTTP real a una API.
+
+# Usaremos JSONPlaceholder, que es como un "servidor de mentira" perfecto para practicar. La URL de la API es:
+#  https://jsonplaceholder.typicode.com y dependiendo de la ruta podremos obtener diferentes datos.
+
+En este caso vamos a recuperar los datos del post número 1, por lo que usaremos la ruta https://jsonplaceholder.typicode.com/posts/1.
+
+# fetch('https://jsonplaceholder.typicode.com/posts/1')
+  .then(response => {
+    console.log('✅ Respuesta recibida:', response.status)
+    return response.json() // Convertir a JSON
+  })
+  .then(data => {
+    console.log('📄 Datos obtenidos:')
+    console.log('Título:', data.title)
+    console.log('Contenido:', data.body)
+  })
+  .catch(error => {
+    console.log('❌ Error:', error)
+  })
+  # Analicemos este código línea por línea! 🔍
+
+Línea 1: Le decimos a fetch "Ve a buscar el post número 1"
+Línea 2-5: Cuando regrese, verificamos que todo salió bien (response.status) y le decimos "convierte eso a JSON para que lo pueda leer"
+Línea 6-10: Una vez convertido, mostramos la información de manera bonita
+Línea 11-13: Si algo sale mal en cualquier momento, lo capturamos aquí
+¿Por qué dos .then()? 🤔
+
+# En clases anteriores vimos el concepto de Promise, y como podemos encadenar varias Promises para hacer cosas más complejas. 
+# En este caso, ocurre lo mismo. Primero hacemos la petición, que devuelve una Promise, y luego convertimos la respuesta a JSON, que también devuelve una Promise.
+
+El Objeto Response: Tu Inspector de Paquetes 📋
+Aquí viene algo súper importante: cuando fetch recibe una respuesta del servidor, no te da directamente los datos. En su lugar, te da un objeto Response con toda la información de la respuesta.
+
+Es como cuando recibes un paquete de Amazon: primero inspeccionas el exterior antes de abrirlo.
+
+# ¿Por qué? Porque antes de abrir el paquete, necesitas saber:
+
+¿Llegó bien el paquete? (status)
+¿Está dañado? (ok)
+¿De dónde viene exactamente? (url)
+¿Qué tipo de contenido trae? (headers)
+Además, puedes obtener los datos de la respuesta de diferentes maneras, dependiendo de lo que esperes.
+
+Vamos a ver un ejemplo
+
+# fetch('https://jsonplaceholder.typicode.com/users/1')
+  .then(response => {
+    console.log('📊 Información de la respuesta:')
+    console.log('Estado:', response.status)      // 200, 404, 500, etc.
+    console.log('OK:', response.ok)              // true si status 200-299
+    console.log('URL:', response.url)
+    console.log('Headers:', response.headers)
+    
+    // Verificar si la respuesta es exitosa
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw new Error(`Error HTTP: ${response.status}`)
+    }
+  })
+  .then(user => {
+    console.log('👤 Usuario:', user.name)
+    console.log('📧 Email:', user.email)
+  })
+  .catch(error => {
+    console.log('❌ Error:', error.message)
+  })
+
+# Tipos de Peticiones HTTP
+Imagina que HTTP es como un idioma universal de internet, y cada tipo de petición es como una frase con un propósito específico. 
+Es como tener diferentes formas de hablar con un camarero en un restaurante:
+
+GET: "¿Qué hay en el menú?" (solo quiero leer)
+POST: "Quiero ordenar esto" (crear algo nuevo)
+PUT: "Cambia mi orden completa por esta nueva" (reemplazar todo)
+PATCH: "Solo cambia las papas por ensalada" (modificar una parte)
+DELETE: "Cancela mi orden" (eliminar)
+GET - Obtener Datos
+GET es el método más común. Es como asomarse por la ventana sin tocar nada. Solo observa y trae información, nunca modifica nada en el servidor.
+
+# Obtener lista de usuarios
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(usuarios => {
+    console.log('👥 Usuarios obtenidos:', usuarios.length)
+    usuarios.slice(0, 3).forEach(user => {
+      console.log(`- ${user.name} (${user.email})`)
+    })
+  })
+  .catch(error => {
+    console.log('❌ Error obteniendo usuarios:', error.message)
+  })
+
+# El segundo parámetro de fetch: Configurar la petición
+Antes de continuar con POST, tenemos que aprender sobre el segundo parámetro de fetch, que es el que nos permite configurar la petición.
+
+En él podremos cambiar el método de la petición (que por defecto es GET), enviar cabeceras personalizadas 
+o enviar datos en el cuerpo de la petición para ser procesados por el servidor.
+
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({
+    title: 'Mi primer post con Fetch',
+    body: 'Este es el contenido de mi post creado con JavaScript',
+    userId: 1
+  })
+})
+POST - Enviar Datos
+POST es el método para crear recursos nuevos en el servidor. Es perfecto para:
+
+✅ Crear nuevos usuarios
+✅ Publicar nuevos posts
+✅ Enviar formularios
+✅ Subir archivos
+#  Crear un nuevo post
+function crearPost() {
+  const nuevoPost = {
+    title: 'Mi primer post con Fetch',
+    body: 'Este es el contenido de mi post creado con JavaScript',
+    userId: 1
+  }
+
+  return fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(nuevoPost)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(postCreado => {
+    console.log('✅ Post creado exitosamente:')
+    console.log('ID:', postCreado.id)
+    console.log('Título:', postCreado.title)
+  })
+  .catch(error => {
+    console.log('❌ Error creando post:', error.message)
+  })
+}
+
+# crearPost()
+PUT - Actualizar Completamente
+PUT es el método para reemplazar completamente un recurso existente en el servidor. Es como reformar una casa: derrumbas todo y construyes desde cero.
+
+// Actualizar un post completo
+function actualizarPost(id) {
+  const postActualizado = {
+    id: id,
+    title: 'Post actualizado con PUT',
+    body: 'Este contenido ha sido completamente reemplazado',
+    userId: 1
+  }
+  
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postActualizado)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(postActualizado => {
+    console.log('🔄 Post actualizado:', postActualizado.title)
+  })
+  .catch(error => {
+    console.log('❌ Error actualizando:', error.message)
+  })
+}
+
+# actualizarPost(1)
+PATCH - Actualización parcial
+PATCH es el método "editor selectivo". Es como ser un cirujano que opera solo la parte que necesita arreglo, sin tocar el resto del cuerpo.
+
+PATCH es súper eficiente porque solo envías los datos que quieres cambiar:
+
+// Actualizar solo el título
+function actualizarTitulo(id, nuevoTitulo) {
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: nuevoTitulo
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(resultado => {
+    console.log('📝 Título actualizado:', resultado.title)
+    return resultado
+  })
+  .catch(error => {
+    console.log('❌ Error:', error.message)
+  })
+}
+
+# actualizarTitulo(1, 'Nuevo título con PATCH')
+DELETE - Eliminar el recurso
+DELETE es el método para eliminar un recurso existente en el servidor.
+
+# Eliminar un post
+function eliminarPost(id) {
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: 'DELETE'
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+    
+    // DELETE generalmente no devuelve contenido útil
+    if (response.status === 200) {
+      console.log(`🗑️ Post ${id} eliminado exitosamente`)
+    }
+    
+    return response
+  })
+  .catch(error => {
+    console.log('❌ Error:', error.message)
+  })
+}
+
+# eliminarPost(1)
+Manejo de Errores Avanzado: Conviértete en un Detective de Problemas 🕵️‍♀️
+Aquí viene una de las partes MÁS IMPORTANTES de trabajar con fetch. Los errores van a pasar (es inevitable), 
+pero la diferencia entre un programador principiante y uno experto está en cómo manejas esos errores.
+
+¡Dato curioso! 🤯 Fetch tiene una peculiaridad: NO considera los códigos 4xx y 5xx como errores. 
+Es como un mensajero que te dice "Misión cumplida" aunque la casa esté en llamas. Por eso necesitas ser tú quien verifique si todo salió bien.
+
+Verificación de Estados HTTP: Tu Sistema de Alarmas 🚨
+Los códigos de estado HTTP son como semáforos de internet:
+
+2xx (200-299): 🟢 "¡Todo perfecto!"
+3xx (300-399): 🟡 "Te redirigí a otro lugar"
+4xx (400-499): 🔴 "Tú hiciste algo mal"
+5xx (500-599): 💥 "Yo (el servidor) hice algo mal"
+function peticionConManejorDeErrores(url) {
+  return fetch(url)
+
+    .then(response => {
+  # Fetch NO rechaza la promesa para códigos 4xx o 5xx
+      // Pero si puedes verificar si todo salió bien con response.ok
+      if (!response.ok) {
+        // Manejar diferentes tipos de error
+        switch (response.status) {
+          case 404:
+            throw new Error('🔍 Recurso no encontrado')
+          case 401:
+            throw new Error('🔐 No autorizado')
+          case 403:
+            throw new Error('🚫 Acceso prohibido')
+          case 500:
+            throw new Error('💥 Error interno del servidor')
+          default:
+            throw new Error(`❌ Error HTTP: ${response.status}`)
+        }
+      }
+      
+      return response.json()
+    })
+    .then(data => {
+      console.log('✅ Datos obtenidos:', data)
+      return data
+    })
+    .catch(error => {
+      if (error.name === 'TypeError') {
+        console.log('🌐 Error de conexión:', error.message)
+      } else {
+        console.log('Error:', error.message)
+      }
+    })
+}
+
+# Probar con URL que no existe
+peticionConManejorDeErrores('https://jsonplaceholder.typicode.com/posts/999999')
+
+# ¡Últimas palabras para fetch
+¿Qué es fetch?
+API moderna para hacer peticiones HTTP
+Basada en Promises - perfecta para async/await
+Características Principales
+✅ Sintaxis limpia y moderna
+✅ Compatible con Promises y async/await
+✅ Flexible - soporta todos los métodos HTTP
+✅ Streaming de datos
+✅ Headers personalizables
+Métodos HTTP Comunes
+GET - obtener datos
+POST - crear recursos
+PUT - actualizar completo
+PATCH - actualizar parcial
+DELETE - eliminar recursos
+Puntos Importantes
+⚠️ fetch() NO rechaza para códigos 4xx/5xx
+✅ Siempre verificar response.ok
+✅ Manejar errores apropiadamente
+✅ Usar async/await para código más limpio
+Próximo Paso
+# Ahora que sabes hacer peticiones HTTP con Fetch, estás listo para el siguiente nivel: async/await, que hará que trabajar con Fetch sea aún más elegante y fácil de leer.
+
+# ¿Qué es el DOM?
+DOM significa Document Object Model (Modelo de Objeto del Documento). Es la representación que hace JavaScript de una página web.
+ Piensa en el DOM como un árbol donde cada elemento HTML es un nodo que puedes manipular con JavaScript.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi página</title>
+  </head>
+  <body>
+    <h1 id="titulo">¡Hola Mundo!</h1>
+    <p class="descripcion">Esta es mi primera página interactiva</p>
+    <button>Click me</button>
+  </body>
+</html>
+
+# JavaScript ve esta página como un objeto con propiedades y métodos que podemos usar para:
+
+✅ Seleccionar elementos
+✅ Modificar contenido
+✅ Cambiar estilos
+✅ Responder a eventos del usuario
+El objeto document
+
+# document es el objeto principal que JavaScript nos da para interactuar con la página web. Es tu punto de entrada al DOM.
+
+console.log(document) // Muestra todo el documento HTML
+console.log(document.title) // Título de la página
+console.log(document.URL) // URL actual
+Métodos de Selección
+
+# querySelector() - El más versátil
+querySelector() es el método más moderno y flexible. Usa selectores CSS para encontrar elementos.
+
+// Seleccionar por ID
+const titulo = document.querySelector('#titulo')
+
+// Seleccionar por clase
+const descripcion = document.querySelector('.descripcion')
+
+// Seleccionar por etiqueta
+const primerParrafo = document.querySelector('p')
+
+// Selectores más específicos
+const botonEnHeader = document.querySelector('header button')
+const primerLink = document.querySelector('a[href]')
+Selectores CSS comunes:
+// ID (solo encuentra el primero)
+document.querySelector('#mi-id')
+
+// Clase (solo encuentra el primero)
+document.querySelector('.mi-clase')
+
+// Etiqueta (solo encuentra el primero)
+document.querySelector('div')
+
+// Atributo
+document.querySelector('[data-id="123"]')
+document.querySelector('input[type="email"]')
+
+// Combinados
+document.querySelector('div.mi-clase')
+document.querySelector('#contenido p.destacado')
+
+// Pseudo-selectores
+document.querySelector('li:first-child')
+document.querySelector('p:last-of-type')
+# querySelectorAll() - Seleccionar múltiples elementos
+Cuando necesites todos los elementos que coincidan con un selector:
+
+// Seleccionar TODOS los párrafos
+const todosLosParrafos = document.querySelectorAll('p')
+
+// Seleccionar TODOS los elementos con una clase
+const todosLosCards = document.querySelectorAll('.card')
+
+// Seleccionar TODOS los links
+const todosLosLinks = document.querySelectorAll('a')
+
+console.log(todosLosParrafos.length) // Cantidad de párrafos encontrados
+Importante: querySelectorAll() devuelve una NodeList, no un array, pero puedes iterarla:
+
+const botones = document.querySelectorAll('button')
+
+// Iterar con forEach
+botones.forEach(boton => {
+  console.log(boton.textContent)
+})
+
+// Convertir a array si necesitas métodos de array
+const arrayBotones = Array.from(botones)
+const arrayBotones2 = [...botones] // Con spread operator
+# getElementById() - Selección por ID
+Método clásico y rápido para seleccionar por ID:
+
+// Sin el símbolo #
+const titulo = document.getElementById('titulo')
+const menu = document.getElementById('menu-principal')
+Diferencias con querySelector:
+
+✅ Más rápido para IDs
+❌ Solo funciona con IDs
+❌ No acepta selectores CSS complejos
+4. getElementsByClassName() - Selección por clase
+// Sin el punto
+const cards = document.getElementsByClassName('card')
+const botonesPrimarios = document.getElementsByClassName('btn-primary')
+
+// Devuelve una HTMLCollection (similar a NodeList)
+console.log(cards.length)
+5. getElementsByTagName() - Selección por etiqueta
+const parrafos = document.getElementsByTagName('p')
+const imagenes = document.getElementsByTagName('img')
+const divs = document.getElementsByTagName('div')
+
+# Ejemplo 1: Página de perfil de usuario
+<!DOCTYPE html>
+<html>
+<body>
+  <header>
+    <h1 id="nombre-usuario">Juan Pérez</h1>
+    <img id="avatar" src="avatar.jpg" alt="Avatar">
+  </header>
+  
+  <main>
+    <section class="informacion">
+      <p class="email">juan@ejemplo.com</p>
+      <p class="telefono">+34 123 456 789</p>
+    </section>
+    
+    <section class="redes-sociales">
+      <a href="#" class="red-social" data-red="twitter">Twitter</a>
+      <a href="#" class="red-social" data-red="linkedin">LinkedIn</a>
+      <a href="#" class="red-social" data-red="github">GitHub</a>
+    </section>
+  </main>
+</body>
+</html>
+
+# Seleccionar elementos únicos
+const nombreUsuario = document.querySelector('#nombre-usuario')
+const avatar = document.querySelector('#avatar')
+const email = document.querySelector('.email')
+
+// Seleccionar múltiples elementos
+const redesSociales = document.querySelectorAll('.red-social')
+const todosLosParrafos = document.querySelectorAll('p')
+
+// Selectores específicos
+const twitterLink = document.querySelector('[data-red="twitter"]')
+const primerParrafoDeInfo = document.querySelector('.informacion p')
+
+// Mostrar información
+console.log('Nombre:', nombreUsuario.textContent)
+console.log('Email:', email.textContent)
+console.log('Redes sociales encontradas:', redesSociales.length)
+Ejemplo 2: Lista de tareas
+<div id="todo-app">
+  <h2>Mis Tareas</h2>
+  <ul id="lista-tareas">
+    <li class="tarea completada">Aprender HTML</li>
+    <li class="tarea">Aprender CSS</li>
+    <li class="tarea">Aprender JavaScript</li>
+    <li class="tarea urgente">Hacer ejercicios</li>
+  </ul>
+  <button id="agregar-tarea">Agregar Tarea</button>
+</div>
+
+# Seleccionar contenedores principales
+const app = document.querySelector('#todo-app')
+const listaTareas = document.querySelector('#lista-tareas')
+const botonAgregar = document.querySelector('#agregar-tarea')
+
+// Seleccionar tareas
+const todasLasTareas = document.querySelectorAll('.tarea')
+const tareasCompletadas = document.querySelectorAll('.tarea.completada')
+const tareasUrgentes = document.querySelectorAll('.tarea.urgente')
+
+// Información útil
+console.log('Total de tareas:', todasLasTareas.length)
+console.log('Tareas completadas:', tareasCompletadas.length)
+console.log('Tareas urgentes:', tareasUrgentes.length)
+
+// Iterar sobre las tareas
+todasLasTareas.forEach((tarea, index) => {
+  console.log(`Tarea ${index + 1}: ${tarea.textContent}`)
+})
+Verificar si un elemento existe
+Importante: Si un elemento no existe, los métodos devuelven null o colecciones vacías:
+
+const elementoQueNoExiste = document.querySelector('#no-existe')
+console.log(elementoQueNoExiste) // null
+
+// Siempre verificar antes de usar
+if (elementoQueNoExiste) {
+  // Solo se ejecuta si el elemento existe
+  console.log(elementoQueNoExiste.textContent)
+} else {
+  console.log('El elemento no fue encontrado')
+}
+
+// Forma más concisa
+const titulo = document.querySelector('#titulo')
+titulo?.classList.add('activo') // Solo se ejecuta si titulo existe
+
+# Resumen
+DOM es la representación JavaScript de una página web
+document es tu punto de entrada al DOM
+querySelector() es el método más versátil (usa selectores CSS)
+querySelectorAll() para seleccionar múltiples elementos
+Siempre verifica que el elemento existe antes de usarlo
+Cachea elementos que usarás múltiples veces
+En la próxima lección aprenderemos a modificar estos elementos que hemos seleccionado.
+
+# Manipulación del DOM
+En la lección anterior aprendimos a seleccionar elementos del DOM. Ahora viene lo divertido: modificarlos. 
+Vamos a aprender a cambiar contenido, estilos, atributos y crear elementos completamente nuevos. ¡Es aquí donde tu página web cobra vida!
+
+Modificar el contenido de elementos
+textContent - Solo texto
+textContent te permite leer y modificar solo el texto de un elemento, ignorando cualquier HTML:
+
+const titulo = document.querySelector('#titulo')
+
+# Leer el contenido
+console.log(titulo.textContent) // "¡Hola Mundo!"
+
+// Modificar el contenido
+titulo.textContent = "¡Hola JavaScript!"
+titulo.textContent = "Contador: " + contador
+titulo.textContent = `Usuario: ${nombreUsuario}`
+Características de textContent:
+
+✅ Seguro: No interpreta HTML, previene ataques XSS
+✅ Rápido: Mejor rendimiento que innerHTML
+❌ Solo texto: No puedes añadir HTML
+innerHTML - HTML completo
+innerHTML te permite leer y modificar el HTML completo dentro de un elemento:
+
+const contenedor = document.querySelector('#contenedor')
+
+// Leer el HTML
+console.log(contenedor.innerHTML)
+
+// Modificar con HTML
+contenedor.innerHTML = '<p>Nuevo párrafo con <strong>texto en negrita</strong></p>'
+contenedor.innerHTML = `
+  <div class="card">
+    <h3>${titulo}</h3>
+    <p>${descripcion}</p>
+    <button>Ver más</button>
+  </div>
+`
+⚠️ Cuidado con innerHTML:
+
+✅ Flexible: Puedes crear estructuras HTML complejas
+❌ Riesgo de seguridad: Puede ejecutar scripts maliciosos
+❌ Más lento: Tiene que parsear HTML
+// ❌ Peligroso si userData viene del usuario
+contenedor.innerHTML = `<p>Hola ${userData}</p>` 
+
+// ✅ Mejor usar textContent para datos del usuario
+contenedor.textContent = `Hola ${userData}`
+
+# Modificar atributos
+# getAttribute() y setAttribute()
+const imagen = document.querySelector('#mi-imagen')
+const enlace = document.querySelector('#mi-enlace')
+
+// Leer atributos
+console.log(imagen.getAttribute('src'))
+console.log(imagen.getAttribute('alt'))
+console.log(enlace.getAttribute('href'))
+
+// Modificar atributos
+imagen.setAttribute('src', 'nueva-imagen.jpg')
+imagen.setAttribute('alt', 'Nueva descripción')
+enlace.setAttribute('href', 'https://ejemplo.com')
+enlace.setAttribute('target', '_blank')
+Propiedades directas
+Muchos atributos HTML tienen propiedades directas más cómodas de usar:
+
+const input = document.querySelector('#email')
+const checkbox = document.querySelector('#acepto-terminos')
+const enlace = document.querySelector('#mi-enlace')
+
+# Propiedades comunes
+input.value = 'nuevo@email.com'
+input.placeholder = 'Introduce tu email'
+checkbox.checked = true
+enlace.href = 'https://nueva-url.com'
+
+# Atributos booleanos
+input.disabled = true
+input.required = false
+checkbox.checked = true
+removeAttribute()
+const imagen = document.querySelector('#imagen')
+
+# Eliminar atributos
+imagen.removeAttribute('width')
+imagen.removeAttribute('height')
+
+// Verificar si tiene un atributo
+if (imagen.hasAttribute('data-id')) {
+  console.log('La imagen tiene data-id')
+}
+
+# Modificar estilos CSS
+Propiedad style
+Puedes modificar estilos CSS directamente:
+
+const caja = document.querySelector('#caja')
+
+// Modificar estilos individuales
+caja.style.backgroundColor = 'red'
+caja.style.color = 'white'
+caja.style.fontSize = '20px'
+caja.style.margin = '10px'
+caja.style.display = 'none' // Ocultar elemento
+
+// Propiedades CSS con guiones se convierten a camelCase
+caja.style.borderRadius = '10px' // border-radius
+caja.style.textAlign = 'center'  // text-align
+Importante: Los estilos aplicados con style son inline y tienen alta prioridad.
+
+# Trabajar con clases CSS
+Mejor práctica: Usar clases CSS en lugar de estilos inline:
+
+/* En tu CSS */
+.destacado {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.oculto {
+  display: none;
+}
+
+.activo {
+  color: green;
+  border: 2px solid green;
+}
+classList - Manipular clases
+const elemento = document.querySelector('#mi-elemento')
+
+// Añadir clases
+elemento.classList.add('destacado')
+elemento.classList.add('activo', 'importante') // Múltiples clases
+
+# Eliminar clases
+elemento.classList.remove('oculto')
+elemento.classList.remove('activo', 'destacado')
+
+// Alternar clase (toggle)
+elemento.classList.toggle('activo') // Si la tiene la quita, si no la tiene la pone
+
+// Verificar si tiene una clase
+if (elemento.classList.contains('activo')) {
+  console.log('El elemento está activo')
+}
+
+# Reemplazar una clase por otra
+elemento.classList.replace('viejo', 'nuevo')
+Crear elementos nuevos
+createElement()
+// Crear un nuevo elemento
+const nuevoParrafo = document.createElement('p')
+const nuevaImagen = document.createElement('img')
+const nuevoBoton = document.createElement('button')
+
+// Configurar el elemento
+nuevoParrafo.textContent = 'Este es un párrafo creado con JavaScript'
+nuevoParrafo.classList.add('parrafo-dinamico')
+
+nuevaImagen.src = 'imagen.jpg'
+nuevaImagen.alt = 'Descripción de la imagen'
+
+nuevoBoton.textContent = 'Click me'
+nuevoBoton.classList.add('btn', 'btn-primary')
+Añadir elementos al DOM
+appendChild() - Añadir al final
+const contenedor = document.querySelector('#contenedor')
+const lista = document.querySelector('#mi-lista')
+
+# Añadir al final del contenedor
+contenedor.appendChild(nuevoParrafo)
+contenedor.appendChild(nuevaImagen)
+
+// Crear y añadir un elemento de lista
+const nuevoItem = document.createElement('li')
+nuevoItem.textContent = 'Nuevo elemento de lista'
+lista.appendChild(nuevoItem)
+
+# insertBefore() - Insertar en posición específica
+const lista = document.querySelector('#lista')
+const primerItem = lista.querySelector('li')
+
+const nuevoItem = document.createElement('li')
+nuevoItem.textContent = 'Insertado al principio'
+
+# Insertar antes del primer elemento
+lista.insertBefore(nuevoItem, primerItem)
+
+// Insertar antes de null = insertar al final (como appendChild)
+lista.insertBefore(otroItem, null)
+insertAdjacentHTML() - Insertar HTML en posiciones específicas
+const elemento = document.querySelector('#elemento')
+
+// beforebegin: antes del elemento
+elemento.insertAdjacentHTML('beforebegin', '<p>Antes del elemento</p>')
+
+// afterbegin: al principio del contenido del elemento
+elemento.insertAdjacentHTML('afterbegin', '<span>Al principio</span>')
+
+// beforeend: al final del contenido del elemento
+elemento.insertAdjacentHTML('beforeend', '<span>Al final</span>')
+
+// afterend: después del elemento
+elemento.insertAdjacentHTML('afterend', '<p>Después del elemento</p>')
+Eliminar elementos
+remove() - Eliminar el elemento
+const elemento = document.querySelector('#elemento-a-eliminar')
+
+# Eliminar el elemento completamente
+elemento.remove()
+removeChild() - Eliminar hijo
+const contenedor = document.querySelector('#contenedor')
+const elementoAEliminar = document.querySelector('#hijo-a-eliminar')
+
+# Eliminar un hijo específico
+contenedor.removeChild(elementoAEliminar)
+Ejemplos prácticos
+Ejemplo 1: Contador interactivo
+<div id="contador-app">
+  <h2 id="numero">0</h2>
+  <button id="incrementar">+</button>
+  <button id="decrementar">-</button>
+  <button id="reset">Reset</button>
+</div>
+let contador = 0
+
+# Seleccionar elementos
+const numeroElement = document.querySelector('#numero')
+const btnIncrementar = document.querySelector('#incrementar')
+const btnDecrementar = document.querySelector('#decrementar')
+const btnReset = document.querySelector('#reset')
+
+// Función para actualizar la visualización
+function actualizarContador() {
+  numeroElement.textContent = contador
+  
+  // Cambiar color según el valor
+  if (contador > 0) {
+    numeroElement.style.color = 'green'
+  } else if (contador < 0) {
+    numeroElement.style.color = 'red'
+  } else {
+    numeroElement.style.color = 'black'
+  }
+}
+
+# Event listeners (los veremos en detalle en la próxima lección)
+btnIncrementar.addEventListener('click', () => {
+  contador++
+  actualizarContador()
+})
+
+btnDecrementar.addEventListener('click', () => {
+  contador--
+  actualizarContador()
+})
+
+btnReset.addEventListener('click', () => {
+  contador = 0
+  actualizarContador()
+})
+# Ejemplo 2: Lista de tareas dinámica
+<div id="todo-app">
+  <input type="text" id="nueva-tarea" placeholder="Escribe una tarea...">
+  <button id="agregar">Agregar</button>
+  <ul id="lista-tareas"></ul>
+</div>
+// Seleccionar elementos
+const input = document.querySelector('#nueva-tarea')
+const btnAgregar = document.querySelector('#agregar')
+const listaTareas = document.querySelector('#lista-tareas')
+
+#  Función para agregar tarea
+function agregarTarea() {
+  const textoTarea = input.value.trim()
+  
+  if (textoTarea === '') {
+    alert('Por favor, escribe una tarea')
+    return
+  }
+  
+  # Crear elementos
+  const li = document.createElement('li')
+  const span = document.createElement('span')
+  const btnEliminar = document.createElement('button')
+  
+  // Configurar elementos
+  span.textContent = textoTarea
+  btnEliminar.textContent = 'Eliminar'
+  btnEliminar.classList.add('btn-eliminar')
+  
+  // Ensamblar la tarea
+  li.appendChild(span)
+  li.appendChild(btnEliminar)
+  
+  // Agregar a la lista
+  listaTareas.appendChild(li)
+  
+  // Limpiar input
+  input.value = ''
+  
+  // Event listener para eliminar
+  btnEliminar.addEventListener('click', () => {
+    li.remove()
+  })
+}
+
+# Event listener para agregar
+btnAgregar.addEventListener('click', agregarTarea)
+
+// Agregar con Enter
+input.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    agregarTarea()
+  }
+})
+Ejemplo 3: Cambiar tema de la página
+<div id="app">
+  <header>
+    <h1>Mi Aplicación</h1>
+    <button id="toggle-theme">🌙 Modo Oscuro</button>
+  </header>
+  <main>
+    <p>Contenido de la aplicación...</p>
+  </main>
+</div>
+/* Tema claro (por defecto) */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Tema oscuro */
+body.dark-theme {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+body.dark-theme header {
+  background-color: #333;
+}
+const btnToggleTheme = document.querySelector('#toggle-theme')
+const body = document.body
+
+// Estado del tema
+let temaOscuro = false
+
+btnToggleTheme.addEventListener('click', () => {
+  temaOscuro = !temaOscuro
+  
+  if (temaOscuro) {
+    body.classList.add('dark-theme')
+    btnToggleTheme.textContent = '☀️ Modo Claro'
+  } else {
+    body.classList.remove('dark-theme')
+    btnToggleTheme.textContent = '🌙 Modo Oscuro'
+  }
+})
+
+
+# Usar textContent para texto simple
+elemento.textContent = textoDelUsuario
+
+// Usar classList para manipular clases
+elemento.classList.add('activo')
+
+# Crear elementos paso a paso para mayor claridad
+const card = document.createElement('div')
+card.classList.add('card')
+card.innerHTML = `
+  <h3>${titulo}</h3>
+  <p>${descripcion}</p>
+`
+
+// Verificar que el elemento existe
+const elemento = document.querySelector('#mi-elemento')
+if (elemento) {
+  elemento.textContent = 'Nuevo texto'
+}
+❌ Evitar
+// No usar innerHTML para datos del usuario (riesgo XSS)
+elemento.innerHTML = `<p>Hola ${datosDelUsuario}</p>` // ❌ Peligroso
+
+// No manipular estilos inline excesivamente
+elemento.style.color = 'red'
+elemento.style.fontSize = '20px'
+elemento.style.margin = '10px'
+// ❌ Mejor usar clases CSS
+
+# No crear elementos con innerHTML cuando puedes usar createElement
+contenedor.innerHTML += '<p>Nuevo párrafo</p>' // ❌ Recrea todo el contenido
+Resumen
+textContent: Para modificar solo texto (más seguro)
+innerHTML: Para modificar HTML completo (cuidado con la seguridad)
+setAttribute()/getAttribute(): Para manipular atributos
+classList: Para trabajar con clases CSS (mejor práctica)
+createElement(): Para crear nuevos elementos
+appendChild(): Para añadir elementos al DOM
+remove(): Para eliminar elementos
+
+# ¿Qué son Set y Map?
+Hasta ahora hemos guardado colecciones de datos con dos estructuras: los arrays y los objetos.
+ Pero JavaScript tiene dos estructuras más que nos resuelven problemas muy concretos: Set y Map.
+
+ # Por qué no me basta con arrays y objetos?
+Los arrays y los objetos son geniales, pero tienen limitaciones:
+
+Un array permite valores repetidos. Si necesitas garantizar que no haya duplicados, te toca comprobarlo a mano.
+Un objeto solo admite claves de tipo string o symbol. Si intentas usar un número o un objeto como clave, JavaScript lo convierte a texto.
+const obj = {}
+obj[1] = 'número uno'
+obj['1'] = 'texto uno'
+
+console.log(obj) // { '1': 'texto uno' }
+# ¡La clave 1 y la clave '1' son la misma!
+Set y Map nacen precisamente para cubrir estos casos.
+
+Un vistazo rápido a Set
+Un Set guarda valores y se asegura de que nunca se repitan:
+
+const numeros = new Set()
+
+numeros.add(1)
+numeros.add(2)
+numeros.add(2) // este se ignora, ya existe
+
+console.log(numeros) // Set(2) { 1, 2 }
+# Un vistazo rápido a Map
+Un Map guarda pares de clave → valor, y la clave puede ser cualquier cosa: un número, un objeto, una función...
+
+const edades = new Map()
+
+edades.set('Dani', 18)
+edades.set('Eva', 25)
+
+console.log(edades.get('Dani')) // 18
+
+# ¿Cuándo uso cada uno?
+Necesito...	Uso
+Una lista de valores sin duplicados	Set
+Asociar claves a valores (claves de cualquier tipo)	Map
+Una colección ordenada con acceso por índice	Array
+Modelar una entidad con propiedades conocidas	Objeto
+
+# Set
+Un Set es una colección de valores en la que cada valor solo puede aparecer una vez. Es perfecto cuando quieres asegurarte de que no hay duplicados.
+
+# Crear un Set
+Creamos un Set con la palabra reservada new. Podemos partir de uno vacío o darle un iterable (como un array) con los valores iniciales:
+
+const vacio = new Set()
+const colores = new Set(['rojo', 'verde', 'azul'])
+
+console.log(colores) // Set(3) { 'rojo', 'verde', 'azul' }
+Si le pasas un array con valores repetidos, el Set se queda solo con los únicos:
+
+const numeros = new Set([1, 1, 2, 3, 3, 3])
+console.log(numeros) // Set(3) { 1, 2, 3 }
+Métodos y propiedades
+.add()
+Añade un valor al Set. Si el valor ya existe, no hace nada:
+
+const frutas = new Set()
+frutas.add('manzana')
+frutas.add('pera')
+frutas.add('manzana') // se ignora
+
+console.log(frutas) // Set(2) { 'manzana', 'pera' }
+Como .add() devuelve el propio Set, puedes encadenar llamadas:
+
+const frutas = new Set()
+frutas.add('manzana').add('pera').add('plátano')
+
+console.log(frutas) // Set(3) { 'manzana', 'pera', 'plátano' }
+.has()
+Comprueba si un valor está en el Set. Devuelve un boolean:
+
+const frutas = new Set(['manzana', 'pera'])
+
+console.log(frutas.has('manzana')) // true
+console.log(frutas.has('kiwi')) // false
+Nota
+.has() es una de las grandes ventajas del Set: comprobar si un valor existe es mucho más rápido que recorrer un array con .includes() cuando hay muchos elementos.
+
+.delete()
+# Elimina un valor. Devuelve true si existía y false si no:
+
+const frutas = new Set(['manzana', 'pera'])
+
+console.log(frutas.delete('pera')) // true
+console.log(frutas.delete('kiwi')) // false
+console.log(frutas) // Set(1) { 'manzana' }
+.size
+# Nos dice cuántos elementos tiene (es el equivalente a .length de los arrays):
+
+const frutas = new Set(['manzana', 'pera'])
+console.log(frutas.size) // 2
+.clear()
+Vacía el Set por completo:
+
+const frutas = new Set(['manzana', 'pera'])
+frutas.clear()
+console.log(frutas.size) // 0
+
+# Iterar un Set
+Un Set es iterable, así que puedes recorrerlo con for...of:
+
+const colores = new Set(['rojo', 'verde', 'azul'])
+
+for (const color of colores) {
+  console.log(color)
+}
+// rojo
+// verde
+// azul
+
+# También tienes el método .forEach():
+
+const colores = new Set(['rojo', 'verde'])
+colores.forEach((color) => console.log(color))
+El truco estrella: eliminar duplicados de un array
+# Como un Set elimina los duplicados y podemos convertirlo de nuevo en array con el spread operator (...), tenemos la forma más limpia de quitar repetidos:
+
+const conRepetidos = [1, 2, 2, 3, 4, 4, 4, 5]
+
+const sinRepetidos = [...new Set(conRepetidos)]
+
+console.log(sinRepetidos) // [1, 2, 3, 4, 5]
+
+# Operaciones con Sets
+Trabajar con conjuntos en matemáticas tiene operaciones clásicas: unión, intersección, diferencia… 
+Durante años, en JavaScript teníamos que reproducirlas a mano combinando spread, filter y has. Hoy, los Set traen métodos nativos para hacerlo de forma directa y legible.
+
+
+# Estos métodos están disponibles en los navegadores modernos y en Node.js a partir de la versión 22.
+ Todos devuelven un nuevo Set (no modifican los originales) o un boolean, según el caso.
+
+Para todos los ejemplos partiremos de estos dos conjuntos:
+
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+.union()
+# Devuelve un nuevo Set con los elementos que están en cualquiera de los dos conjuntos (sin duplicados).
+
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+
+console.log(a.union(b)) // Set(6) { 1, 2, 3, 4, 5, 6 }
+
+# .intersection()
+Devuelve un nuevo Set con los elementos que están en ambos conjuntos a la vez.
+
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+
+console.log(a.intersection(b)) // Set(2) { 3, 4 }
+
+# .difference()
+Devuelve un nuevo Set con los elementos que están en el primer conjunto pero no en el segundo. 
+Ojo: el orden importa, no es lo mismo a.difference(b) que b.difference(a).
+
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+
+console.log(a.difference(b)) // Set(2) { 1, 2 }
+console.log(b.difference(a)) // Set(2) { 5, 6 }
+
+# .symmetricDifference()
+Devuelve un nuevo Set con los elementos que están en uno u otro, pero no en ambos. Es decir, lo contrario de la intersección.
+
+const a = new Set([1, 2, 3, 4])
+const b = new Set([3, 4, 5, 6])
+
+console.log(a.symmetricDifference(b)) // Set(4) { 1, 2, 5, 6 }
+
+# .isSubsetOf()
+Devuelve un boolean: true si todos los elementos del primer conjunto están en el segundo.
+
+const a = new Set([1, 2])
+const b = new Set([1, 2, 3, 4, 5])
+
+console.log(a.isSubsetOf(b)) // true
+console.log(b.isSubsetOf(a)) // false
+
+# .isSupersetOf()
+El espejo del anterior. Devuelve true si el primer conjunto contiene a todos los elementos del segundo.
+
+const a = new Set([1, 2, 3, 4, 5])
+const b = new Set([4, 5])
+
+console.log(a.isSupersetOf(b)) // true
+console.log(b.isSupersetOf(a)) // false
+
+# .isDisjointFrom()
+Devuelve true si los dos conjuntos no comparten ningún elemento.
+
+const a = new Set([1, 2, 3])
+const b = new Set([4, 5, 6])
+
+console.log(a.isDisjointFrom(b)) // true
+
+const c = new Set([3, 4, 5])
+console.log(a.isDisjointFrom(c)) // false (comparten el 3)
+
+# Resumen
+
+Método	Devuelve	Qué obtienes
+union	Set	Elementos de ambos conjuntos.
+
+intersection	Set	Elementos comunes
+difference	Set	Lo que está en a y no en b.
+
+symmetricDifference	Set	Lo que no comparten
+
+isSubsetOf	boolean	¿a está contenido en b?
+
+isSupersetOf	boolean	¿a contiene a b?
+
+isDisjointFrom	boolean	¿no comparten nada?
+
+# Map
+Un Map es una colección de pares clave → valor. Suena parecido a un objeto, pero tiene superpoderes que un objeto normal no tiene.
+
+# Crear un Map
+Lo creamos con new Map(). Puede partir vacío o de un array de pares [clave, valor]:
+
+const vacio = new Map()
+
+const edades = new Map([
+  ['Dani', 18],
+  ['Eva', 25]
+])
+
+console.log(edades) // Map(2) { 'Dani' => 18, 'Eva' => 25 }
+Métodos y propiedades
+.set()
+
+# Añade o actualiza un par clave-valor. Devuelve el propio Map, así que se puede encadenar:
+
+const edades = new Map()
+
+edades.set('Dani', 18).set('Eva', 25)
+
+console.log(edades.get('Dani')) // 18
+.get()
+Obtiene el valor asociado a una clave. Si la clave no existe, devuelve undefined:
+
+const edades = new Map([['Dani', 18]])
+
+console.log(edades.get('Dani')) // 18
+console.log(edades.get('Nadie')) // undefined
+.has()
+Comprueba si una clave existe en el Map:
+
+const edades = new Map([['Dani', 18]])
+
+console.log(edades.has('Dani')) // true
+console.log(edades.has('Eva')) // false
+.delete() y .clear()
+.delete() elimina una entrada por su clave; .clear() lo vacía entero:
+
+const edades = new Map([
+  ['Dani', 18],
+  ['Eva', 25]
+])
+
+edades.delete('Dani')
+console.log(edades) // Map(1) { 'Eva' => 25 }
+
+edades.clear()
+console.log(edades.size) // 0
+.size
+# Nos dice cuántas entradas tiene:
+
+const edades = new Map([['Dani', 18]])
+console.log(edades.size) // 1
+La gran ventaja: claves de cualquier tipo
+# En un objeto normal, las claves siempre acaban siendo string (o symbol). 
+# En un Map, la clave puede ser lo que quieras: un número, un objeto, una función...
+
+const usuario = { id: 1 }
+
+const datos = new Map()
+datos.set(usuario, 'es admin')
+datos.set(42, 'la respuesta')
+
+console.log(datos.get(usuario)) // 'es admin'
+console.log(datos.get(42)) // 'la respuesta'
+
+# 
