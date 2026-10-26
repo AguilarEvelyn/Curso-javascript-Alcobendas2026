@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro</title>
+    <style>
+        main > div {
+            height: 500px;
+            width:500px;
+            margin: 50px auto;
+            background-color: rgb(94, 99, 99);
+            padding:20px;
+            
+        }
+        div section:nth-child(1){
+            margin: 20px;
+            background-color: rgb(39, 221, 231);
+            font-size: 3em;
+            padding:100px 30px;
+            
+            text-align:center;
+        }
+        div section:nth-child(2){
+            display:flex;
+           
+
+        }
+        section article{
+            background-color: rgb(18, 234, 29);
+            color:white;
+            font-size: 1em;
+            width:40%;
+            margin:30px 5%;
+            text-align: center;
+            opacity: 0.6;
+            padding:2em;
+        }
+        article:hover{
+            border:2px solid rgb(235, 121, 6);
+            opacity: 1;
+            cursor:pointer;
+        }
+        aside{
+            width:20%;
+            position: absolute;
+            border-style: double;
+            border-width: thick;
+            color: rgb(230, 9, 9);
+            top:20px;
+            right: 40px;
+            text-align: center;
+            height: 50vh;
+            padding:50px;
+            overflow: auto;
+            
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <section>00.00.00.0</section>
+            <section>
+                <article>START / STOP</article>
+                <article>RESET</article>
+            </section>
+        </div>
+    </main>
+    <aside>
+       <h2>☺️ Instantes de stop 😉</h2>
+       <hr>
+       <div></div>
+    </aside>
+
+<script>
+        const pantalla = document.querySelector("div section")
+        const instantes = document.querySelector("aside div")
+        const btnStartStop = document.getElementsByTagName("article")[0]
+        const btnReset = document.getElementsByTagName("article")[1]
+
+        const formatearTiempo = (texto) => {
+            const tiempoEnSegundos = texto.split(":")
+            return Number(tiempoEnSegundos[2]) + Number(tiempoEnSegundos[1]) * 60 + Number(tiempoEnSegundos[0]) * 3600
+        }
+
+        console.log(formatearTiempo(pantalla.textContent))
+
+        const formatearAPantalla = (tiempoS) => {
+            const horas = parseInt(tiempoS / 3600)
+            const minutos = parseInt((tiempoS - horas * 3600) / 60)
+            const segundos = tiempoS - horas * 3600 - minutos * 60
+            return `${horas.toString().padStart(2, 0)}:${minutos.toString().padStart(2, 0)}:${segundos.toFixed(1).padStart(4, 0)}`
+        }
+
+        console.log(formatearAPantalla(formatearTiempo(pantalla.innerHTML)))
+
+        let start = true
+        let temporizador = null
+        let estadoTemporizador = ""
+        let tiempo = formatearTiempo(pantalla.textContent)
+
+        const startStop = () => {
+            if (start) {
+
+                start = !start
+                estadoTemporizador = true
+                console.log(tiempo, start)
+                temporizador = setInterval(() => {
+                    tiempo += 0.1
+                    pantalla.textContent = formatearAPantalla(tiempo)
+                    localStorage.setItem("tiempo", pantalla.textContent)
+                    localStorage.setItem("estado temporizador", "funcionando")
+                }, 100)
+            } else { //Activa el stop
+                start = !start
+                estadoTemporizador = true
+                clearInterval(temporizador)
+                instantes.innerHTML += formatearAPantalla(tiempo) + "<br>"
+                localStorage.setItem("instantes", instantes.innerHTML)
+                localStorage.setItem("estado temporizador", "")
+            }
+        }
+        btnStartStop.addEventListener("click", startStop)
+
+        btnReset.addEventListener("click", () => {
+            pantalla.textContent = "00:00:00.0"
+            tiempo = formatearTiempo(pantalla.textContent)
+            instantes.innerHTML = ""
+            estadoTemporizador = false
+            if (temporizador) clearInterval(temporizador)
+            localStorage.setItem("tiempo", "")
+            localStorage.setItem("instantes", "")
+            localStorage.setItem("estado temporizador", "")
+        })
+
+        //Cargar localStorage
+        if(localStorage.getItem("tiempo")) {
+            pantalla.textContent = localStorage.getItem("tiempo")
+            tiempo = formatearTiempo(pantalla.textContent)
+        }
+        if(localStorage.getItem("instantes")) {
+            instantes.innerHTML = localStorage.getItem("instantes")
+        }
+        //Pon en marcha si se ha recargado la página
+        if (localStorage.getItem("estado temporizador")) {
+            console.log(localStorage.getItem("estado temporizador"))
+            startStop()
+        }
+    </script>
+
+    
+
+</body>
+</html>
