@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semáforo</title>
+    <style>
+        main {
+            width: 200px;
+            padding: 25px;
+            border: 1px solid black;
+            border-radius: 8px;
+            margin: 10px auto;
+        }
+        div {
+            height: 150px;
+            width: 150px;
+            margin: 20px auto;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        #rojo { background-color: crimson; }
+        #ambar { background-color: yellow; }
+        #verde { background-color: green; }
+
+        .encendido {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>☺️ Semáforo 🚦</h1>
+    <p>Objetivos: Rojo: 25 segundos, Verde: 30 segundos, Ámbar: 8 segundos (parpadeando)</p>
+
+    <main>
+        <div id="rojo"></div>
+        <div id="ambar"></div>
+        <div id="verde"></div>
+    </main>
+
+     <script>
+        
+        const discoRojo = document.querySelector("#rojo")
+        const discoAmbar = document.querySelector("#ambar")
+        const discoVerde = document.querySelector("#verde")
+        const tempRojo = 3000
+        const tempAmbar = 3000
+        const tempVerde = 3000
+        let intermitencia = null
+
+        const cambiarVerde = ()=>{
+            discoRojo.style.opacity = "0.1"
+            discoVerde.style.opacity = "1"
+            discoAmbar.style.opacity = "0.1"
+            setTimeout(cambiarAmbar, tempVerde)
+        }
+
+        const cambiarAmbar = ()=>{
+            discoRojo.style.opacity = "0.1"
+            discoVerde.style.opacity = "0.1"
+            discoAmbar.style.opacity = "1"
+           // setTimeout(cambiarRojo, tempAmbar, tempRojo) //Argumentos al final
+            setTimeout( ()=>{ cambiarRojo(tempRojo)}, tempAmbar)
+            intermitencia = setInterval(intermitenciaAmbar, 600)
+        }
+        
+        const cambiarRojo = (tiempo)=>{
+            clearInterval(intermitencia)
+            discoRojo.style.opacity = "1"
+            discoVerde.style.opacity = "0.1"
+            discoAmbar.style.opacity = "0.1"
+            setTimeout(cambiarVerde, tiempo)
+        }
+        
+        let estado = true
+        const intermitenciaAmbar= () =>{
+            if(estado){
+                estado = !estado
+                discoAmbar.style.opacity = "0.1"
+            } else {
+                estado = !estado
+                discoAmbar.style.opacity = "1"
+            }
+        }
+
+        setTimeout(cambiarVerde, tempRojo)
+
+
+    </script>
+</body>
+</html>
