@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        footer p {
+            background-color: brown;
+        }
+
+        .activo {
+            font-size: 32px;
+            color: blue;
+            text-align: center;
+        }
+
+        .nueva {
+            background-color: orange !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ol>
+            <li>Pan</li>
+            <li>Leche</li>
+        </ol>
+
+    </nav>
+    <button id="btn1" onclick="console.log('Click pulsado')">Hazme click</button>
+    <input type="text" id="input" placeholder="Escribe algo">
+    <br>
+    Inserte tu contraseña <input type="password" id="pass"><br>
+     <input type="text" id="input2" placeholder="Escribe algo para eventos de formulario">
+     <h2 id="salida"></h2>
+     <nav>
+       Mensaje:<textarea name="" id="campo" cols="15"></textarea>
+     </nav>
+    <main>
+        <aside>
+            <h1 class="p2">Estoy dentro de un main/aside</h1>
+            <p>P1</p>
+            <p class="p2">P2</p>
+            <p>P3</p>
+        </aside>
+        <section>
+            <h1>Estoy dentro de un main/section</h1>
+            <p>P4</p>
+            <p>P5</p>
+            <p>P6</p>
+        </section>
+    </main>
+    <div>
+        <aside>
+            <h1>Estoy dentro de un div/aside</h1>
+            <p>P1</p>
+            <p class="p2">P2</p>
+            <p>P3</p>
+        </aside>
+        <section>
+            <h1>Estoy dentro de un div/section</h1>
+            <p>P4</p>
+            <p>P5</p>
+            <p>P6</p>
+        </section>
+    </div>
+
+
+    <script>
+        /* DOM (Document Object Model). Representación en memoria de todo el documento.
+
+         -leer y cambiar texto y HTML
+         - modificar estilos y clases
+         - añadir o eliminar elementos
+         - escuchar acciones del usuario
+
+         */
+
+        console.log(document)
+        console.log(document.body)
+        document.body.style.background = "gray"
+        document.title = "Tema 10 DOM"
+
+        //Selección de elementos
+
+        //getElementById
+
+        document.getElementById("btn1").textContent = "Onclick"
+
+        //querySelector
+        //Devuele el primer elemento que coincida con cualquier selector de CSS
+
+        const miElemento = document.querySelector('p').style.color = "white"
+        const miElemento2 = document.querySelector('div h1').style.color = "white"
+        const miEle3 = document.querySelector('.p2').style.fontSize = "23px"
+        const miEle3a = document.querySelector('p.p2').style.fontSize = "23px"
+        const miEle4 = document.querySelector('#btn1').textContent = "Cambiado con querySelector"
+        const miEle5 = document.querySelector('div section p:last-child').style.color = "orange"
+
+        //querySelectorAll(selector). Devuelve un nodelist con todos los elementos
+
+        const todaslasP = document.querySelectorAll('p')
+        console.log(todaslasP)
+        //todaslasP.style.textContent= "cambiando" //No funciona
+
+        todaslasP.forEach((element, i) => {
+            element.textContent = "Cambiado. P nº " + (i + 1)
+        })
+        for (elemento of todaslasP) {
+            elemento.style.textAlign = "center"
+        }
+
+        // getElementsByClassName(clase). Retorna un HTML Collection
+
+        const misEleClase = document.getElementsByClassName("p2")
+        console.log(misEleClase)
+
+        misEleClase[0].style.border = "1px solid blue"
+
+        for (elemento of misEleClase) {//Foreach no funciona
+            console.log(elemento)
+        }
+
+        // getElementsByTagNabe(etiqueta HTML). Retorna un HTML Collection
+
+        const todosAside = document.getElementsByTagName("aside") //Return un HTML Collection de los aside
+        console.log(todosAside)
+
+        //Modificar el contenido 
+
+        //textContent. Recomendado, no incluye etiquetas html.
+        //innerHTML. Para insertar contenido como elementos.
+        //innerText. Igual que textContent
+
+        //Crear e insertar elementos.
+
+        const li1 = document.createElement("li") //Crea un elemento de item de lista
+        li1.textContent = "Uvas"
+
+        const li2 = document.createElement("li") //Crea un elemento de item de lista
+        li2.textContent = "Mirinda"
+
+        const ol = document.querySelector("ol")
+        ol.appendChild(li2) //Añade al final
+        ol.prepend(li1) //Añade al inicio
+
+        //Eliminar leche
+        document.getElementsByTagName("li")[2].remove()
+
+
+        //Modificar estilos y clases CSS
+
+        const footer = document.createElement("footer")
+        footer.innerHTML = "<p>Soy una p en el footer</p>"
+        document.body.appendChild(footer)
+        document.querySelector("footer p").style.backgroundColor = "lime"
+        document.querySelector("footer p").style.backgroundColor = "yellow"
+        document.querySelector("footer p").style.border = "3px dotted orange"
+        document.querySelector("footer p").style.padding = "5px"
+
+        //classList. Es la forma más limpia de gestionar clases
+
+        const caja = document.querySelector("footer p")
+        caja.classList.add("activo") //Añado la clase "activo" al elemento
+        caja.classList.remove("activo") //Elimina la clase "activo" al elemento
+        caja.classList.toggle("activo") //Añadi si no existe, quita si existe
+        console.log(caja.classList.contains("activo")) //Devuelte true/false si existe
+        caja.classList.replace("activo", "nueva") //Reemplazar una clase
+
+
+        //Eventos
+
+        //addEventListener("tipoEvento", funcion)
+
+        const miBoton = document.querySelector("button")
+
+        miBoton.addEventListener("click", () => {
+            miBoton.textContent = "Solo un click"
+        })
+
+        function cambiarColor() {
+            console.log("cambiando color")
+            miBoton.style.background = "gray"
+            miBoton.textContent = "Doble click"
+        }
+        function changeColor(color) {
+            console.log("cambiando color")
+            miBoton.style.background = color
+            miBoton.textContent = "Doble click"
+        }
+
+
+        // miBoton.addEventListener("dblclick", cambiarColor)
+        miBoton.addEventListener("dblclick", () => changeColor("lime"))
+        // miBoton.addEventListener("dblclick",changeColor("lime")) //NO funciona
+
+        miBoton.addEventListener("mouseover", () => { miBoton.style.backgroundColor = "orange" })
+        miBoton.addEventListener("mouseout", () => { miBoton.style.backgroundColor = "white" })
+
+        //Eventos de teclado
+
+        const input = document.getElementById("input")
+        input.addEventListener("keydown", (e) => {
+            console.log("Tecla pulsada:", e.key)
+        })
+
+         input.addEventListener("keyup", (e)=>{
+            if(e.key === "Enter") console.log("Enter pulsado")
+         })
+
+        const campoPass = document.getElementById("pass")
+        let password = ""
+        campoPass.addEventListener("keydown", (e) => {
+            password += e.key
+            localStorage.setItem("password", password)
+        })
+
+        //Eventos de formulario/input
+        const input2 = document.getElementById("input2")
+        const salida = document.querySelector("#salida")
+        input2.addEventListener("input", (e) => { 
+            salida.textContent = e.target.value //Valor mientras se escribe algo
+        })
+
+         //target significa el elemento que lanzo el evento.
+        input2.addEventListener("change", (ev)=>{
+            console.log("Valor a perder el foco:", ev.target.value)
+        })
+
+        const textArea = document.querySelector("#campo")
+        textArea.addEventListener("input", (ev)=>{
+            console.log("Valor mientras se escribe", ev.target.value)
+        })
+
+        textArea.addEventListener("focus", ()=> console.log("TextArea activo"))
+        textArea.addEventListener("blur", ()=> console.log("TextArea inactivo"))
+
+        //Eventos de documentos/ventanas
+
+        document.addEventListener("DOMContentLoaded", ()=>{
+            console.log("HTML cargado y DOM listo")
+        })
+
+        window.addEventListener("resize", ()=>{
+            console.log("Tamaño de la ventana:", window.innerWidth, window.innerHeight)
+        })
+
+        window.addEventListener("scroll", ()=>{
+            console.log("Posición de scroll:", window.scrollY)
+        })
+    </script>
+</body>
+
+</html>
