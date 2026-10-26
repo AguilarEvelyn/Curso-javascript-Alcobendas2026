@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 98vh;
+            gap: 2vh;
+        }
+
+        div {
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <script>
+        /*Objetivo.
+        No tocar el html, todo con JS.
+        Al inicio debe salir un circulo de color aleatorio en el cuadrante 1,
+        al hacer click en él, tiene que aparecer otro circulo (color aleatorio)
+        en el cuadrante 2. Al hacer click, aparece otro en el cuadrante 3, luego
+        en el cuarto y vuelta al primero.
+        */
+        
+        const collecionDiv = document.getElementsByTagName("div")
+
+
+        let bolaPulsada = 1
+
+        let contador = 1
+
+        colorAleatorio = function (){
+
+            r = Math.floor(Math.random() * 256)
+            g = Math.floor(Math.random() * 256)
+            b = Math.floor(Math.random() * 256)
+
+            return `rgb(${r}, ${g}, ${b})`
+        }
+
+        moverBolas = function (bolaPulsada){
+
+            console.log(bolaPulsada)
+            if (bolaPulsada === 1){
+                bola1.style.opacity="0"
+                bola1.style.pointerEvents="none"
+                bola2.style.background = colorAleatorio()
+                bola2.style.opacity="1"
+                bola2.style.pointerEvents="auto"
+                return 2
+            }
+            if (bolaPulsada === 2){
+                bola2.style.opacity="0"
+                bola2.style.pointerEvents="none"
+                bola3.style.background = colorAleatorio()
+                bola3.style.opacity="1"
+                bola3.style.pointerEvents="auto"
+                return 3
+            }
+            if (bolaPulsada === 3){
+                bola3.style.opacity="0"
+                bola3.style.pointerEvents="none"
+                bola4.style.background = colorAleatorio()
+                bola4.style.opacity="1"
+                bola4.style.pointerEvents="auto"
+                return 4
+            }
+          
+            bola4.style.opacity="0"
+            bola4.style.pointerEvents="none"
+            bola1.style.background = colorAleatorio()
+            bola1.style.opacity="1"
+            bola1.style.pointerEvents="auto"
+            return 1
+
+        }
+
+
+
+        for (divColec of collecionDiv){
+            divColec.classList.add("div"+contador)
+            contador++
+        }
+
+        const div1 = document.getElementsByClassName("div1")[0]
+        div1.style.textAlign = "center"
+        const bola1 = document.createElement("div")
+        div1.appendChild(bola1)
+        bola1.addEventListener("click", () => {
+            bolaPulsada = moverBolas(bolaPulsada)
+        } )
+
+        div1.style.display = "grid"
+        div1.style.alignItems = "center"
+
+        bola1.style.display = "inline-block"
+        bola1.style.border = "0px"
+        bola1.style.width = "100px"
+        bola1.style.height = "100px"
+        bola1.style.margin = "20px auto"
+        bola1.style.opacity = "1"
+        bola1.style.borderRadius = "50px"
+        bola1.style.background = colorAleatorio()
+        
+        const div2 = document.getElementsByClassName("div2")[0]
+
+        const bola2 = document.createElement("div")
+        div2.appendChild(bola2)
+        bola2.addEventListener("click", () => {
+            bolaPulsada = moverBolas(bolaPulsada)
+        } )
+
+        div2.style.display = "grid"
+        div2.style.alignItems = "center"
+
+        bola2.style.display = "inline-block"
+        bola2.style.border = "0px"
+        bola2.style.width = "100px"
+        bola2.style.height = "100px"
+        bola2.style.margin = "20px auto"
+        bola2.style.opacity = "0"
+        bola2.style.borderRadius = "50px"
+        bola2.style.background = colorAleatorio()
+
+        const div3 = document.getElementsByClassName("div3")[0]
+        const bola3 = document.createElement("div")
+
+        bola3.addEventListener("click", () => {
+            bolaPulsada = moverBolas(bolaPulsada)
+        } )
+
+        div3.appendChild(bola3)
+        div3.style.display = "grid"
+        div3.style.alignItems = "center"
+
+        bola3.style.display = "inline-block"
+        bola3.style.border = "0px"
+        bola3.style.width = "100px"
+        bola3.style.height = "100px"
+        bola3.style.margin = "20px auto"
+        bola3.style.opacity = "0"
+        bola3.style.borderRadius = "50px"
+        bola3.style.background = colorAleatorio()
+
+        const div4 = document.getElementsByClassName("div4")[0]
+        const bola4 = document.createElement("div")
+        
+        div4.appendChild(bola4)
+
+        bola4.addEventListener("click", () => {
+            bolaPulsada = moverBolas(bolaPulsada)
+        } )
+
+        div4.style.display = "grid"
+        div4.style.alignItems = "center"
+
+        bola4.style.display = "inline-block"
+        bola4.style.border = "0px"
+        bola4.style.width = "100px"
+        bola4.style.height = "100px"
+        bola4.style.margin = "20px auto"
+        bola4.style.opacity = "0"
+        bola4.style.borderRadius = "50px"
+        bola4.style.background = colorAleatorio()
+        
+
+
+
+    </script>
+</body>
+
+</html>

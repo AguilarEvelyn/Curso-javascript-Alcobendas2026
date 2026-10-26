@@ -31,6 +31,39 @@
         en el cuadrante 2. Al hacer click, aparece otro en el cuadrante 3, luego
         en el cuarto y vuelta al primero.
         */
+
+        const colorAleatorio = function () {
+            return `rgb(${parseInt(Math.random() * 256)},${parseInt(Math.random() * 256)},${parseInt(Math.random() * 256)})`
+        }
+
+        const misDiv = document.querySelectorAll("div")
+
+        misDiv.forEach((div, i) => {
+            div.innerHTML = `
+            <section id='circulo${i}' style=
+            'border-radius: 50%;
+            width:20vh;
+            height:20vh;
+            margin: 20vh auto;
+            visibility:hidden;
+            background: ${colorAleatorio()}
+            ' onclick='cambiar(this)'>
+            </section> 
+            `
+        })
+        document.querySelector("#circulo2").id="circuloIn"
+        document.querySelector("#circulo3").id="circulo2"
+        document.querySelector("#circuloIn").id="circulo3"
+
+        document.querySelector('#circulo0').style.visibility="visible"
+        const cambiar = (elemento) => {
+            let siguiente = Number(elemento.id.substring(7)) + 1
+            elemento.style.visibility="hidden"
+            if(siguiente == 4) siguiente = 0
+            document.querySelector(`#circulo${siguiente}`).style.visibility = "visible"
+            document.querySelector(`#circulo${siguiente}`).style.background = colorAleatorio()
+        }
+
         
 
 
