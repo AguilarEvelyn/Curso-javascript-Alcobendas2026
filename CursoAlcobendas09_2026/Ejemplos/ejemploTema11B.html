@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <footer>
+        <input type="text" placeholder="Inserta un nombre" id="campo">
+        <br>
+        <input type="number" placeholder="Inserta tu edad" id="edad">
+        <br>
+        Acepta los téminos: <input type="checkbox" id="acepto">
+        <br>
+        Ciudad: <select name="ciudad" id="ciudad">
+            <option value="Madrid">Madrid</option>
+            <option value="Alcobendas" selected>Alcobendas</option>
+            <option value="Getafe">Getafe</option>
+        </select>
+        <br>
+        Files: <input type="file" id="archivos" >
+        <br>
+        <br>
+            Mayor de edad: <input type="radio" name="edad" checked value="mayor de edad"><br>
+            Menor de edad: <input type="radio" name="edad" value="menor de edad"><br>
+        <br>
+        <button id="comprobar">Comprobar</button><br>
+        <br><br><br>
+
+    </footer>
+    <script>
+
+        const btn1 = document.createElement("button")
+        btn1.textContent = "Botón 1"
+        const btn2 = document.createElement("button")
+        btn2.textContent = "Botón 2"
+        document.body.appendChild(btn1)
+        document.body.appendChild(btn2)
+
+        // event.target vs this
+        //this apunta al elemento que lo llamao dentro de function.
+
+        btn1.addEventListener("click", function(){
+            console.log(this)
+            console.log(this === btn1)
+        })
+
+        //Con arraw function, tengo que utilizar event.target
+
+        btn2.addEventListener("click", (e) =>{
+            console.log(e.target) //El elemento que disparo el evento
+            console.log(this) //this hereda el contexto exterior
+        })
+
+        // preventDefault()
+        //Evita el comportamiento por defecto del navegador(envio de formularios,
+        // seguir un enlace, ...)
+
+        const miFormulario = document.createElement("form")
+        miFormulario.innerHTML = "<input type='text' placeholder='Inserta tu nombre'>"
+        miFormulario.innerHTML += "<button type='submit'>Enviar</button><button id= 'limpiar' type='reset'>Limpiar</button>"
+        document.body.appendChild(miFormulario)
+       /* miFormulario.addEventListener("submit", (e)=>{
+            e.preventDefault()
+            console.log("Formulario interceptado sin recarga")
+        })*/
+
+        miFormulario.addEventListener("submit", function (e){
+            e.preventDefault()
+            console.log("Formulario interceptado sin recarga")
+        })
+
+        // stopPropagation()
+
+        const contenedor = document.createElement("div")
+        contenedor.style.padding="40px"
+        contenedor.style.border = "2px solid blue"
+        contenedor.addEventListener("click", ()=>{
+            console.log("Se hizo click en el contenedor")
+        })
+        document.body.appendChild(contenedor)
+
+        const btnContenedor = document.createElement("button")
+        btnContenedor.textContent = "Botón del contenedor"
+        btnContenedor.addEventListener("click", (e)=>{
+            e.stopPropagation()//Evita que el evento subar hacia los elementos padre (burbujeo)
+            console.log("Se hizo click en el botón del contenedor")
+        })
+        contenedor.appendChild(btnContenedor)
+
+        //Entrada del usuario
+
+        //Leer el valor de un input
+
+        const btnLeer = document.createElement("button")
+        btnLeer.textContent = "Leer de un input"
+        const miInput = document.querySelector("input")
+        document.body.appendChild(btnLeer)
+
+        btnLeer.addEventListener("click", ()=>{
+            const valor = miInput.value
+            console.log(valor, "Tipo: ", typeof valor) //Siempre devuelve un String
+            const valorN = Number(valor)
+            console.log(valorN, "Tipo: ", typeof valorN)
+        })
+
+        //Validar antes de procesar
+
+        const textoForm = `<form> 
+            <input type = "text" id = "nombre" placeholder= "Inserte su nombre">
+            <span id="error"></span><br>
+            <input type = "submit" id= "btnEnviar" value = "Enviar">
+            </form>`
+        document.body.innerHTML += textoForm
+
+        const btnEnviar = document.querySelector("#btnEnviar")
+        btnEnviar.addEventListener("click", (e)=>{
+            const nombre = document.getElementById("nombre").value.trim()
+            if(nombre === ""){
+                document.getElementById("error").textContent = "El nombre es obligatorio"
+                e.preventDefault()
+                return
+            }
+            console.log("Hola " + nombre)
+
+        })
+
+        // Tipos de input habituales
+
+        const texto = document.getElementById("campo").value // texto o String
+        const numero = Number(document.getElementById("edad").value) // número
+        let marcado = document.getElementById("acepto").checked //checked
+        let opcion = document.getElementById("ciudad").value //select
+        let archivo = document.getElementById("archivos").files[0] //file
+        let radio = document.querySelector("input[name ='edad']:checked").value
+
+        document.getElementById("comprobar").addEventListener("click", ()=> {
+            marcado = document.getElementById("acepto").checked
+            console.log(marcado)
+            opcion = document.getElementById("ciudad").value
+            console.log("Ciudad", opcion)
+            archivo = document.getElementById("archivos").files[0]
+            console.log("Archivo", archivo)
+            radio = document.querySelector("input[name ='edad']:checked").value
+            console.log("Radio", radio)
+        })
+
+        //Manipulación avanzada del DOM
+
+        //Crear y componer elementos.
+
+        function crearTarjeta(titulo, descripcion){
+            const div = document.createElement("div")
+            div.style.border="1px solid black"
+            div.style.padding="10px"
+            div.style.margin=" 33px"
+            div.className = "tarjeta"
+
+            const h2 = document.createElement("h2")
+            h2.textContent = titulo
+            h2.style.textAlign="center"
+            const p = document.createElement("p")
+            p.textContent = descripcion
+            div.appendChild(h2)
+            div.appendChild(p)
+            return div
+        }
+
+        document.body.appendChild(crearTarjeta("Título1", "Texto de ejemplo"))
+
+        //Insertar en una posición específica
+
+        document.body.innerHTML+= `<ul>
+                <li>Positión 1</li>
+                <li>Positión 2</li>
+                <li>Positión 3</li>
+                <li>Positión 4</li>
+                <li>Positión 5</li>
+                <li>Positión 6</li>
+                <li>Positión 7</li>
+                <li>Positión 8</li>
+            </ul>`
+     
+        const lista = document.querySelector("ul")
+        const nuevoli = document.createElement("li")
+        nuevoli.textContent = "Posición 0"
+        lista.prepend(nuevoli) //Al principio
+        const nuevoli1= document.createElement("li")
+        nuevoli1.textContent = "Posicion 9"
+        lista.append(nuevoli1)
+        const nuevoli2= document.createElement("li")
+        nuevoli2.textContent = "Posicion 5 1/2"
+        lista.children[6].insertAdjacentElement("beforebegin", nuevoli2) //antes de un hijo
+
+        //Clonar un elemento
+
+        const original = document.querySelector("ul")
+        const copia = original.cloneNode(true) // true clona también los hijos
+        copia.id = "plantilla-copia"
+        document.body.appendChild(copia)
+
+        //Leer propiedades de un elemento.
+
+        console.log(copia.id) //Valor del atributo id
+        console.log(copia.className) //clases como string
+        console.log(copia.tagName) // "UL"
+        console.log(copia.children) // hijos directos
+        console.log(copia.parentElement) //elemento padre
+
+        //Leer y cambiar atributos
+
+        const miImagen = document.createElement("img")
+        miImagen.src = "imagenes/imagen1.jpg"
+        document.body.appendChild(miImagen)
+
+        console.log(miImagen.getAttribute("src")) //leer
+        miImagen.setAttribute("alt", "Foto de niña con gatos") //escribir
+        miImagen.removeAttribute("hidden") //eliminar
+        console.log("Existe el attibuto", miImagen.hasAttribute("disabled"))//comprobar (boolen)
+    </script>
+
+
+
+</body>
+</html>
