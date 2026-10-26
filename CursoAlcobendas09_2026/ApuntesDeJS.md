@@ -4276,7 +4276,8 @@ edades.set('Dani', 18).set('Eva', 25)
 
 console.log(edades.get('Dani')) // 18
 .get()
-Obtiene el valor asociado a una clave. Si la clave no existe, devuelve undefined:
+
+# Obtiene el valor asociado a una clave. Si la clave no existe, devuelve undefined:
 
 const edades = new Map([['Dani', 18]])
 
@@ -4290,7 +4291,7 @@ const edades = new Map([['Dani', 18]])
 console.log(edades.has('Dani')) // true
 console.log(edades.has('Eva')) // false
 .delete() y .clear()
-.delete() elimina una entrada por su clave; .clear() lo vacía entero:
+# .delete() elimina una entrada por su clave; .clear() lo vacía entero:
 
 const edades = new Map([
   ['Dani', 18],
@@ -4307,7 +4308,8 @@ console.log(edades.size) // 0
 
 const edades = new Map([['Dani', 18]])
 console.log(edades.size) // 1
-La gran ventaja: claves de cualquier tipo
+
+# La gran ventaja: claves de cualquier tipo
 # En un objeto normal, las claves siempre acaban siendo string (o symbol). 
 # En un Map, la clave puede ser lo que quieras: un número, un objeto, una función...
 
@@ -4320,4 +4322,37 @@ datos.set(42, 'la respuesta')
 console.log(datos.get(usuario)) // 'es admin'
 console.log(datos.get(42)) // 'la respuesta'
 
-# 
+# Iterar un Map
+Un Map también es iterable y, además, mantiene el orden de inserción:
+
+const edades = new Map([
+  ['Dani', 18],
+  ['Eva', 25]
+])
+
+for (const [nombre, edad] of edades) {
+  console.log(`${nombre} tiene ${edad} años`)
+}
+// Dani tiene 18 años
+// Eva tiene 25 años
+Tienes métodos específicos para recorrer claves, valores o ambos:
+
+const edades = new Map([['Dani', 18], ['Eva', 25]])
+
+console.log([...edades.keys()]) // ['Dani', 'Eva']
+console.log([...edades.values()]) // [18, 25]
+console.log([...edades.entries()]) // [['Dani', 18], ['Eva', 25]]
+
+# Map vs Objeto: ¿cuál uso?
+Usa un Map cuando:
+
+Las claves no son strings (números, objetos...).
+Vas a añadir y eliminar entradas con frecuencia.
+Te importa el orden de inserción.
+Necesitas saber el tamaño rápido con .size.
+Usa un objeto cuando:
+
+Modelas una entidad con propiedades conocidas ({ name, age }).
+Quieres usar la sintaxis cómoda con . y JSON.
+
+# 21/10/26 Temporizadores
