@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizadores</title>
+</head>
+<body>
+
+    <h1>😉 Temprizadores 😉</h1>
+  <p>Cronómetro: <span>0</span>s</p>
+    <p>Hora del sistema: <span id="hora"></span></p>
+    <button>Parar temporizador</button>
+    <input type="button" value="Parar cronómetro">
+    
+    <script>
+        //Los temporizadores permiten ejecutar código en el tiempo.
+
+        // Una sola vez el el futuro. setTimeout()
+        // De forma repetida: setInterval()
+
+        const temporizador = setTimeout( ()=> {
+            console.log("Han pasado 5 segundos")
+        }, 5000) //El tiempo está en milisegundos
+
+
+        document.querySelector("button").addEventListener("click", ()=>{
+            console.log("Parando el temporizador")
+            clearTimeout(temporizador)
+        })
+
+        //SetInterval (ejecuta un función de forma repetida cada cierto tiempo)
+
+        let segundos = 0
+        const intervalo = setInterval( ()=> {
+            segundos++
+            document.querySelector("span").textContent=segundos
+        }, 1000)
+
+        document.querySelector("input").addEventListener("click", ()=>{
+            console.log("Deteniendo el cronómetro")
+            clearInterval(intervalo)
+        })
+
+        //Casos reales con UI
+
+        //Recordatio son setTimeout
+
+        function crearRecordatorio (texto, ms){
+            return setTimeout(()=>{
+                alert(`Recordatorio: ${texto}`)
+            },ms)
+        }
+
+        crearRecordatorio("Aprendiendo JS", 15000)
+
+        //Hora del sistema.
+
+        function mostrarHora(){
+            const cajaHora = document.querySelector("#hora")
+            setInterval(()=>{
+                const ahora = new Date()
+                cajaHora.textContent = `
+                    ${ahora.getHours().toString().padStart(2, 0)}:${ahora.getMinutes().toString().padStart(2, 0)}:${ahora.getSeconds().toString().padStart(2,0)}
+                `
+            })
+        }
+        mostrarHora()
+    </script>
+    
+</body>
+</html>
