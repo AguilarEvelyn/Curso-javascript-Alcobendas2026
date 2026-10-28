@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☺️ Ejemplo Tema 12 – Formularios HTML☺️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="search"],
+        input[type="color"],
+        input[type="file"],
+        input[type="range"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="color"] {
+            padding: 5px;
+            height: 50px;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            height: auto;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: normal;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #357abd;
+        }
+
+        .btn-secundario {
+            background-color: #6c757d;
+        }
+
+        .btn-secundario:hover {
+            background-color: #545b62;
+        }
+
+        .hidden-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>☺️ Inputs más comunes de un formulario ☺️</h1>
+
+    <form action="#" method="post">
+        <!-- Texto simple -->
+        <div class="form-group">
+            <label for="nombre">Nombre de usuario:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+        </div>
+
+        <!-- Correo electrónico -->
+        <div class="form-group">
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" placeholder="usuario@ejemplo.com" required>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-group">
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+        </div>
+
+        <!-- Número -->
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="1" max="120" placeholder="25">
+        </div>
+
+        <!-- Fecha -->
+        <div class="form-group">
+            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000">
+        </div>
+
+        <!-- URL -->
+        <div class="form-group">
+            <label for="sitio_web">Sitio web:</label>
+            <input type="url" id="sitio_web" name="sitio_web" placeholder="https://ejemplo.com">
+        </div>
+
+        <!-- Buscar -->
+        <div class="form-group">
+            <label for="busqueda">Buscar:</label>
+            <input type="search" id="busqueda" name="busqueda" placeholder="Escribe aquí...">
+        </div>
+
+        <!-- Color -->
+        <div class="form-group">
+            <label for="color_favorito">Color favorito:</label>
+            <input type="color" id="color_favorito" name="color_favorito" value="#4a90e2">
+        </div>
+
+        <!-- Archivo -->
+        <div class="form-group">
+            <label for="archivo">Subir archivo:</label>
+            <input type="file" id="archivo" name="archivo">
+        </div>
+
+        <!-- Rango -->
+        <div class="form-group">
+            <label for="nivel">Nivel de satisfacción (1-10):</label>
+            <input type="range" id="nivel" name="nivel" min="1" max="10" value="5">
+
+        <!-- Área de texto -->
+        <div class="form-group">
+            <label for="comentarios">Comentarios:</label>
+            <textarea id="comentarios" name="comentarios" placeholder="Escribe tus comentarios aquí..."></textarea>
+        </div>
+
+        <!-- Casillas de verificación (checkbox) -->
+        <div class="form-group">
+            <label>Intereses:</label>
+            <div class="checkbox-group">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="interes1" name="intereses" value="programacion">
+                    Programación
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="interes2" name="intereses" value="diseno">
+                    Diseño
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="interes3" name="intereses" value="musica">
+                    Música
+                </label>
+            </div>
+        </div>
+
+        <!-- Botones de opción (radio) -->
+        <div class="form-group">
+            <label>Género:</label>
+            <div class="radio-group">
+                <label class="radio-item">
+                    <input type="radio" id="genero1" name="genero" value="masculino">
+                    Masculino
+                </label>
+                <label class="radio-item">
+                    <input type="radio" id="genero2" name="genero" value="femenino">
+                    Femenino
+                </label>
+                <label class="radio-item">
+                    <input type="radio" id="genero3" name="genero" value="otro">
+                    Otro / Prefiero no decirlo
+                </label>
+            </div>
+        </div>
+
+        <!-- Menú desplegable (select) -->
+        <div class="form-group">
+            <label for="pais">País:</label>
+            <select id="pais" name="pais">
+                <option value="">Selecciona un país</option>
+                <option value="es">España</option>
+                <option value="mx">México</option>
+                <option value="ar">Argentina</option>
+                <option value="co">Colombia</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+
+        <!-- Campo oculto -->
+        <div class="hidden-field">
+            <input type="hidden" id="token" name="token" value="abc123xyz">
+        </div>
+
+        <!-- Botones de envío y limpiar -->
+        <div class="form-group">
+            <button type="submit">Enviar formulario</button>
+            <button type="button" class="btn-secundario">Limpiar datos</button>
+        </div>
+    </form>
+
+     <script>
+        // Flujo seria el siguiente:
+
+        // 1. Capturar el submit o cuando pierde el foco el input
+        // 2. Parar el envío automático preventDefault()
+        // 3. Leer lo valore del formulario
+        // 4. Validar los datos
+        // 5. Pintar los errores si existen
+        // 6. Si no hay errores, procesar el envio o mostrar un resumen
+
+        const formulario = document.forms[0]
+
+        formulario.addEventListener("submit", (e) => {
+            e.preventDefault()
+            console.log("Formulario interceptado")
+            obtenerDatos()
+
+        })
+
+        // Leer datos.
+
+        const nombre = document.getElementById("nombre").value
+
+        //Moderna se hace con FormData
+
+        const fd = new FormData(formulario)
+
+        
+
+        const obtenerDatos = () => {
+            // FormData lee los valores por el atributo "name" de cada input
+            const fd = new FormData(formulario)
+
+            // Campos de texto simples
+            const nombre = String(fd.get("nombre") || "").trim()
+            const email = String(fd.get("correo") || "").trim()
+            const pass = String(fd.get("contrasena") || "")
+            const edad = Number(fd.get("edad") || 0)
+            const fechaNacimiento = String(fd.get("fecha_nacimiento") || "")
+            const telefono = String(fd.get("telefono") || "")
+            const sitioWeb = String(fd.get("sitio_web") || "")
+            const busqueda = String(fd.get("busqueda") || "")
+            const colorFavorito = String(fd.get("color_favorito") || "")
+            const nivel = Number(fd.get("nivel") || 0)
+            const comentarios = String(fd.get("comentarios") || "")
+            const pais = String(fd.get("pais") || "")
+            const token = String(fd.get("token") || "")
+
+            // Archivo (solo el nombre, no el contenido binario)
+            const archivo = formulario.archivo.files[0]?.name || ""
+
+            // Checkboxes: pueden ser varios, se recolectan en un arreglo
+            const intereses = []
+            formulario.querySelectorAll('input[name="intereses"]:checked').forEach((cb) => {
+                intereses.push(cb.value)
+            })
+
+            // Radio: solo uno seleccionado
+            const genero = formulario.querySelector('input[name="genero"]:checked')
+            const generoSeleccionado = genero ? genero.value : ""
+
+            const datos = {
+                nombre,
+                email,
+                pass,
+                edad,
+                fechaNacimiento,
+                telefono,
+                sitioWeb,
+                busqueda,
+                colorFavorito,
+                archivo,
+                nivel,
+                comentarios,
+                intereses,
+                genero: generoSeleccionado,
+                pais,
+                token,
+            }
+
+            console.log("Datos obtenidos:", datos)
+
+            const errors = validarBasico(datos)
+
+
+            if(Object.keys(errors).length > 0){
+                console.log("Hay errores", errors)
+                return
+            }
+
+            // Mostrar resultados en pantalla
+            const resultado = document.getElementById("resultado")
+            const html = `
+                <h3>Datos capturados:</h3>
+                <ul>
+                    <li><strong>Nombre:</strong> ${nombre}</li>
+                    <li><strong>Correo:</strong> ${email}</li>
+                    <li><strong>Edad:</strong> ${edad}</li>
+                    <li><strong>Fecha de nacimiento:</strong> ${fechaNacimiento}</li>
+                    <li><strong>Teléfono:</strong> ${telefono}</li>
+                    <li><strong>Sitio web:</strong> ${sitioWeb}</li>
+                    <li><strong>Buscar:</strong> ${busqueda}</li>
+                    <li><strong>Color favorito:</strong> ${colorFavorito}</li>
+                    <li><strong>Archivo:</strong> ${archivo}</li>
+                    <li><strong>Nivel de satisfacción:</strong> ${nivel}</li>
+                    <li><strong>Comentarios:</strong> ${comentarios}</li>
+                    <li><strong>Intereses:</strong> ${intereses.length > 0 ? intereses.join(", ") : "Ninguno"}</li>
+                    <li><strong>Género:</strong> ${generoSeleccionado || "No seleccionado"}</li>
+                    <li><strong>País:</strong> ${pais}</li>
+                    <li><strong>Token (oculto):</strong> ${token}</li>
+                </ul>
+            `
+            resultado.innerHTML = html
+            resultado.style.display = "block"
+
+            return datos
+        }
+
+        
+
+
+        // Botón limpiar
+        document.querySelector(".btn-secundario").addEventListener("click", () => {
+            formulario.reset()
+            document.getElementById("resultado").style.display = "none"
+            document.getElementById("resultado").innerHTML = ""
+        })
+
+        //Validación básica
+
+        // Que un campo no esta vacio
+        // que se haya seleccionado una opción
+        // Que un checkbok este marcado
+
+        function validarBasico(values){
+            const errors = {}
+            if(!values.nombre) {
+                errors.nombre = "El nombre es obligatorio"
+            }
+            if(!values.email) {
+                errors.email = "El email es obligatorio"
+            }
+            if(!values.genero) {
+                errors.genero = "Debe de marcar un género"
+            }
+            return errors
+        }
+    </script>
+</body>
+</html>
