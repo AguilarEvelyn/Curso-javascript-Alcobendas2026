@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☺️ Ejercicio 11 Figuras ☺️</title>
+</head>
+<body>
+  <script>
+        document.title = "Ejercicio 11 Figuras"
+        document.body.style.textAlign = "center"
+        document.body.style.fontFamily = "monospace"
+        document.querySelector("html").lang="es"
+
+        const titulo = document.createElement("h1")
+        titulo.textContent = "Ejercicio 11. Figuras"
+        document.body.appendChild(titulo)
+
+        const main = document.createElement("main")
+        const select = document.createElement("select")
+        select.innerHTML= `
+            <option value="ejercicio1">Ejercicio 1</option>
+            <option value="ejercicio2">Ejercicio 2</option>
+            <option value="ejercicio3">Ejercicio 3</option>
+            <option value="ejercicio4">Ejercicio 4</option>
+            <option value="ejercicio5">Ejercicio 5</option>
+            <option value="ejercicio6">Ejercicio 6</option>
+        `
+        main.appendChild(select)
+        document.body.appendChild(main)
+
+        const resultado = document.createElement("div")
+        document.body.appendChild(resultado)   
+
+        const textoEjercicio1 =  `
+            <h2>Cuadrado de orden n</h2>
+            <input type= 'number' placeholder="Inserte el orden"><br><br>
+            <button onclick='pintarEj1()'>Pintar</button>
+           `
+        
+        const textoEjercicio2 =  `
+            <h2>Rectángulo</h2>
+            <input type= 'number' placeholder="Inserte el ancho"><br><br>
+            <input type= 'number' id="alto" placeholder="Inserte el alto"><br><br>
+            <button onclick='pintarEj2()'>Pintar</button>
+           `
+        const textoEjercicio3 =  `
+            <h2>Árbol de Navidad de orden n</h2>
+            <input type= 'number' placeholder="Inserte el orden"><br><br>
+            <button onclick='pintarEj3()'>Pintar</button>
+           `
+        const textoEjercicio4 =  `
+            <h2>Cruz de orden n</h2>
+            <input type= 'number' placeholder="Inserte el orden"><br><br>
+            <button onclick='pintarEj4()'>Pintar</button>
+           `
+        const textoEjercicio5 =  `
+            <h2>Flecha derecha de orden n</h2>
+            <input type= 'number' placeholder="Inserte el orden"><br><br>
+            <button onclick='pintarEj5()'>Pintar</button>
+           `   
+        const textoEjercicio6 =  `
+            <h2>Flecha izquierda de orden n</h2>
+            <input type= 'number' placeholder="Inserte el orden"><br><br>
+            <button onclick='pintarEj6()'>Pintar</button>
+           `  
+        resultado.innerHTML=textoEjercicio1
+        const textos = [textoEjercicio1, 
+            textoEjercicio2,
+            textoEjercicio3,
+            textoEjercicio4,
+            textoEjercicio5,
+            textoEjercicio6
+        ]
+        select.addEventListener("change", function(){
+           const indice = Number(select.value.substring(9))
+           resultado.innerHTML=textos[indice-1]
+           lienzo.textContent=""
+        })
+
+        const lienzo = document.createElement("section")
+        lienzo.style.padding="28px"
+        document.body.appendChild(lienzo)
+
+        //Funciones
+
+        let contenido = ""
+        const pintarFila = (cantidad, caracter)=>{
+            for(let i= 0; i < cantidad; i++){
+                contenido += caracter
+            }
+            
+        }
+
+        const pintarEj1 = ()=>{
+            const orden = Number(document.querySelector("input").value)
+            contenido = ""
+            for(let i= 0; i < orden; i++){
+                pintarFila(orden, " *")
+                contenido += "<br>"
+            }
+            console.log(contenido)
+            lienzo.innerHTML=contenido
+        }
+
+        const pintarEj2 = ()=>{
+            const ancho = Number(document.querySelector("input").value)
+            const alto = Number(document.querySelector("#alto").value)
+            contenido = ""
+            for(let i= 0; i < alto; i++){
+                pintarFila(ancho, " *")
+                contenido += "<br>"
+            }
+            console.log(alto)
+            lienzo.innerHTML=contenido
+        }
+
+        const pintarEj3 = ()=>{
+            const orden = Number(document.querySelector("input").value)
+            contenido = ""
+            for(let i= 0; i < orden; i++){
+                pintarFila( (i+1)*2-1 , " *")
+                contenido += "<br>"
+            }
+            pintarFila(3, " |")
+            console.log(contenido)
+            lienzo.innerHTML=contenido
+        }   
+        
+        const pintarEj4 = ()=>{
+            const orden = Number(document.querySelector("input").value)
+            contenido = ""
+            for(let i= 0; i < orden; i++){
+                pintarFila( orden , " *")
+                contenido += "<br>"
+            }
+            for(let i= 0; i < orden; i++){
+                pintarFila( orden , " *")
+                pintarFila( orden , " =")
+                pintarFila( orden , " *")
+                contenido += "<br>"
+            }
+            for(let i= 0; i < orden; i++){
+                pintarFila( orden , " *")
+                contenido += "<br>"
+            }
+            console.log(contenido)
+            lienzo.innerHTML=contenido
+        }
+
+        const pintarEj5 = ()=>{
+            const orden = Number(document.querySelector("input").value)
+            contenido = "<section style='text-align: left; display:inline-block'>"
+            for(let i= 1; i < orden; i++){
+                pintarFila( orden , " &nbsp")
+                pintarFila( i , " *")
+                contenido += "<br>"
+            }
+                pintarFila( orden , " =")
+                pintarFila( orden , " *")
+                contenido += "<br>"
+
+            for(let i= orden -1 ; i > 0; i--){
+                pintarFila( orden , " &nbsp")
+                pintarFila( i , " *")
+                contenido += "<br>"
+            }
+            contenido += "</section>"
+            console.log(contenido)
+            lienzo.innerHTML=contenido
+        }
+
+        const pintarEj6 = ()=>{
+            const orden = Number(document.querySelector("input").value)
+            contenido = "<section style='text-align: left; display:inline-block'>"
+            for(let i= 1; i < orden; i++){
+                pintarFila( orden * 2 - 1 - ( i * 2 - 1), " &nbsp")
+                pintarFila( i * 2 - 1 , " *")
+                contenido += "<br>"
+            }
+                pintarFila( orden * 2 - 1, " *")
+                pintarFila( orden , " =")
+                contenido += "<br>"
+
+            for(let i= orden -1 ; i > 0; i--){
+                pintarFila( orden * 2 - 1 - ( i * 2 - 1)," &nbsp")
+                pintarFila( i * 2 - 1 , " *")
+                contenido += "<br>"
+            }
+            contenido += "</section>"
+            console.log(contenido)
+            lienzo.innerHTML=contenido
+        }
+    </script>
+</body>
+</html>
