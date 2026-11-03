@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios JS</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+            max-width: 900px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: 600;
+            width: 150px;
+            display: inline-block;
+            text-align: right;
+            padding-right: 18px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 8px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-size: 0.9em;
+        }
+
+        .ok {
+            color: #166534
+        }
+
+        .invalido {
+            border: 1px solid #b91c1c;
+            background-color: #fef2f2;
+        }
+
+        .valido {
+            border: 1px solid #166534;
+            background-color: #f0fdf4;
+        }
+
+        #resumen {
+            margin-top: 16px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Formularios</h1>
+    <form id="registroForm" novalidate>
+        <div class="row">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ana">
+                <p class="error" id="errorNombre"></p>
+            </div>
+            <div>
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" name="apellidos" placeholder="López García">
+                <p class="error" id="errorApellidos"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="usuario@dominio.com">
+                <p class="error" id="errorEmail"></p>
+            </div>
+            <div>
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" placeholder="600123123">
+                <p class="error" id="errorTelefono"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="dni">NIF/NIE</label>
+                <input type="text" id="dni" name="dni" placeholder="12345678Z">
+                <p class="error" id="errorDni"></p>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres">
+                <p class="error" id="errorPassword"></p>
+            </div>
+        </div>
+        <div>
+            <label for="pais">Pais</label>
+            <select name="pais" id="pais">
+                <option value="">Selecciona pais</option>
+                <option value="es">España</option>
+                <option value="mx">México</option>
+                <option value="ar">Argentina</option>
+            </select>
+            <p class="error" id="errorPais"></p>
+        </div>
+        <div>
+            <label for="terminos">
+                <input type="checkbox" name="terminos" id="terminos">
+
+            </label>Acepto términos y condiciones
+            <p class="error" id="errorTerminos"></p>
+        </div>
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpiar</button>
+    </form>
+
+    <section id="resumen"></section>
+
+    <script>
+        const form = document.forms[0]
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            const valores = getFormValues(form)
+            console.log("Valores", valores)
+            const errors = validarBasico(valores)
+            console.log(errors)
+            setFieldError("nombre", errors.nombre)
+            setFieldError("apellidos", errors.apellidos)
+            setFieldError("email", errors.email)
+            setFieldError("telefono", errors.telefono)
+            setFieldError("dni", errors.dni)
+            setFieldError("password", errors.password)
+            setFieldError("pais", errors.pais)
+            setFieldError("terminos", errors.terminos)
+
+            if (Object.keys(errors).length > 0) return
+
+            document.getElementById("resumen").innerHTML = `
+            <h3 class= 'ok'>Formulario válido </h3>
+            <p><strong>Nombre:</strong> ${valores.nombre} ${valores.apellidos}</p>
+            <p><strong>Email:</strong> ${valores.email}</p>
+            <p><strong>Pais:</strong> ${valores.pais}</p>
+            ` })
+
+        form.addEventListener("reset", () => {
+            document.getElementById("resumen").textContent = ""
+        })
+
+        function getFormValues(formElement) {
+            const fd = new FormData(formElement)
+            return {
+                nombre: (fd.get("nombre") || "").toString().trim(),
+                apellidos: (fd.get("apellidos") || "").toString().trim(),
+                email: (fd.get("email") || "").toString().trim(),
+                telefono: (fd.get("telefono") || "").toString().trim(),
+                dni: (fd.get("dni") || "").toString().trim(),
+                password: (fd.get("password") || "").toString().trim(),
+                pais: (fd.get("pais") || "").toString().trim(),
+                terminos: (fd.get("terminos") || "").toString().trim(),
+            }
+        }
+
+        function validarBasico(values) {
+            const errors = {}
+            if (values.nombre.length < 2) {
+                errors.nombre = "El nombre debe de tener 2 letras"
+            }
+            if (values.apellidos.length < 2) {
+                errors.apellidos = "El apellido debe de tener 2 letras"
+            }
+            if (!values.email.includes("@")) {
+                errors.email = "Inserte un email válido"
+            }
+            if (!/^\d{9}$/.test(values.telefono)) {
+                errors.telefono = "El teléfono tienen que tener 9 digitos"
+            }
+            //NIF/NIE
+            if (!calcularDNI(values.dni)) {
+                errors.dni = "El NIF/NIE tiene que ser válido"
+            }
+            if (values.password.length < 8) {
+                errors.password = "La password tiene que ser de al menos 8 caracteres"
+            }
+            if (!values.pais) errors.pais = "Seleccione un pais"
+            if (!values.terminos) errors.terminos = "Debe aceptar los términos"
+
+            return errors
+        }
+
+        function capitalizar(texto) {
+            return texto[0].toUpperCase() + texto.slice(1)
+        }
+
+        function setFieldError(fieldId, mensaje) {
+            const input = document.getElementById(fieldId)
+            const error = document.getElementById("error" + capitalizar(fieldId))
+            error.textContent = mensaje || ""
+            input.classList.remove("invalido", "valido")
+            if (!mensaje) input.classList.add("valido")
+            else input.classList.add("invalido")
+
+        }
+
+        function calcularDNI(dni) {
+            const letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+            dni = dni.toUpperCase().trim()
+            const regexNIF = /^[0-9]{8}[A-Z]$/
+            const regexNIE = /^[XYZ][0-9]{7}[A-Z]$/
+            let numero = 0
+
+            if (regexNIF.test(dni)) {
+                numero = dni.slice(0, 8)
+                console.log(numero)
+            } else if (regexNIE.test(dni)) {
+                const prefijo = dni[0] === "X" ? 0 : dni[0] === "Y" ? 1 : 2
+                numero = prefijo + dni.slice(1, 8)
+                console.log(numero)
+            } else {
+                return false
+            }
+
+            let letraEncontrada = letras[numero % 23]
+            console.log(letraEncontrada)
+            return dni[8] === letraEncontrada
+        }
+
+        const nifNieValidos = ["X1234567L", "Y7654321G", "Z1122334P", "01234567L", "87654321X"]
+        console.log()
+        for (const nif of nifNieValidos) {
+            console.log(nif,)
+            console.log(nif, calcularDNI(nif))
+        }
+
+
+    </script>
+
+</body>
+
+</html>

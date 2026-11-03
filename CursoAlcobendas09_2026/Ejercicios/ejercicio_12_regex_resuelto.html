@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+ 
+/* Ejercicios de Expresiones Regulares con JavaScript
+
+Estos ejercicios están diseñados para poner a prueba tu comprensión y habilidad con las
+expresiones regulares en JavaScript. Intenta resolverlos utilizando los conceptos y métodos
+explicados en el manual. Las soluciones se proporcionarán en un archivo separado.
+
+Parte 1: Conceptos Básicos y Metacaracteres
+
+1.Validar un número de teléfono simple: Crea una expresión regular que valide un
+número de teléfono de 9 dígitos, donde todos los dígitos son numéricos. La cadena
+debe contener solo el número de 9 dígitos.
+• "123456789" (válido)
+• "12345678" (inválido)
+• "1234567890" (inválido)
+• "123A56789" (inválido)
+*/
+
+const parte1_1 = /^\d{9}$/
+
+console.log("123456789",parte1_1.test("123456789"))
+console.log("12345678",parte1_1.test("12345678"))
+console.log("1234567890",parte1_1.test("1234567890"))
+console.log("123A56789",parte1_1.test("12346A789"))
+
+
+/*
+2.Buscar palabras que empiecen con vocal: Escribe una expresión regular que
+encuentre todas las palabras en una cadena que comiencen con una vocal (a, e, i, o, u),
+sin importar mayúsculas o minúsculas. Usa la bandera g.
+•Texto: "El elefante es un animal enorme y elegante."
+•Coincidencias esperadas: ["El", "elefante", "es", "un", "animal", "enorme", "elegante"]
+*/
+
+const texto1_2 = "El elefante es un animal grande y elegante."
+const parte1_2 = /\b[aeiouáéíóú]\w*/gi // \b es inicio de palabra
+console.log(texto1_2.match(parte1_2))
+
+/*
+3.Contar ocurrencias de un carácter: Utiliza una expresión regular para contar cuántas
+veces aparece la letra 'a' (mayúscula o minúscula) en una cadena.
+•Texto: "Banana y Manzana son frutas sabrosas."
+•Coincidencias esperadas: 9
+*/
+
+const texto1_3 = "Banana y Manzana son frutas sabrosas."
+const parte1_3 = /[aá]/gi
+console.log("Cantidad total de 'a': ", texto1_3.match(parte1_3).length)
+
+
+/*
+Parte 2: Cuantificadores y Grupos
+
+1.Extraer etiquetas HTML: Crea una expresión regular que extraiga el nombre de la
+etiqueta (por ejemplo, div, p, span) de cualquier etiqueta HTML de apertura o cierre.
+No debes capturar los corchetes < o >.
+•Texto: "<div><p><span>Texto</span></p></div>"
+•Coincidencias esperadas: ["div", "p", "span", "span", "p", "div"]
+*/
+
+const texto2_1 = "<div><p><span>Texto</span></p></div>"
+const parte2_1 = /<\/?[a-z1-6]+>/gi
+console.log(texto2_1.match(parte2_1).map(item => item.replace(/<\/?/g, "")))
+
+
+/*
+2.Validar formato de fecha (YYYY-MM-DD): Escribe una expresión regular que valide si
+una cadena tiene el formato YYYY-MM-DD. Los años deben ser de 4 dígitos, y el mes y el
+día de 2 dígitos. No te preocupes por la validez real de la fecha (ej. 30 de febrero).
+• "2023-01-15" (válido)
+• "1999-12-31" (válido)
+• "2023-1-15" (inválido)
+• "23-01-15" (inválido)
+*/
+
+const parte2_2 = /^\d{4}-[01]\d-[0123]\d/
+console.log("2023-01-15", parte2_2.test("2023-01-15"))
+console.log("1999-12-31", parte2_2.test("1999-12-31"))
+console.log("2023-1-15", parte2_2.test("2023-1-15"))
+console.log("23-01-15", parte2_2.test("23-01-15"))
+
+/*
+3.Reemplazar múltiples espacios: Crea una expresión regular para reemplazar cualquier
+secuencia de uno o más espacios en blanco por un solo espacio.
+•Texto: "Este texto tiene muchos espacios."
+•Resultado esperado: "Este texto tiene muchos espacios."
+*/
+const texto2_3 = "       Este    texto            tiene       muchos        espacios.      "
+const parte2_3 = /\s+/g
+console.log("Sin espacios:", texto2_3.replace(parte2_3, " ").trimStart().trimEnd())
+
+/*
+Parte 3: Casos de Uso Avanzados
+
+1.Extraer nombres de usuario de Twitter: Escribe una expresión regular que extraiga
+todos los nombres de usuario de Twitter (que comienzan con @ y pueden contener
+letras, números y guiones bajos) de una cadena.
+•Texto: "Hola @usuario1, ¿cómo estás? @otro_usuario y @tercerUsuario también están aquí."
+•Coincidencias esperadas: ["usuario1", "otro_usuario", "tercerUsuario"]
+*/
+const texto3_1 = "Hola @usuario1, ¿cómo estás? @otro_usuario y @tercerUsuario también están aquí."
+const parte3_1 = /@\w+/g
+console.log("Usuarios", texto3_1.match(parte3_1).map( item => item.replace("@", "")))
+
+
+/*
+2.Parsear parámetros de URL: Crea una expresión regular para extraer pares clave-valor
+de los parámetros de consulta de una URL. Por ejemplo, de ?
+nombre=Juan&edad=30&ciudad=Madrid, deberías obtener ["nombre=Juan", "edad=30",
+"ciudad=Madrid"].
+•Texto: "https://ejemplo.com/pagina?nombre=Juan&edad=30&ciudad=Madrid"
+•Coincidencias esperadas: ["nombre=Juan", "edad=30", "ciudad=Madrid"]
+*/
+const texto3_2 = "https://ejemplo.com/pagina?nombre=Juan&edad=30&ciudad=Madrid"
+const parte3_2 = /[^?=&]+=[^&]*/g
+console.log("Parametros", texto3_2.match(parte3_2))
+/*
+3.Encontrar palabras repetidas consecutivamente: Escribe una expresión regular que
+encuentre palabras que se repiten consecutivamente en una cadena, como "hola hola"
+o "adiós adiós".
+•Texto: "Esto es un ejemplo de texto con palabras repetidas repetidas como hola hola."
+•Coincidencias esperadas: ["repetidas repetidas", "hola hola"]
+*/
+
+const texto3_3 = "Esto es un ejemplo de texto con palabras repetidas repetidas como hola hola."
+const parte3_3 = /\w+/g
+console.log(texto3_3.match(parte3_3).
+filter((item, index, array) => item == array[index + 1]).
+map( item => `${item} ${item}`))
+
+
+
+/*
+Parte 4: Métodos de String y RegExp
+
+1.Usar matchAll para extraer emails y dominios: Utiliza String.prototype.matchAll() junto
+con una expresión regular para extraer tanto la dirección de correo electrónico
+completa como su dominio de una cadena.
+•Texto: "Contacta a info@ejemplo.com o soporte@miempresa.net."
+•Coincidencias esperadas (estructura de ejemplo): [[email: "info@ejemplo.com", dominio:
+"ejemplo.com"], [email: "soporte@miempresa.net", dominio: "miempresa.net"]]
+*/
+
+const texto4_1 = "Contacta a info@ejemplo.com o soporte@miempresa.net."
+//const parte4_1 = /(\w+)@(\w+\.\w+)/g
+const parte4_1 = /(\w+)@(\w+)\.(\w+)/g
+const coincidencias = texto4_1.matchAll(parte4_1)
+
+
+const salida = []
+for( coincidencia of coincidencias){
+    console.log(coincidencia)
+    salida.push(`[email: "${coincidencia[0]}", dominio: "${coincidencia[2]}.${coincidencia[3]}"]`)
+   // dominio: "${coincidencia[2]}"]`)
+
+}   
+console.log("Salida: ", salida)
+/*
+2.Validación de código postal (5 dígitos): Utiliza RegExp.prototype.test() para verificar si
+una cadena es un código postal válido de 5 dígitos numéricos.
+• "28001" (válido)
+• "1234" (inválido)
+• "28001-1234" (inválido)
+• "ABCDE" (inválido)
+*/
+
+const parte4_2 = /^\d{5}$/
+console.log("28001", parte4_2.test("28001"))
+console.log("1234", parte4_2.test("1234"))
+console.log("28001-1234", parte4_2.test("28001-1234"))
+console.log("ABCDE", parte4_2.test("ABCDE"))
+
+/*
+3.Reemplazar fechas a formato DD/MM/YYYY: Usa String.prototype.replace() con grupos
+de captura para transformar fechas del formato YYYY-MM-DD a DD/MM/YYYY.
+•Texto: "La fecha de inicio es 2024-03-10 y la final es 2025-12-25."
+•Resultado esperado: "La fecha de inicio es 10/03/2024 y la final es 25/12/2025.
+*/
+
+const texto4_3 = "La fecha de inicio es 2024-03-10, y la final es 2025-12-25."
+const parte4_3 = /(\d{4})-(\d{2})-(\d{2})/g
+const textoFormateado = texto4_3.replace(parte4_3, '$3/$2/$1') //Esto funciona por los paréntesis en la regex
+console.log(textoFormateado)
+
+
+//Sin expresiones regulares.
+
+const palabras = texto4_3.split(" ")
+console.log(palabras)
+const fechas = []
+palabras.forEach( (item) => {
+    fechas.push (item.split("-"))
+})
+console.log(fechas)
+fechas.forEach( (item, indice) => {
+    if (item.length == 3){
+        //Comprobar si la fecha tiene un caracter al final
+        if (item[2].length==3){
+            const caracter = item[2][2]
+            item[2] = item[2][0]+ item[2][1]
+            item[0] += caracter
+        }
+        fechas[indice] = `${item[2]}/${item[1]}/${item[0]}`
+    }
+})
+const textoFormateado2 = fechas.join(" ")
+console.log(textoFormateado2)
+</script>
+</body>
+</html>
