@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="formularioRegistro">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre1" pattern="^[a-zA-z]{3,}" required>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email1">
+        <p>
+            Indicar tus gustos: <br>
+            <input type="checkbox" name="intereses" value="cine">Cine <br>
+            <input type="checkbox" name="intereses" value="programación">Programación <br>
+            <input type="checkbox" name="intereses" value="juegos">Juegos <br>
+            <input type="checkbox" name="intereses" value="dormir">Dormir <br>
+
+        </p>
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpiar</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("formularioRegistro")
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const fd = new FormData(form)
+            console.log(fd.get("nombre")) //valor el name, no del input
+            console.log(fd.get("email"))
+
+            //Métodos más usados
+            // get(clave) Devuelve el primer valor asociado a la clave
+            console.log(fd.get("intereses"))
+            //getAll(clave) Devuelve un array con todos los valores de la clave
+            console.log(fd.getAll("intereses"))
+            // has(clave) Comprueba si la clave existe
+            console.log("telefono", fd.has("telefono"))
+            //append(clave, valor)
+            //Agrega un valor sin borrar los exisentes
+            fd.append("origen", "campus-virtual")
+            fd.append("intereses", "no hacer nada")
+            console.log(fd.get("origen"))
+            console.log(fd.getAll("intereses"))
+            //set(clave, valor)
+            //Establece o reemplaza el valor de una clave
+            fd.set("nombre","Felipe")
+            console.log(fd.get("nombre"))
+            fd.set("codigo","ABDCD")
+            console.log(fd.get("codigo"))
+            //delete(clave) Eliminar una clave y sus valores
+            fd.delete("codigo")
+            console.log(fd.get("codigo"))
+
+            //Recorrer FormData
+
+            for ([clave, valor] of fd.entries()){
+                console.log(clave, valor)
+            }
+
+
+            for (clave of fd.keys()){
+                console.log("Clave: ", clave)
+            }
+            for (valor of fd.values()){
+                console.log("Valores: ", valor)
+            }
+
+            //Convertir FormData
+
+            const datos = Object.fromEntries(fd.entries())
+            console.log(datos)
+            //Nota: Si hay varias claves repetidas (por ej. checkboxes), "Object.fromEntries()"sólo se queda con la última
+
+            const datos1 = {}
+            for( [clave, valor ] of fd.entries()){
+                if (fd.getAll(clave).length>1){
+                    datos1[clave] = fd.getAll(clave)
+                    continue
+                }
+                datos1[clave] =valor
+            }
+            console.log(datos1)
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
