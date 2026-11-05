@@ -1,267 +1,271 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin="anonymous"
-    ></script>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background: #f5f5f5;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #9fe5f1;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: rgb(241, 197, 197);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      
+    }
+
+    h1 {
+      text-align: center;
+      color: #1033d1;
+      margin-bottom: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .select-group {
+      margin: 20px 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px 0;
+      border: 1px solid #50e316;
+      border-radius: 4px;
+    }
+
+    option {
+      padding: 5px;
+      border-style: groove;
+    }
+
+    .instructions {
+      background: #e8f4fd;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #82b5e8;
+    }
+
+    #map {
+      width: 100%;
+      height: 300px;
+      margin: 20px 0;
+      border-radius: 4px;
+      line-height: 1.6em;
+      margin-right: 15px;
+    }
+
+    .temp-card {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #3498db;
+      border-radius: 4px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .temp-minima,
+    .temp-maxima {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+
+    #prediccion {
+      text-align: center;
+      padding: 20px;
+      font-family: 'Courier New', Courier, monospace;
+    
+     
+    }
+
+    @media (max-width: 600px) {
       .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      }
-
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 20px;
-      }
-
-      .select-group {
-        margin: 20px 0;
-      }
-
-      select {
-        width: 100%;
+        margin: 10px;
         padding: 10px;
-        font-size: 16px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      option {
-        padding: 5px;
-      }
-
-      .instructions {
-        background: #e8f4fd;
-        padding: 10px;
-        border-radius: 4px;
-        margin: 10px 0;
-        font-size: 14px;
-        color: #2c3e50;
       }
 
       #map {
-        width: 100%;
-        height: 300px;
-        margin: 20px 0;
-        border-radius: 4px;
+        height: 150px;
       }
+    }
+  </style>
+</head>
 
-      .temp-card {
-        background: white;
-        padding: 15px;
-        margin: 10px 0;
-        border-left: 4px solid #3498db;
-        border-radius: 4px;
-      }
+<body>
+  <div class="container">
+    <h1>Predicción temperaturas máximas y mínimas por municipio (AEMET)</h1>
 
-      .temp-minima, .temp-maxima {
-        font-weight: bold;
-        color: #e74c3c;
-      }
+    <p>
+      Provincia:
+      <select id="provincias"></select>
+      <span id="municipios">
+        Municipio:
+        <select></select>
+      </span>
+    </p>
 
-      #prediccion {
-        text-align: center;
-        padding: 20px;
-      }
+    <aside></aside>
+    <div id="prediccion"></div>
+    <div id="map"></div>
+  </div>
 
-      @media (max-width: 600px) {
-        .container {
-          margin: 10px;
-          padding: 10px;
+  <script>
+    //Parsear archivo MunicipiosCoord.csv
+    const municipios = [];
+    async function parsearFile() {
+      const response = await fetch("MunicipiosCoord.csv");
+      const data = await response.text();
+      const datos = data.split(/\r?\n/);
+      datos.forEach((fila, index) => {
+        const municipio = fila.split(";");
+        municipios.push({
+          codigo: municipio[2],
+          nombre: municipio[5],
+          provincia: municipio[4],
+          codigoProvincia: municipio[3],
+          longitud: municipio[13],
+          latitud: municipio[14],
+        });
+      });
+    }
+
+    parsearFile();
+
+    const selectProvincias = document.querySelector("#provincias");
+    const spanMunicipios = document.querySelector("#municipios");
+    const selectMunicipios = document.querySelector("#municipios select");
+    spanMunicipios.style.display = "none";
+    //Renderizar provincias
+    async function renderProvincias() {
+      selectProvincias.innerHTML =
+        "<option>--Seleccione la provincia--</option>";
+      const response = await fetch("codpro.csv");
+      const data = await response.text();
+      const provincias = data.split(/\r?\n/);
+      provincias.forEach((provincia, index) => {
+        if (index) {
+          provincias[index] = provincia.split(";");
+          selectProvincias.innerHTML += `<option value="${provincias[index][0]}">${provincias[index][1]}</option>`;
         }
-
-        #map {
-          height: 200px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <h1>Predicción temperaturas máximas y mínimas por municipio (AEMET)</h1>
-      
-      <p>
-        Provincia:
-        <select id="provincias"></select>
-        <span id="municipios">
-          Municipio:
-          <select></select>
-        </span>
-      </p>
-      
-      <aside></aside>
-      <div id="prediccion"></div>
-      <div id="map"></div>
-    </div>
-
-    <script>
-      //Parsear archivo MunicipiosCoord.csv
-      const municipios = [];
-      async function parsearFile() {
-        const response = await fetch("MunicipiosCoord.csv");
-        const data = await response.text();
-        const datos = data.split(/\r?\n/);
-        datos.forEach((fila, index) => {
-          const municipio = fila.split(";");
-          municipios.push({
-            codigo: municipio[2],
-            nombre: municipio[5],
-            provincia: municipio[4],
-            codigoProvincia: municipio[3],
-            longitud: municipio[13],
-            latitud: municipio[14],
-          });
-        });
-      }
-
-      parsearFile();
-
-      const selectProvincias = document.querySelector("#provincias");
-      const spanMunicipios = document.querySelector("#municipios");
-      const selectMunicipios = document.querySelector("#municipios select");
-      spanMunicipios.style.display = "none";
-      //Renderizar provincias
-      async function renderProvincias() {
-        selectProvincias.innerHTML =
-          "<option>--Seleccione la provincia--</option>";
-        const response = await fetch("codpro.csv");
-        const data = await response.text();
-        const provincias = data.split(/\r?\n/);
-        provincias.forEach((provincia, index) => {
-          if (index) {
-            provincias[index] = provincia.split(";");
-            selectProvincias.innerHTML += `<option value="${provincias[index][0]}">${provincias[index][1]}</option>`;
-          }
-        });
-        selectProvincias.addEventListener("change", (event) => {
-          console.log(
-            `Ha sido seleccionada la provincia con código: `,
-            event.target.value,
-          );
-          renderMunicipios(event.target.value);
-        });
-      }
-      renderProvincias();
-
-      function renderMunicipios(codProvincia) {
-        spanMunicipios.style.display = "inline";
-        selectMunicipios.innerHTML =
-          "<option>--Seleccione el municipio--</option>";
-
-        //Hay que compararlos con el archivo municipios.csv y sólo renderizar los que coincidan
-
-        const municipiosProvincia = municipios.filter(
-          (municipio) => municipio.codigoProvincia == codProvincia,
+      });
+      selectProvincias.addEventListener("change", (event) => {
+        console.log(
+          `Ha sido seleccionada la provincia con código: `,
+          event.target.value,
         );
-        for (const municipio of municipiosProvincia) {
-          selectMunicipios.innerHTML += `<option value="${municipio.codigo};${municipio.nombre};${municipio.longitud};${municipio.latitud}">${municipio.nombre}</option>`;
-        }
+        renderMunicipios(event.target.value);
+      });
+    }
+    renderProvincias();
 
-        selectMunicipios.addEventListener("change", (event) => {
-          const municipio = event.target.value.split(";");
-          console.log(
-            `Ha sido seleccionada el municipio con código: `,
-            municipio[0],
-          );
-          console.log(municipio[1]);
-          mostrarTiempo(municipio);
-        });
+    function renderMunicipios(codProvincia) {
+      spanMunicipios.style.display = "inline";
+      selectMunicipios.innerHTML =
+        "<option>--Seleccione el municipio--</option>";
+
+      //Hay que compararlos con el archivo municipios.csv y sólo renderizar los que coincidan
+
+      const municipiosProvincia = municipios.filter(
+        (municipio) => municipio.codigoProvincia == codProvincia,
+      );
+      for (const municipio of municipiosProvincia) {
+        selectMunicipios.innerHTML += `<option value="${municipio.codigo};${municipio.nombre};${municipio.longitud};${municipio.latitud}">${municipio.nombre}</option>`;
       }
 
-      //Utilidades
+      selectMunicipios.addEventListener("change", (event) => {
+        const municipio = event.target.value.split(";");
+        console.log(
+          `Ha sido seleccionada el municipio con código: `,
+          municipio[0],
+        );
+        console.log(municipio[1]);
+        mostrarTiempo(municipio);
+      });
+    }
 
-      async function cargarSegura(url) {
-        try {
-          const resp = await fetch(url);
-          if (!resp.ok) throw new Error("HTTP " + resp.status);
-          return await resp.json();
-        } catch (error) {
-          console.error("Fallo de red o API ", error.message);
-          throw error;
-        }
+    //Utilidades
+
+    async function cargarSegura(url) {
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return await resp.json();
+      } catch (error) {
+        console.error("Fallo de red o API ", error.message);
+        throw error;
       }
+    }
 
-      //Conseguir el tiempo de los 7 días en AEMET
+    //Conseguir el tiempo de los 7 días en AEMET
 
-      const apiKey =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjdXJzb2phdmFzY3JpcHRpb25pY0BnbWFpbC5jb20iLCJqdGkiOiIxZTBhODRkNC1lYjNhLTQ2YWEtOTdhYi03ODBlYTU1OGUwYWQiLCJleHAiOjE4MDIzNjQ5MDcsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzkzNzI0OTA3LCJ1c2VySWQiOiIxZTBhODRkNC1lYjNhLTQ2YWEtOTdhYi03ODBlYTU1OGUwYWQiLCJyb2xlIjoiIn0.yxgT0lX0mSsgzsgSC8geViKC4qA96OBGx79za9UYsNA";
-      const cajaTiempo = document.querySelector("aside");
-      const cajaPrediccion = document.querySelector("#prediccion");
-      async function mostrarTiempo(municipio) {
-        cajaTiempo.innerHTML = `Predicción de temperatura en el municipio
+    const apiKey =
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjdXJzb2phdmFzY3JpcHRpb25pY0BnbWFpbC5jb20iLCJqdGkiOiIxZTBhODRkNC1lYjNhLTQ2YWEtOTdhYi03ODBlYTU1OGUwYWQiLCJleHAiOjE4MDIzNjQ5MDcsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzkzNzI0OTA3LCJ1c2VySWQiOiIxZTBhODRkNC1lYjNhLTQ2YWEtOTdhYi03ODBlYTU1OGUwYWQiLCJyb2xlIjoiIn0.yxgT0lX0mSsgzsgSC8geViKC4qA96OBGx79za9UYsNA";
+    const cajaTiempo = document.querySelector("aside");
+    const cajaPrediccion = document.querySelector("#prediccion");
+    async function mostrarTiempo(municipio) {
+      cajaTiempo.innerHTML = `Predicción de temperatura en el municipio
             ${municipio[1]} (${municipio[0]}) para los próximos días (`;
 
-        const url = `https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/${municipio[0]}/?api_key=${apiKey}`;
-        const datos = await cargarSegura(url);
-        console.log(datos);
-        const url2 = datos.datos;
-        console.log(url2);
-        const datosFinales = await cargarSegura(url2);
-        const elaborado = datosFinales[0].elaborado.split("T");
-        console.log(datosFinales);
-        cajaTiempo.innerHTML += `actualizado el día ${elaborado[0].replace(/(\d{4})-(\d{2})-(\d{2})/,'$3/$2/$1')} a las ${elaborado[1]}):`
-        const prediccionDias = datosFinales[0].prediccion.dia;
-        console.log(prediccionDias);
-        cajaPrediccion.innerHTML = "";
-        for (const dia of prediccionDias) {
-          const mod = dia.fecha.split("T")[0].split("-");
-          const fecha = `${mod[2]}/${mod[1]}/${mod[0]}`;
-          cajaPrediccion.innerHTML += `<br>
+      const url = `https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/${municipio[0]}/?api_key=${apiKey}`;
+      const datos = await cargarSegura(url);
+      console.log(datos);
+      const url2 = datos.datos;
+      console.log(url2);
+      const datosFinales = await cargarSegura(url2);
+      const elaborado = datosFinales[0].elaborado.split("T");
+      console.log(datosFinales);
+      cajaTiempo.innerHTML += `actualizado el día ${elaborado[0].replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1')} a las ${elaborado[1]}):`
+      const prediccionDias = datosFinales[0].prediccion.dia;
+      console.log(prediccionDias);
+      cajaPrediccion.innerHTML = "";
+      for (const dia of prediccionDias) {
+        const mod = dia.fecha.split("T")[0].split("-");
+        const fecha = `${mod[2]}/${mod[1]}/${mod[0]}`;
+        cajaPrediccion.innerHTML += `<br>
                 ${fecha} 
                 Temp. mínima: ${dia.temperatura.minima}ºC
                 Temp. máxima: ${dia.temperatura.maxima}ºC<br>
                 `;
-        }
-        renderMapa(municipio);
       }
+      renderMapa(municipio);
+    }
 
-      let map;
+    let map;
 
-      function renderMapa(municipio) {
-        const latitud = municipio[3].replace(",", ".");
-        const longitud = municipio[2].replace(",", ".");
+    function renderMapa(municipio) {
+      const latitud = municipio[3].replace(",", ".");
+      const longitud = municipio[2].replace(",", ".");
 
-        if (!map) {
-          map = L.map("map").setView([latitud, longitud], 12);
-          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-          }).addTo(map);
-        }
-        map.setView([latitud, longitud], 13);
-        let marker = L.marker([latitud, longitud]).addTo(map);
+      if (!map) {
+        map = L.map("map").setView([latitud, longitud], 12);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
       }
-    </script>
-  </body>
+      map.setView([latitud, longitud], 13);
+      let marker = L.marker([latitud, longitud]).addTo(map);
+    }
+  </script>
+</body>
+
 </html>
