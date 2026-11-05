@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresiones Regulares con JavaScript</title>
+</head>
+<style>
+    h1{
+        color: brown;
+        margin-left: 30px;
+       
+    }
+    h2{
+        color: rgb(30, 201, 30);
+        margin-left: 50px;
+    }
+    h3{ 
+        margin-left: 75px;
+    }
+</style>
+<body>
+    <h1>😉 Expresiones Regulares con JavaScrip 😉</h1>
+    <h2>☺️ Parte 1: Conceptos Básicos y Metacaracteres ☺️</h2>
+    <h3>✌️ 1. Validar un número de teléfono simple ✌️</h3>
+    <h3>🙃 2. Buscar palabras que empiecen con vocal 🙃</h3>
+    <h3>😌 3. Contar ocurrencias de un carácter 😌</h3>
+    <h2>😁 Parte 2: Cuantificadores y Grupos 😁</h2>
+    <h3>🙂 1. Extraer etiquetas HTML ☺️</h3>
+    <h3>😎 Validar formato de fecha (YYYY-MM-DD) 😎</h3>
+    <h3>😌 3. Reemplazar múltiples espacios 😊 </h3>
+    <h2>😉 Parte 3: Casos de Uso Avanzados 😊</h2>
+    <h3>😌 1. Extraer nombres de usuario de Twitter 😌</h3>
+    <h3>😑 2. Parsear parámetros de URL </h3>
+    <h3>💕 3. Encontrar palabras repetidas consecutivamente</h3>
+    <h2>😊 Parte 4: Métodos de String y RegExp 💕</h2>
+    <h3>😊 1. Usar matchAll para extraer emails y dominios 😊</h3>
+    <h3>☺️ 2. Validación de código postal (5 dígitos) 😊</h3>
+    <h3>😎 3. Reemplazar fechas a formato DD/MM/YYYY 😎</h3>
+
+    <script>
+        /*Copceptos Basicos y Metacaracteres
+        
+        1.Validar un numweo de telefono simple */
+
+        const patroTelef= /^\d{9$/
+        console.log("345678129 (telefono valido:)", patroTelef.test("345678129")) // true
+        console.log("32456789 (telefono invalido)", patroTelef.test("32456789")) //false
+       
+       
+
+       //Busca palabras que empiecen con vocales
+
+       const textoVocales= "El elefante es un animal enorme y alegante.";
+       const patronVocales= /\b[aeiouàèìòùAEIOUÀÈÌÒÙ]\*/g;
+
+        const resultadoVocales = textoVocales.match(patronVocales) || [];
+        console.log(textoVocales);
+        // ["El", "elefante", "es", "un", "animal", "enorme", "elegante"]
+        
+
+        //Contar ocurreincias de caracteres
+const textoFrutas = "Banana y Manzana son frutas sabrosas.";
+const coincidenciasA = textoFrutas.match(/a/gi) || [];
+
+console.log("Total de 'a':", coincidenciasA.length); // 6 concidencias esperadas
+
+/*CUANTIFICADORES Y GRUPO
+
+1.Extraer etiquetas HTML*/
+
+const html = "<div><p><span>Texto</span></p></div>";
+const patronEtiquetas = /<\/?([a-z1-6]+)>/gi;
+
+const etiquetas = Array.from(html.matchAll(patronEtiquetas), m => m[1]);
+console.log(etiquetas); // ["div", "p", "span", "span", "p", "div"]
+
+
+// 2. Validar formato de fecha (YYYY-MM-DD)
+
+const patronFechaISO = /^\d{4}-\d{2}-\d{2}$/;
+
+console.log(patronFechaISO.test("2023-01-15")); // true
+console.log(patronFechaISO.test("1999-12-31")); // true
+console.log(patronFechaISO.test("2023-1-15"));  // false
+console.log(patronFechaISO.test("23-01-15"));   // false
+
+//Remplazar multiples espacios.
+ const textoEspacios = "Este  texto   tiene    muchos     espacios.";
+const textoLimpio = textoEspacios.replace(/\s+/g, " ");
+
+console.log(textoLimpio); 
+
+//Extraer nombres de usurios de Twiter
+const tweet = "Hola @usuario1, ¿cómo estás? @otro_usuario y @tercerUsuario";
+const usuarios = (tweet.match(/@(\w+)/g) || []).map(u => u.replace("@", ""));
+
+console.log(usuarios); // ["usuario1", "otro_usuario", "tercerUsuario"]
+
+// Parsear parametros de URL
+const url = "https://ejemplo.com/pagina?nombre=Evelyn&edad=28&ciudad=Madrid";
+const parametros = url.match(/[\w]+=\w+/g) || [];
+
+console.log(parametros); 
+// ["nombre=Evelyn", "edad=20", "ciudad=Madrid"]
+
+//Encontrar palabras repetidas consecutivas
+
+const textoRepetido = "Texto con palabras repetidas repetidas como hola hola.";
+const patronRepetidas = /\b(\w+)\s+\1\b/gi;
+
+const coincidenciasRepetidas = textoRepetido.match(patronRepetidas) || [];
+console.log(coincidenciasRepetidas); 
+// ["repetidas repetidas", "hola hola"]
+
+//Usar matchAll para extraer email y dominios∫
+ 
+
+
+
+</script>
+    
+</body>
+</html>
